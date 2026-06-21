@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="description" content="TayVisualss — Premium photography & videography. We visualize the stories you imagine." />
+  <title>TayVisualss — Photography & Videography</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="assets/logo.jpeg" />
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════════
+     PAGE LOADER
+════════════════════════════════════════════════ -->
+<div id="page-loader">
+    <div class="loader-logo">TayVisualss</div>
+    <div class="loader-bar-wrapper">
+      <div class="loader-bar">
+        <div class="loader-bar-progress"></div>
+      </div>
+      <div class="loader-percentage">
+        <span id="loader-percent">0</span>%
+      </div>
+    </div>
+  </div>
+
+<!-- ─── PAGE TRANSITION CURTAIN ────────────────────── -->
+<div class="page-transition"></div>
+
+<!-- ─── CUSTOM CURSOR ────────────────────────────────── -->
+<div class="cursor-dot"></div>
+<div class="cursor-ring"></div>
+
+<!-- ─── MOBILE MENU OVERLAY ─────────────────────────── -->
+<div class="mobile-menu-overlay"></div>
+
+<!-- ─── MOBILE MENU ──────────────────────────────────── -->
+<nav class="mobile-menu">
+  <ul class="mobile-nav-links">
+    <li><a class="mobile-nav-link" href="index.html" data-page="home">Home</a></li>
+    <li><a class="mobile-nav-link" href="about.html" data-page="about">About</a></li>
+    <li><a class="mobile-nav-link" href="services.html" data-page="services">Services</a></li>
+    <li><a class="mobile-nav-link" href="projects.html" data-page="projects">Projects</a></li>
+    <li><a class="mobile-nav-link" href="contact.html" data-page="contact">Contact</a></li>
+  </ul>
+  <a class="mobile-nav-cta" href="book.html" data-page="book">Book A Shot</a>
+  <p class="mobile-menu-footer">© 2025 TayVisualss</p>
+</nav>
+
+<!-- ─── NAVBAR ───────────────────────────────────────── -->
+<header id="navbar">
+    <div class="nav-inner">
+      <a class="nav-brand" href="#" data-page="home">
+        <!-- ─── PICTURE LOGO ────────────────────────────────── -->
+        <div class="nav-logo-wrapper">
+          <picture class="nav-logo-picture">
+            <!-- WebP format (modern browsers) -->
+            <source 
+              srcset="assets/logo.jpeg" 
+              type="image/webp"
+            >
+            <!-- PNG fallback -->
+            <source 
+              srcset="assets/logo.jpeg" 
+              type="image/png"
+            >
+            <!-- SVG fallback (if you want to keep it) -->
+            <img 
+              src="assets/logo.jpeg" 
+              alt="TayVisualss Logo" 
+              class="nav-logo-img"
+              width="40"
+              height="40"
+              loading="lazy"
+            >
+          </picture>
+        </div>
+        <span class="nav-name">TayVisualss</span>
+      </a>
+  
+      <ul class="nav-links">
+        <li><a class="nav-link active" href="index.html" data-page="home">Home</a></li>
+        <li><a class="nav-link" href="about.html" data-page="about">About</a></li>
+        <li><a class="nav-link" href="services.html" data-page="services">Services</a></li>
+        <li><a class="nav-link" href="projects.html" data-page="projects">Projects</a></li>
+        <li><a class="nav-link" href="contact.html" data-page="contact">Contact</a></li>
+        <li><a class="nav-cta" href="book.html" data-page="book">Book A Shot</a></li>
+      </ul>
+  
+      <button class="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <div class="contact-hero">
+      <div class="contact-hero-content">
+        <span class="section-label reveal from-left">Say Hello</span>
+        <h1 class="about-hero-title reveal from-bottom">
+          Let's start a
+          <em>conversation.</em>
+        </h1>
+      </div>
+    </div>
+  
+    <div class="section" style="padding-top:100px;padding-bottom:100px">
+      <div class="contact-grid">
+        <!-- INFO -->
+        <div class="reveal from-left">
+          <h3>We're always looking forward to new creative challenges.</h3>
+          <p>Whether you have a project in mind, a question about our services, or just want to explore what we can create together — the door is always open.</p>
+  
+          <div class="contact-detail">
+            <div class="contact-detail-icon">✉</div>
+            <div>
+              <div class="contact-detail-label">Email</div>
+              <div class="contact-detail-text">hello@tayvisualss.com</div>
+            </div>
+          </div>
+          <div class="contact-detail">
+            <div class="contact-detail-icon">📞</div>
+            <div>
+              <div class="contact-detail-label">Phone / WhatsApp</div>
+              <div class="contact-detail-text">+263 77 000 0000</div>
+            </div>
+          </div>
+          <div class="contact-detail">
+            <div class="contact-detail-icon">📍</div>
+            <div>
+              <div class="contact-detail-label">Based In</div>
+              <div class="contact-detail-text">Gweru, Zimbabwe<br><span style="font-size:0.78rem;color:var(--light-grey)">Available for travel worldwide</span></div>
+            </div>
+          </div>
+          <div class="contact-detail">
+            <div class="contact-detail-icon">⏰</div>
+            <div>
+              <div class="contact-detail-label">Response Time</div>
+              <div class="contact-detail-text">Within 24 hours</div>
+            </div>
+          </div>
+        </div>
+  
+        <!-- FORM -->
+        <div class="reveal from-right">
+          <form class="contact-form" id="contact-form">
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">First Name</label>
+                <input class="form-input" type="text" placeholder="Your first name" required />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Last Name</label>
+                <input class="form-input" type="text" placeholder="Your last name" required />
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Email Address</label>
+              <input class="form-input" type="email" placeholder="hello@youremail.com" required />
+            </div>
+            <div class="form-group">
+              <label class="form-label">What Are You Interested In?</label>
+              <select class="form-select form-input">
+                <option value="">Select a service...</option>
+                <option>Photography</option>
+                <option>Videography</option>
+                <option>Music Video</option>
+                <option>Wedding Coverage</option>
+                <option>Commercial Shoot</option>
+                <option>Creative Direction</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Your Message</label>
+              <textarea class="form-textarea" placeholder="Tell us about your project, vision, or any questions you have..." required></textarea>
+            </div>
+            <button type="submit" class="form-submit">
+              <span>Send Message</span>
+              <span>→</span>
+            </button>
+            <div class="form-success">✓ Message sent! We'll be in touch within 24 hours.</div>
+          </form>
+        </div>
+      </div>
+    </div>
+  
+    <!-- FAQ -->
+    <div class="section-full faq-section" style="padding:var(--section-pad) clamp(20px,6vw,80px)">
+      <div style="max-width:1400px;margin:0 auto">
+        <div class="reveal from-top" style="text-align:center;max-width:600px;margin:0 auto 60px">
+          <span class="section-label" style="justify-content:center">FAQ</span>
+          <h2 class="section-title">Questions <em>answered</em>.</h2>
+        </div>
+  
+        <div class="faq-list">
+          <div class="faq-item reveal from-left">
+            <div class="faq-question">
+              <span class="faq-q-text">How far in advance should I book a session?</span>
+              <div class="faq-icon">+</div>
+            </div>
+            <div class="faq-answer">
+              <p class="faq-a-text">We recommend booking at least 2–4 weeks in advance for standard sessions. For weddings and larger productions, we advise booking 3–6 months ahead to secure your date, especially for peak seasons. That said, if you need something sooner, reach out — we always do our best to accommodate.</p>
+            </div>
+          </div>
+  
+          <div class="faq-item reveal from-right reveal-delay-1">
+            <div class="faq-question">
+              <span class="faq-q-text">Do you travel for shoots outside of Bulawayo?</span>
+              <div class="faq-icon">+</div>
+            </div>
+            <div class="faq-answer">
+              <p class="faq-a-text">Absolutely. TayVisualss is available for shoots across Zimbabwe and internationally. Travel and accommodation costs for remote or international locations are discussed during the quoting process and added transparently to the project cost.</p>
+            </div>
+          </div>
+  
+          <div class="faq-item reveal from-left reveal-delay-2">
+            <div class="faq-question">
+              <span class="faq-q-text">What is your turnaround time for edited photos and videos?</span>
+              <div class="faq-icon">+</div>
+            </div>
+            <div class="faq-answer">
+              <p class="faq-a-text">Standard turnaround is 7–10 business days for photography and 2–3 weeks for video projects. Rush delivery is available on select packages. We always communicate timelines clearly upfront so there are no surprises.</p>
+            </div>
+          </div>
+  
+          <div class="faq-item reveal from-right">
+            <div class="faq-question">
+              <span class="faq-q-text">How do I receive my final images and videos?</span>
+              <div class="faq-icon">+</div>
+            </div>
+            <div class="faq-answer">
+              <p class="faq-a-text">All final deliverables are provided via a private, password-protected online gallery for photos and a download link for videos. You'll receive high-resolution files with full personal usage rights. Social media-optimized versions are included as standard.</p>
+            </div>
+          </div>
+  
+          <div class="faq-item reveal from-left reveal-delay-1">
+            <div class="faq-question">
+              <span class="faq-q-text">What payment methods do you accept?</span>
+              <div class="faq-icon">+</div>
+            </div>
+            <div class="faq-answer">
+              <p class="faq-a-text">We accept bank transfer, Ecocash, USD cash, and international wire transfers. A non-refundable deposit (typically 30–50%) is required to confirm your booking, with the balance due on or before the shoot day.</p>
+            </div>
+          </div>
+  
+          <div class="faq-item reveal from-right reveal-delay-2">
+            <div class="faq-question">
+              <span class="faq-q-text">Can I provide input on the creative direction?</span>
+              <div class="faq-icon">+</div>
+            </div>
+            <div class="faq-answer">
+              <p class="faq-a-text">Always. Your vision is the foundation of every project. We encourage clients to share mood boards, references, and ideas before every shoot. Our role is to take your vision and elevate it — not replace it. The best results come from genuine collaboration.</p>
+            </div>
+          </div>
+  
+          <div class="faq-item reveal from-left">
+            <div class="faq-question">
+              <span class="faq-q-text">What happens if the weather is bad on our shoot day?</span>
+              <div class="faq-icon">+</div>
+            </div>
+            <div class="faq-answer">
+              <p class="faq-a-text">For outdoor shoots affected by severe weather, we offer a complimentary reschedule with no penalty. Light overcast conditions can actually be ideal for certain photography styles — we'll advise you on the best course of action based on the specific shoot requirements.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+  </main>
+
+
+<!-- ─── FOOTER ───────────────────────────────────────── -->
+<footer>
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <span class="nav-name">TayVisualss</span>
+          <p>We turn light into legacy. Premium photography and videography for brands, creatives, and moments that matter.</p>
+          <div class="footer-social">
+            <a href="#" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#" title="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+            <a href="#" title="YouTube"><i class="fa-brands fa-youtube"></i></a>
+            <a href="#" title="Facebook"><i class="fa-brands fa-facebook"></i></a>
+            <a href="#" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+          </div>
+        </div>
+   
+        <div class="footer-col">
+          <h5>Navigate</h5>
+          <a href="#" data-page="home">Home</a>
+          <a href="#" data-page="about">About</a>
+          <a href="#" data-page="services">Services</a>
+          <a href="#" data-page="projects">Projects</a>
+          <a href="#" data-page="contact">Contact</a>
+        </div>
+   
+        <div class="footer-col">
+          <h5>Services</h5>
+          <a href="#" data-page="services">Photography</a>
+          <a href="#" data-page="services">Videography</a>
+          <a href="#" data-page="services">Music Videos</a>
+          <a href="#" data-page="services">Weddings</a>
+          <a href="#" data-page="services">Commercial</a>
+        </div>
+   
+        <div class="footer-col">
+          <h5>Contact</h5>
+          <a href="mailto:hello@tayvisualss.com">hello@tayvisualss.co.zw</a>
+          <a href="#">+263 77 000 0000</a>
+          <a href="#">Gweru, Zimbabwe</a>
+          <a href="#" data-page="book" style="margin-top:16px;color:var(--white);font-weight:600">Book A Shot →</a>
+        </div>
+      </div>
+   
+      <div class="footer-bottom">
+        <p class="footer-copy">© 2026 TayVisualss. All rights reserved.</p>
+        <p class="footer-credit">
+          Visuals by <span class="footer-credit-brand">TayVisualss</span>
+          <span class="footer-credit-divider">×</span>
+          Website Engineered by <a href="https://mengezdev.com" target="_blank" rel="noopener" class="footer-credit-link">Mengez Emzet</a>
+        </p>
+        <p class="footer-tagline">You imagine it, we visualize it.</p>
+      </div>
+    </div>
+  </footer>
+
+<script src="script.js"></script>
+</body>
+</html>

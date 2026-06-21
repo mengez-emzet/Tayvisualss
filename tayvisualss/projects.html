@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="TayVisualss — Premium photography & videography. We visualize the stories you imagine." />
+  <title>TayVisualss — Photography & Videography</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="assets/logo.jpeg" />
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════════
+     PAGE LOADER
+════════════════════════════════════════════════ -->
+<div id="page-loader">
+    <div class="loader-logo">TayVisualss</div>
+    <div class="loader-bar-wrapper">
+      <div class="loader-bar">
+        <div class="loader-bar-progress"></div>
+      </div>
+      <div class="loader-percentage">
+        <span id="loader-percent">0</span>%
+      </div>
+    </div>
+  </div>
+
+<!-- ─── PAGE TRANSITION CURTAIN ────────────────────── -->
+<div class="page-transition"></div>
+
+<!-- ─── CUSTOM CURSOR ────────────────────────────────── -->
+<div class="cursor-dot"></div>
+<div class="cursor-ring"></div>
+
+<!-- ─── MOBILE MENU OVERLAY ─────────────────────────── -->
+<div class="mobile-menu-overlay"></div>
+
+<!-- ─── MOBILE MENU ──────────────────────────────────── -->
+<nav class="mobile-menu">
+    <ul class="mobile-nav-links">
+      <li><a class="mobile-nav-link" href="index.html" data-page="home">Home</a></li>
+      <li><a class="mobile-nav-link" href="about.html" data-page="about">About</a></li>
+      <li><a class="mobile-nav-link" href="services.html" data-page="services">Services</a></li>
+      <li><a class="mobile-nav-link" href="projects.html" data-page="projects">Projects</a></li>
+      <li><a class="mobile-nav-link" href="contact.html" data-page="contact">Contact</a></li>
+    </ul>
+    <a class="mobile-nav-cta" href="book.html" data-page="book">Book A Shot</a>
+    <p class="mobile-menu-footer">© 2026 TayVisualss</p>
+  </nav>
+
+<!-- ─── NAVBAR ───────────────────────────────────────── -->
+<header id="navbar">
+    <div class="nav-inner">
+      <a class="nav-brand" href="#" data-page="home">
+        <!-- ─── PICTURE LOGO ────────────────────────────────── -->
+        <div class="nav-logo-wrapper">
+          <picture class="nav-logo-picture">
+            <!-- WebP format (modern browsers) -->
+            <source 
+              srcset="assets/logo.jpeg" 
+              type="image/webp"
+            >
+            <!-- PNG fallback -->
+            <source 
+              srcset="assets/logo.jpeg" 
+              type="image/png"
+            >
+            <!-- SVG fallback (if you want to keep it) -->
+            <img 
+              src="assets/logo.jpeg" 
+              alt="TayVisualss Logo" 
+              class="nav-logo-img"
+              width="40"
+              height="40"
+              loading="lazy"
+            >
+          </picture>
+        </div>
+        <span class="nav-name">TayVisualss</span>
+      </a>
+  
+      <ul class="nav-links">
+        <li><a class="nav-link active" href="index.html" data-page="home">Home</a></li>
+        <li><a class="nav-link" href="about.html" data-page="about">About</a></li>
+        <li><a class="nav-link" href="services.html" data-page="services">Services</a></li>
+        <li><a class="nav-link" href="projects.html" data-page="projects">Projects</a></li>
+        <li><a class="nav-link" href="contact.html" data-page="contact">Contact</a></li>
+        <li><a class="nav-cta" href="book.html" data-page="book">Book A Shot</a></li>
+      </ul>
+  
+      <button class="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+<main>
+  <div class="projects-hero" style="background:var(--off-black)">
+    <div class="projects-hero-content">
+      <span class="section-label reveal from-left">Our Work</span>
+      <h1 class="about-hero-title reveal from-bottom">
+        Every frame
+        <em>tells a story.</em>
+      </h1>
+      <p class="hero-sub hero-animate" style="opacity:0;transition:opacity 0.9s ease 0.6s">
+        These are some of our projects.
+      </p>
+    </div>
+  </div>
+ 
+  <div class="section" style="padding-top:80px;padding-bottom:120px">
+    <div class="projects-filter reveal from-top">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="photography">Photography</button>
+      <button class="filter-btn" data-filter="videography">Videography</button>
+      <button class="filter-btn" data-filter="wedding">Weddings</button>
+      <button class="filter-btn" data-filter="commercial">Commercial</button>
+      <button class="filter-btn" data-filter="music">Music Videos</button>
+    </div>
+ 
+    <div class="projects-masonry reveal from-bottom">
+ 
+      <!-- 1 · Photography — Instagram (Manual image upload needed) -->
+      <a class="project-item" data-category="photography" href="https://www.instagram.com/p/YOUR_POST_ID/" target="_blank" rel="noopener">
+        <img class="project-img" src="assets/images/instagram/golden-hour-portraits.jpg" alt="Golden Hour Portraits" loading="lazy" />
+        <div class="project-type-badge">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          Instagram
+        </div>
+        <div class="project-overlay">
+          <div class="project-cat">Photography</div>
+          <div class="project-title">Golden Hour Portraits</div>
+          <div class="project-link-hint">View on Instagram →</div>
+        </div>
+      </a>
+ 
+      <!-- 2 · Videography — YouTube (Auto thumbnail) -->
+      <a class="project-item" data-category="videography" href="https://youtu.be/60IUKSgQ1CE?si=Cb3WCOf6uPE9g1oG" target="_blank" rel="noopener">
+        <img class="project-img" src="https://img.youtube.com/vi/60IUKSgQ1CE/maxresdefault.jpg" alt="Ama2K Festival Highlights" loading="lazy" />
+        <div class="project-play-btn" aria-label="Play video"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg></div>
+        <div class="project-type-badge project-badge-video">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+          YouTube
+        </div>
+        <div class="project-overlay">
+          <div class="project-cat">Videography</div>
+          <div class="project-title">Ama2K Festival</div>
+          <div class="project-link-hint">Watch on YouTube →</div>
+        </div>
+      </a>
+ 
+      <!-- 3 · Wedding — Instagram (Manual image upload) -->
+      <a class="project-item" data-category="wedding" href="https://www.instagram.com/p/YOUR_POST_ID/" target="_blank" rel="noopener">
+        <img class="project-img" src="assets/images/instagram/nkosi-wedding.jpg" alt="The Nkosi Wedding" loading="lazy" />
+        <div class="project-type-badge">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          Instagram
+        </div>
+        <div class="project-overlay">
+          <div class="project-cat">Wedding</div>
+          <div class="project-title">The Nkosi Wedding</div>
+          <div class="project-link-hint">View on Instagram →</div>
+        </div>
+      </a>
+ 
+      <!-- 4 · Music Video — YouTube (Auto thumbnail) -->
+      <a class="project-item" data-category="music" href="https://youtu.be/4LANEaKaPBE?si=HdRzrghhb2VCx7Pr" target="_blank" rel="noopener">
+        <img class="project-img" src="https://img.youtube.com/vi/4LANEaKaPBE/maxresdefault.jpg" alt="Corporate Summit Recap" loading="lazy" />
+        <div class="project-play-btn" aria-label="Watch video"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg></div>
+        <div class="project-type-badge project-badge-video">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+          YouTube
+        </div>
+        <div class="project-overlay">
+          <div class="project-cat">Music Video</div>
+          <div class="project-title">Sane Wav- Mazvokuda</div>
+          <div class="project-link-hint">Watch on YouTube →</div>
+        </div>
+      </a>
+ 
+      <!-- 5 · Commercial — Instagram (Manual image upload) -->
+      <a class="project-item" data-category="commercial" href="https://www.instagram.com/p/YOUR_POST_ID/" target="_blank" rel="noopener">
+        <img class="project-img" src="assets/images/instagram/luxe-fragrance.jpg" alt="Luxe Fragrance Campaign" loading="lazy" />
+        <div class="project-type-badge">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          Instagram
+        </div>
+        <div class="project-overlay">
+          <div class="project-cat">Commercial</div>
+          <div class="project-title">Luxe Fragrance Campaign</div>
+          <div class="project-link-hint">View on Instagram →</div>
+        </div>
+      </a>
+ 
+      <!-- 6 · Photography — Instagram (Manual image upload) -->
+      <a class="project-item" data-category="photography" href="https://www.instagram.com/p/YOUR_POST_ID/" target="_blank" rel="noopener">
+        <img class="project-img" src="assets/images/instagram/urban-editorial.jpg" alt="Urban Editorial" loading="lazy" />
+        <div class="project-type-badge">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          Instagram
+        </div>
+        <div class="project-overlay">
+          <div class="project-cat">Photography</div>
+          <div class="project-title">Urban Editorial</div>
+          <div class="project-link-hint">View on Instagram →</div>
+        </div>
+      </a>
+ 
+      <!-- 7 · Wedding — YouTube (Auto thumbnail) -->
+      <a class="project-item" data-category="wedding" href="https://www.youtube.com/watch?v=YOUR_VIDEO_ID" target="_blank" rel="noopener">
+        <img class="project-img" src="https://img.youtube.com/vi/YOUR_VIDEO_ID/maxresdefault.jpg" alt="Sunset Vows" loading="lazy" />
+        <div class="project-play-btn" aria-label="Watch highlight film"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg></div>
+        <div class="project-type-badge project-badge-video">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+          YouTube
+        </div>
+        <div class="project-overlay">
+          <div class="project-cat">Wedding</div>
+          <div class="project-title">Sunset Vows</div>
+          <div class="project-link-hint">Watch Highlight Film →</div>
+        </div>
+      </a>
+ 
+      <!-- 8 · Videography — YouTube (Auto thumbnail) -->
+      <a class="project-item" data-category="videography" href="https://www.youtube.com/watch?v=YOUR_VIDEO_ID" target="_blank" rel="noopener">
+        <img class="project-img" src="https://img.youtube.com/vi/YOUR_VIDEO_ID/maxresdefault.jpg" alt="Corporate Summit Recap" loading="lazy" />
+        <div class="project-play-btn" aria-label="Watch video"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg></div>
+        <div class="project-type-badge project-badge-video">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+          YouTube
+        </div>
+        <div class="project-overlay">
+          <div class="project-cat">Videography</div>
+          <div class="project-title">Corporate Summit Recap</div>
+          <div class="project-link-hint">Watch on YouTube →</div>
+        </div>
+      </a>
+ 
+    </div>
+  </div>
+ 
+  <div class="cta-band">
+    <div class="cta-band-grain"></div>
+    <h2 class="cta-band-title reveal from-bottom">Want to be in <em>this portfolio</em>?</h2>
+    <div class="cta-band-actions reveal from-bottom reveal-delay-2">
+      <a class="btn-dark" href="#" data-page="book">Book A Shot</a>
+      <a class="btn-outline-light" href="#" data-page="contact">Talk First</a>
+    </div>
+  </div>
+ 
+</main>
+
+
+<!-- ─── FOOTER ───────────────────────────────────────── -->
+<footer>
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <span class="nav-name">TayVisualss</span>
+          <p>We turn light into legacy. Premium photography and videography for brands, creatives, and moments that matter.</p>
+          <div class="footer-social">
+            <a href="#" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#" title="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+            <a href="#" title="YouTube"><i class="fa-brands fa-youtube"></i></a>
+            <a href="#" title="Facebook"><i class="fa-brands fa-facebook"></i></a>
+            <a href="#" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+          </div>
+        </div>
+   
+        <div class="footer-col">
+          <h5>Navigate</h5>
+          <a href="#" data-page="home">Home</a>
+          <a href="#" data-page="about">About</a>
+          <a href="#" data-page="services">Services</a>
+          <a href="#" data-page="projects">Projects</a>
+          <a href="#" data-page="contact">Contact</a>
+        </div>
+   
+        <div class="footer-col">
+          <h5>Services</h5>
+          <a href="#" data-page="services">Photography</a>
+          <a href="#" data-page="services">Videography</a>
+          <a href="#" data-page="services">Music Videos</a>
+          <a href="#" data-page="services">Weddings</a>
+          <a href="#" data-page="services">Commercial</a>
+        </div>
+   
+        <div class="footer-col">
+          <h5>Contact</h5>
+          <a href="mailto:hello@tayvisualss.com">hello@tayvisualss.com</a>
+          <a href="#">+263 77 000 0000</a>
+          <a href="#">Gweru, Zimbabwe</a>
+          <a href="#" data-page="book" style="margin-top:16px;color:var(--white);font-weight:600">Book A Shot →</a>
+        </div>
+      </div>
+   
+      <div class="footer-bottom">
+        <p class="footer-copy">© 2026 TayVisualss. All rights reserved.</p>
+        <p class="footer-credit">
+          Visuals by <span class="footer-credit-brand">TayVisualss</span>
+          <span class="footer-credit-divider">×</span>
+          Website Engineered by <a href="https://mengezdev.com" target="_blank" rel="noopener" class="footer-credit-link">Mengez Emzet</a>
+        </p>
+        <p class="footer-tagline">You imagine it, we visualize it.</p>
+      </div>
+    </div>
+  </footer>
+
+<script src="script.js"></script>
+</body>
+</html>

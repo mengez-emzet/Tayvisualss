@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="description" content="TayVisualss — Premium photography & videography. We visualize the stories you imagine." />
+  <title>TayVisualss — Photography & Videography</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="assets/logo.jpeg" />
+</head>
+<body>
+
+<!-- ─── PAGE LOADER ─────────────────────────────────── -->
+<!-- ════════════════════════════════════════════════
+     PAGE LOADER
+════════════════════════════════════════════════ -->
+<div id="page-loader">
+    <div class="loader-logo">TayVisualss</div>
+    <div class="loader-bar-wrapper">
+      <div class="loader-bar">
+        <div class="loader-bar-progress"></div>
+      </div>
+      <div class="loader-percentage">
+        <span id="loader-percent">0</span>%
+      </div>
+    </div>
+  </div>
+
+<!-- ─── PAGE TRANSITION CURTAIN ────────────────────── -->
+<div class="page-transition"></div>
+
+<!-- ─── CUSTOM CURSOR ────────────────────────────────── -->
+<div class="cursor-dot"></div>
+<div class="cursor-ring"></div>
+
+<!-- ─── MOBILE MENU OVERLAY ─────────────────────────── -->
+<div class="mobile-menu-overlay"></div>
+
+<!-- ─── MOBILE MENU ──────────────────────────────────── -->
+<nav class="mobile-menu">
+    <ul class="mobile-nav-links">
+      <li><a class="mobile-nav-link" href="index.html" data-page="home">Home</a></li>
+      <li><a class="mobile-nav-link" href="about.html" data-page="about">About</a></li>
+      <li><a class="mobile-nav-link" href="services.html" data-page="services">Services</a></li>
+      <li><a class="mobile-nav-link" href="projects.html" data-page="projects">Projects</a></li>
+      <li><a class="mobile-nav-link" href="contact.html" data-page="contact">Contact</a></li>
+    </ul>
+    <a class="mobile-nav-cta" href="book.html" data-page="book">Book A Shot</a>
+    <p class="mobile-menu-footer">© 2026 TayVisualss</p>
+  </nav>
+
+<!-- ─── NAVBAR ───────────────────────────────────────── -->
+<header id="navbar">
+    <div class="nav-inner">
+      <a class="nav-brand" href="#" data-page="home">
+        <!-- ─── PICTURE LOGO ────────────────────────────────── -->
+        <div class="nav-logo-wrapper">
+          <picture class="nav-logo-picture">
+            <!-- WebP format (modern browsers) -->
+            <source 
+              srcset="assets/logo.jpeg" 
+              type="image/webp"
+            >
+            <!-- PNG fallback -->
+            <source 
+              srcset="assets/logo.jpeg" 
+              type="image/png"
+            >
+            <!-- SVG fallback (if you want to keep it) -->
+            <img 
+              src="assets/logo.jpeg" 
+              alt="TayVisualss Logo" 
+              class="nav-logo-img"
+              width="40"
+              height="40"
+              loading="lazy"
+            >
+          </picture>
+        </div>
+        <span class="nav-name">TayVisualss</span>
+      </a>
+  
+      <ul class="nav-links">
+        <li><a class="nav-link active" href="index.html" data-page="home">Home</a></li>
+        <li><a class="nav-link" href="about.html" data-page="about">About</a></li>
+        <li><a class="nav-link" href="services.html" data-page="services">Services</a></li>
+        <li><a class="nav-link" href="projects.html" data-page="projects">Projects</a></li>
+        <li><a class="nav-link" href="contact.html" data-page="contact">Contact</a></li>
+        <li><a class="nav-cta" href="book.html" data-page="book">Book A Shot</a></li>
+      </ul>
+  
+      <button class="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+<main>
+
+    <div class="book-hero">
+      <div class="book-hero-content">
+        <span class="section-label reveal from-left">Booking</span>
+        <h1 class="about-hero-title reveal from-bottom">
+          Let's make
+          <em>something real.</em>
+        </h1>
+      </div>
+    </div>
+  
+    <div class="section" style="padding-top:100px;padding-bottom:100px">
+      <div class="booking-form-wrapper">
+        <div class="booking-layout">
+  
+          <!-- FORM -->
+          <div class="reveal from-left">
+            <span class="section-label">Fill In Your Details</span>
+            <h2 class="section-title" style="margin-bottom:40px">Tell us about <em>your vision</em>.</h2>
+  
+            <form class="booking-form" id="booking-form">
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label">First Name</label>
+                  <input class="form-input" type="text" placeholder="Your first name" required />
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Last Name</label>
+                  <input class="form-input" type="text" placeholder="Your last name" required />
+                </div>
+              </div>
+  
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label">Email</label>
+                  <input class="form-input" type="email" placeholder="hello@email.com" required />
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Phone / WhatsApp</label>
+                  <input class="form-input" type="tel" placeholder="+263 77 000 0000" />
+                </div>
+              </div>
+  
+              <div class="form-group">
+                <label class="form-label">Service Required</label>
+                <select class="form-select form-input" required>
+                  <option value="">Select a service...</option>
+                  <option>Portrait Photography — Essential ($299+)</option>
+                  <option>Brand Photography — Signature ($699+)</option>
+                  <option>Full Production — Premiere ($1,499+)</option>
+                  <option>Music Video Production</option>
+                  <option>Wedding & Event Coverage</option>
+                  <option>Commercial / Product Shoot</option>
+                  <option>Creative Direction Package</option>
+                  <option>Custom Project</option>
+                </select>
+              </div>
+  
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label">Preferred Date</label>
+                  <input class="form-input" type="date" required />
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Preferred Time</label>
+                  <select class="form-select form-input">
+                    <option value="">Select time...</option>
+                    <option>Early Morning (6–9 AM)</option>
+                    <option>Morning (9 AM–12 PM)</option>
+                    <option>Afternoon (12–4 PM)</option>
+                    <option>Golden Hour (4–7 PM)</option>
+                    <option>Evening / Night</option>
+                    <option>Flexible</option>
+                  </select>
+                </div>
+              </div>
+  
+              <div class="form-group">
+                <label class="form-label">Location / Venue</label>
+                <input class="form-input" type="text" placeholder="Where would you like the shoot to take place?" />
+              </div>
+  
+              <div class="form-group">
+                <label class="form-label">Tell Us About Your Vision</label>
+                <textarea class="form-textarea" style="min-height:180px" placeholder="Describe your project, mood, references, number of people involved, or any creative ideas you have in mind..."></textarea>
+              </div>
+  
+              <div class="form-group">
+                <label class="form-label">How Did You Find Us?</label>
+                <select class="form-select form-input">
+                  <option value="">Select...</option>
+                  <option>Instagram</option>
+                  <option>Facebook</option>
+                  <option>Referral / Word of Mouth</option>
+                  <option>Google Search</option>
+                  <option>TikTok</option>
+                  <option>Other</option>
+                </select>
+              </div>
+  
+              <button type="submit" class="form-submit" style="width:100%;margin-top:20px">
+                <span>Confirm Booking</span>
+                <span>→</span>
+              </button>
+              <div class="form-success">✓ Booking request received! We'll contact you within 24 hours to confirm your session.</div>
+            </form>
+          </div>
+  
+          <!-- SIDEBAR -->
+          <div class="booking-sidebar reveal from-right">
+            <div class="booking-info-card">
+              <h4>What Happens Next?</h4>
+              <p>Once you submit your booking request, here's what to expect from our team:</p>
+              <div class="booking-checklist">
+                <div class="booking-check-item">We review your request within 24 hours</div>
+                <div class="booking-check-item">You receive a custom quote (if applicable)</div>
+                <div class="booking-check-item">A discovery call is scheduled</div>
+                <div class="booking-check-item">Deposit confirms your date</div>
+                <div class="booking-check-item">Pre-shoot planning begins</div>
+              </div>
+            </div>
+            <div class="booking-info-card">
+              <h4>Good to Know</h4>
+              <div class="booking-checklist">
+                <div class="booking-check-item">30–50% deposit to secure your date</div>
+                <div class="booking-check-item">Flexible rescheduling with 48hr notice</div>
+                <div class="booking-check-item">All equipment & editing included</div>
+                <div class="booking-check-item">Travel available (fees may apply)</div>
+              </div>
+            </div>
+            <div class="booking-info-card" style="background:var(--pure-white);border:none">
+              <h4 style="color:var(--black)">Prefer to call?</h4>
+              <p style="color:#555">Reach us directly on WhatsApp for a quick conversation about your project.</p>
+              <a href="#" style="display:inline-flex;align-items:center;gap:8px;font-size:0.8rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--black);border-bottom:1px solid rgba(0,0,0,0.2);padding-bottom:2px">
+                WhatsApp Us →
+              </a>
+            </div>
+          </div>
+  
+        </div>
+      </div>
+    </div>
+  
+  </main>
+
+
+<!-- ─── FOOTER ───────────────────────────────────────── -->
+<footer>
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <span class="nav-name">TayVisualss</span>
+          <p>We turn light into legacy. Premium photography and videography for brands, creatives, and moments that matter.</p>
+          <div class="footer-social">
+            <a href="#" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#" title="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+            <a href="#" title="YouTube"><i class="fa-brands fa-youtube"></i></a>
+            <a href="#" title="Facebook"><i class="fa-brands fa-facebook"></i></a>
+            <a href="#" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+          </div>
+        </div>
+   
+        <div class="footer-col">
+          <h5>Navigate</h5>
+          <a href="#" data-page="home">Home</a>
+          <a href="#" data-page="about">About</a>
+          <a href="#" data-page="services">Services</a>
+          <a href="#" data-page="projects">Projects</a>
+          <a href="#" data-page="contact">Contact</a>
+        </div>
+   
+        <div class="footer-col">
+          <h5>Services</h5>
+          <a href="#" data-page="services">Photography</a>
+          <a href="#" data-page="services">Videography</a>
+          <a href="#" data-page="services">Music Videos</a>
+          <a href="#" data-page="services">Weddings</a>
+          <a href="#" data-page="services">Commercial</a>
+        </div>
+   
+        <div class="footer-col">
+          <h5>Contact</h5>
+          <a href="mailto:hello@tayvisualss.com">hello@tayvisualss.com</a>
+          <a href="#">+263 77 000 0000</a>
+          <a href="#">Bulawayo, Zimbabwe</a>
+          <a href="#" data-page="book" style="margin-top:16px;color:var(--white);font-weight:600">Book A Shot →</a>
+        </div>
+      </div>
+   
+      <div class="footer-bottom">
+        <p class="footer-copy">© 2026 TayVisualss. All rights reserved.</p>
+        <p class="footer-credit">
+          Visuals by <span class="footer-credit-brand">TayVisualss</span>
+          <span class="footer-credit-divider">×</span>
+          Website Engineered by <a href="https://mengezdev.com" target="_blank" rel="noopener" class="footer-credit-link">Mengez Emzet</a>
+        </p>
+        <p class="footer-tagline">You imagine it, we visualize it.</p>
+      </div>
+    </div>
+  </footer>
+
+<script src="script.js"></script>
+</body>
+</html>
