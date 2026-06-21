@@ -1961,3 +1961,20 @@ body::after {
   }
   .reveal { opacity: 1 !important; transform: none !important; }
 }
+
+.cta-band-actions {
+  position: relative;
+  z-index: 10;
+}
+
+.btn-dark, 
+.btn-outline-dark {
+  position: relative;
+  z-index: 11;
+  cursor: pointer;
+  pointer-events: auto !important;
+}
+
+.reveal {
+  pointer-events: auto !important;
+}
