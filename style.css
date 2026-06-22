@@ -762,24 +762,28 @@ canvas#hero-canvas {
   gap: 4px;
   margin-top: 60px;
 }
+
 .work-item {
   position: relative;
   overflow: hidden;
   background: var(--mid-grey);
   cursor: pointer;
 }
+
 .work-item:nth-child(1) { grid-column: span 7; grid-row: span 2; min-height: 480px; }
 .work-item:nth-child(2) { grid-column: span 5; min-height: 236px; }
 .work-item:nth-child(3) { grid-column: span 5; min-height: 236px; }
 .work-item:nth-child(4) { grid-column: span 4; min-height: 260px; }
 .work-item:nth-child(5) { grid-column: span 4; min-height: 260px; }
 .work-item:nth-child(6) { grid-column: span 4; min-height: 260px; }
+
 .work-item-bg {
   position: absolute;
   inset: 0;
   background: var(--mid-grey);
   transition: transform var(--transition-slow);
 }
+
 /* Real image inside work items */
 .work-img {
   position: absolute;
@@ -790,9 +794,12 @@ canvas#hero-canvas {
   object-position: center;
   display: block;
   transition: transform var(--transition-slow);
-  filter: grayscale(20%);
 }
-.work-item:hover .work-img { transform: scale(1.06); filter: grayscale(0%); }
+
+.work-item:hover .work-img { 
+  transform: scale(1.06); 
+}
+
 /* Gradient per item (fallback if img fails) */
 .work-item:nth-child(1) .work-item-bg { background: linear-gradient(135deg, #1a1a1a 0%, #2e2e2e 50%, #111 100%); }
 .work-item:nth-child(2) .work-item-bg { background: linear-gradient(225deg, #222 0%, #333 100%); }
@@ -800,26 +807,37 @@ canvas#hero-canvas {
 .work-item:nth-child(4) .work-item-bg { background: linear-gradient(135deg, #252525 0%, #1a1a1a 100%); }
 .work-item:nth-child(5) .work-item-bg { background: linear-gradient(315deg, #2e2e2e 0%, #111 100%); }
 .work-item:nth-child(6) .work-item-bg { background: linear-gradient(90deg, #1e1e1e 0%, #303030 100%); }
+
 .work-item:hover .work-item-bg { transform: scale(1.06); }
+
+/* ─── OVERLAY - ALWAYS VISIBLE ─── */
 .work-item-overlay {
   position: absolute;
   inset: 0;
   background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0) 50%);
-  opacity: 0;
+  opacity: 1;  /* Always visible */
   transition: opacity var(--transition);
   z-index: 2;
 }
-.work-item:hover .work-item-overlay { opacity: 1; }
+
+/* ─── INFO - ALWAYS VISIBLE ─── */
 .work-item-info {
   position: absolute;
-  bottom: 0; left: 0; right: 0;
+  bottom: 0; 
+  left: 0; 
+  right: 0;
   padding: 28px;
-  transform: translateY(10px);
-  opacity: 0;
+  transform: translateY(0);  /* Always in position */
+  opacity: 1;  /* Always visible */
   transition: all var(--transition);
   z-index: 3;
 }
-.work-item:hover .work-item-info { transform: translateY(0); opacity: 1; }
+
+/* ─── OPTIONAL: Add hover enhancement ─── */
+.work-item:hover .work-item-info {
+  padding-bottom: 36px;  /* Slight lift on hover */
+}
+
 .work-item-cat {
   font-family: var(--font-mono);
   font-size: 0.65rem;
@@ -828,6 +846,7 @@ canvas#hero-canvas {
   color: var(--silver);
   margin-bottom: 6px;
 }
+
 .work-item-title {
   font-family: var(--font-display);
   font-size: 1.3rem;
@@ -1330,7 +1349,7 @@ canvas#hero-canvas {
   width: 100%;
   display: block;
   transition: transform var(--transition-slow), filter var(--transition);
-  filter: grayscale(30%) brightness(0.9);
+  /* filter: grayscale(30%) brightness(0.9); */
   aspect-ratio: 4/3;
   object-fit: cover;
   object-position: center;
@@ -1392,7 +1411,7 @@ canvas#hero-canvas {
   position: absolute;
   inset: 0;
   background: linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.2) 50%, transparent 100%);
-  opacity: 0;
+  opacity: 1;
   transition: opacity var(--transition);
   display: flex;
   flex-direction: column;
@@ -1977,4 +1996,27 @@ body::after {
 
 .reveal {
   pointer-events: auto !important;
+}
+
+.about-image-frame {
+  position: relative;
+  width: 100%;
+  min-height: 400px;
+  background: var(--mid-grey);
+}
+
+.about-image {
+  width: 100%;
+  height: 100%;
+  min-height: 400px;
+  object-fit: cover;
+  display: block;
+  position: relative;
+  z-index: 2;
+}
+
+/* Optional: Add a nice hover effect */
+.about-image:hover {
+  transform: scale(1.02);
+  transition: transform var(--transition-slow);
 }
