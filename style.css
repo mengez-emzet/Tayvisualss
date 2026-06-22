@@ -1201,7 +1201,7 @@ canvas#hero-canvas {
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--black);
-  background: var(--white);
+  background: var(--white) !important;
   padding: 4px 10px;
 }
 .pricing-card.featured .pricing-badge { background: var(--black); color: var(--white); }
@@ -1289,6 +1289,23 @@ canvas#hero-canvas {
   color: var(--white);
   transition: all var(--transition-fast);
   cursor: pointer;
+}
+
+.btn-pricing1 {
+  display: block;
+  text-align: center;
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  padding: 14px 24px;
+  border-radius: 2px;
+  border: 1px solid black;
+  color: var(--white);
+  transition: all var(--transition-fast);
+  cursor: pointer;
+  background: rgba(255,255,255,0.05);
 }
 .btn-pricing:hover { border-color: var(--white); background: rgba(255,255,255,0.05); }
 .pricing-card.featured .btn-pricing {
