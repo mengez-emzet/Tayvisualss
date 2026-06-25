@@ -2037,3 +2037,97 @@ body::after {
   transform: scale(1.02);
   transition: transform var(--transition-slow);
 }
+/* ─── SECURITY: HONEYPOT FIELD ──────────────────────
+   Invisible to humans, visible to bots.
+   NEVER use display:none — bots skip those.
+   Position off-screen instead. */
+.hp-field {
+  position: absolute;
+  left: -9999px;
+  top: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+  /* tab-index: -1; */
+}
+
+/* ─── PRIVACY POLICY PAGE ───────────────────────── */
+.privacy-block {
+  margin-bottom: 52px;
+}
+.privacy-block h2 {
+  font-family: var(--font-display);
+  font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+  font-weight: 300;
+  color: var(--white);
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+.privacy-block p {
+  font-size: 0.9rem;
+  color: var(--silver);
+  line-height: 1.85;
+  margin-bottom: 14px;
+}
+.privacy-block ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 14px 0 14px 0;
+}
+.privacy-block ul li {
+  font-size: 0.88rem;
+  color: var(--silver);
+  line-height: 1.7;
+  padding-left: 20px;
+  position: relative;
+}
+.privacy-block ul li::before {
+  content: '—';
+  position: absolute;
+  left: 0;
+  color: var(--light-grey);
+}
+.privacy-block a {
+  color: var(--off-white);
+  border-bottom: 1px solid rgba(255,255,255,0.2);
+  transition: border-color var(--transition-fast), color var(--transition-fast);
+}
+.privacy-block a:hover {
+  color: var(--white);
+  border-color: var(--white);
+}
+.privacy-block strong {
+  color: var(--off-white);
+  font-weight: 600;
+}
+
+/* ─── FORM ERROR MESSAGE ─────────────────────────── */
+.form-error {
+  display: none;
+  padding: 14px 18px;
+  background: rgba(220, 50, 50, 0.08);
+  border: 1px solid rgba(220, 50, 50, 0.25);
+  border-radius: 2px;
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  color: #e07070;
+  margin-top: 8px;
+  line-height: 1.5;
+}
+
+/* ─── LARGE SCREEN HERO SPACER ───────────────────────*/
+   /*Pushes tagline/sub below animation text on monitors */
+@media (min-width: 1024px) {
+  .hero-spacer { height: clamp(260px, 26vh, 340px); }
+}
+@media (min-width: 1280px) {
+  .hero-spacer { height: clamp(300px, 30vh, 400px); }
+}
+@media (min-width: 1600px) {
+  .hero-spacer { height: clamp(340px, 34vh, 460px); }
+}

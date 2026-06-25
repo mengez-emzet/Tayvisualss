@@ -8,6 +8,12 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <link rel="stylesheet" href="style.css" />
   <link rel="icon" href="assets/logo.jpeg" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com; font-src 'self' https://cdnjs.cloudflare.com https://fonts.gstatic.com data:; img-src 'self' data: blob: https://img.youtube.com https://images.unsplash.com; media-src 'self'; frame-src https://www.google.com/recaptcha/ https://recaptcha.google.com/; connect-src 'self' https://formspree.io; form-action 'self' https://formspree.io; base-uri 'self'; object-src 'none';">
+  <meta http-equiv="X-XSS-Protection" content="1; mode=block" />
+  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+  <meta http-equiv="X-Frame-Options" content="DENY" />
+  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
+  <meta name="robots" content="noimageindex, noodp" />
 </head>
 <body>
 
@@ -145,8 +151,8 @@
   
         <!-- FORM -->
         <div class="reveal from-right">
-          <form class="contact-form" id="contact-form">
-            <div class="form-row">
+          <form class="contact-form" id="contact-form" action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST">
+              <div class="form-row">
               <div class="form-group">
                 <label class="form-label">First Name</label>
                 <input class="form-input" type="text" placeholder="Your first name" required />
@@ -177,10 +183,15 @@
               <label class="form-label">Your Message</label>
               <textarea class="form-textarea" placeholder="Tell us about your project, vision, or any questions you have..." required></textarea>
             </div>
-            <button type="submit" class="form-submit">
+                          <!-- ─── HONEYPOT — hidden from humans, catches bots ── -->
+              <div class="hp-field" aria-hidden="true">
+                <input type="text" name="website" tabindex="-1" autocomplete="off" />
+              </div>
+<button type="submit" class="form-submit">
               <span>Send Message</span>
               <span>→</span>
             </button>
+            <div class="form-error"></div>
             <div class="form-success">✓ Message sent! We'll be in touch within 24 hours.</div>
           </form>
         </div>
@@ -311,6 +322,7 @@
         <a href="mailto:hello@tayvisualss.com">hello@tayvisualss.com</a>
         <a href="#">+263 77 000 0000</a>
         <a href="#">Gweru, Zimbabwe</a>
+        <a href="privacy.html" style="color:var(--silver)">Privacy Policy</a>
         <a href="book.html" data-page="book" style="margin-top:16px;color:var(--white);font-weight:600">Book A Shot →</a>
       </div>
     </div>
@@ -320,7 +332,7 @@
       <p class="footer-credit">
         Visuals by <span class="footer-credit-brand">TayVisualss</span>
         <span class="footer-credit-divider">×</span>
-        Website Engineered by <a href="https:mengezemzet.co.zw" target="_blank" rel="noopener" class="footer-credit-link">Mengez Emzet</a>
+        Website Engineered by <a href="https://mengezemzet.co.zw" target="_blank" rel="noopener" class="footer-credit-link">Mengez Emzet</a>
       </p>
       <p class="footer-tagline">You imagine it, we visualize it.</p>
     </div>

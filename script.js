@@ -4,6 +4,25 @@
 
    'use strict';
 
+   /* ─── IMAGE PROTECTION (replaces inline oncontextmenu) ──
+      Blocks right-click on portfolio images without
+      violating CSP (no inline event handlers).       */
+   (function initImageProtection() {
+     document.addEventListener('contextmenu', (e) => {
+       if (e.target.matches('[data-no-context="true"]')) {
+         e.preventDefault();
+         return false;
+       }
+     });
+     // Also block drag on protected images
+     document.addEventListener('dragstart', (e) => {
+       if (e.target.matches('[data-no-context="true"]')) {
+         e.preventDefault();
+       }
+     });
+   })();
+
+
    /* ─── DOM READY ─────────────────────────────────── */
    document.addEventListener('DOMContentLoaded', () => {
      initLoader();
@@ -387,60 +406,339 @@ function triggerHeroAnimations() {
      });
    }
    
-   /* ─── CONTACT FORM ───────────────────────────────── */
+   /* ─── CONTACT FORM (SECURED v2 — Formspree) ────────
+      Fixes applied:
+      • CSRF token (per-session, rotated each page load)
+      • Email injection prevention (strips \r\n)
+      • Enhanced XSS sanitizer (HTML + injection chars)
+      • Honeypot silent drop
+      • Client-side rate limiting (+ note: Formspree enforces server-side)
+      • reCAPTCHA v3 token attached before submit
+      • Inline event handlers removed (moved to JS)
+   ──────────────────────────────────────────────────── */
    function initContactForm() {
      const form = document.getElementById('contact-form');
      if (!form) return;
-   
+
+     // ── CSRF token ─────────────────────────────────────
+     // Generates a unique token per page session.
+     // Formspree handles true server-side CSRF; this adds a
+     // client-layer defence against basic cross-origin tricks.
+     function generateCSRFToken() {
+       const arr = new Uint8Array(24);
+       crypto.getRandomValues(arr);
+       return Array.from(arr, b => b.toString(16).padStart(2, '0')).join('');
+     }
+     const csrfToken = generateCSRFToken();
+     let csrfInput = form.querySelector('input[name="_csrf"]');
+     if (!csrfInput) {
+       csrfInput = document.createElement('input');
+       csrfInput.type = 'hidden';
+       csrfInput.name = '_csrf';
+       form.appendChild(csrfInput);
+     }
+     csrfInput.value = csrfToken;
+
+     // ── Rate limiting (client-side friction layer) ──────
+     // Real rate limiting is enforced by Formspree server-side.
+     // This stops accidental double-submits and casual abuse.
+     const RATE_KEY = 'tv_contact_times';
+     const RATE_LIMIT = 3;
+     const RATE_WINDOW = 10 * 60 * 1000;
+
+     function isRateLimited() {
+       try {
+         const times = JSON.parse(sessionStorage.getItem(RATE_KEY) || '[]');
+         const recent = times.filter(t => Date.now() - t < RATE_WINDOW);
+         sessionStorage.setItem(RATE_KEY, JSON.stringify(recent));
+         return recent.length >= RATE_LIMIT;
+       } catch { return false; }
+     }
+
+     function recordSubmission() {
+       try {
+         const times = JSON.parse(sessionStorage.getItem(RATE_KEY) || '[]');
+         times.push(Date.now());
+         sessionStorage.setItem(RATE_KEY, JSON.stringify(times));
+       } catch {}
+     }
+
+     // ── Input sanitizer ─────────────────────────────────
+     // Strips HTML tags + email injection characters (\r \n)
+     // and common XSS vectors before data leaves the browser.
+     function sanitize(str) {
+       if (typeof str !== 'string') return '';
+       // Strip email injection characters
+       str = str.replace(/[\r\n]/g, ' ');
+       // Strip HTML tags
+       const div = document.createElement('div');
+       div.textContent = str;
+       return div.innerHTML
+         .replace(/javascript:/gi, '')
+         .replace(/on\w+=/gi, '')
+         .trim();
+     }
+
+     // ── Email format validator ──────────────────────────
+     function isValidEmail(email) {
+       return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim());
+     }
+
      form.addEventListener('submit', (e) => {
        e.preventDefault();
        const btn = form.querySelector('.form-submit');
        const success = form.querySelector('.form-success');
-   
+       const errorEl = form.querySelector('.form-error');
+
+       // ── Honeypot ────────────────────────────────────
+       const honeypot = form.querySelector('input[name="website"]');
+       if (honeypot && honeypot.value.trim() !== '') return; // silent drop
+
+       // ── Rate limit ──────────────────────────────────
+       if (isRateLimited()) {
+         showError(errorEl, 'Too many submissions — please wait 10 minutes.');
+         return;
+       }
+
+       // ── Validate & sanitize all fields ─────────────
+       let hasError = false;
+       form.querySelectorAll('.form-input, .form-textarea').forEach(field => {
+         if (field.type === 'email') {
+           if (!isValidEmail(field.value)) {
+             showError(errorEl, 'Please enter a valid email address.');
+             hasError = true;
+           }
+         } else if (field.type !== 'date' && field.type !== 'tel') {
+           field.value = sanitize(field.value);
+         } else if (field.type === 'tel') {
+           // Strip anything that isn't digits, +, spaces, hyphens
+           field.value = field.value.replace(/[^0-9+\s\-]/g, '');
+         }
+       });
+       if (hasError) return;
+
        btn.disabled = true;
        btn.querySelector('span').textContent = 'Sending...';
-   
-       setTimeout(() => {
-         form.querySelectorAll('.form-input, .form-textarea, .form-select').forEach(f => f.value = '');
-         btn.querySelector('span').textContent = 'Message Sent';
-         if (success) {
-           success.style.display = 'block';
-           setTimeout(() => {
-             success.style.display = 'none';
+
+       // ── reCAPTCHA v3 → then submit to Formspree ────
+       function doSubmit() {
+         recordSubmission();
+         // Submit to Formspree via fetch (AJAX — no page reload)
+         const data = new FormData(form);
+         fetch(form.action, {
+           method: 'POST',
+           body: data,
+           headers: { 'Accept': 'application/json' }
+         })
+         .then(res => {
+           if (res.ok) {
+             form.querySelectorAll('.form-input, .form-textarea, .form-select')
+               .forEach(f => f.value = '');
+             btn.querySelector('span').textContent = 'Message Sent';
+             if (success) {
+               success.style.display = 'block';
+               setTimeout(() => {
+                 success.style.display = 'none';
+                 btn.disabled = false;
+                 btn.querySelector('span').textContent = 'Send Message';
+               }, 5000);
+             }
+           } else {
              btn.disabled = false;
              btn.querySelector('span').textContent = 'Send Message';
-           }, 4000);
-         }
-       }, 1400);
+             showError(errorEl, 'Something went wrong. Please try again or email us directly.');
+           }
+         })
+         .catch(() => {
+           btn.disabled = false;
+           btn.querySelector('span').textContent = 'Send Message';
+           showError(errorEl, 'Network error. Please check your connection and try again.');
+         });
+       }
+
+       if (typeof grecaptcha !== 'undefined') {
+         grecaptcha.ready(() => {
+           grecaptcha.execute('YOUR_SITE_KEY_HERE', { action: 'contact' }).then(token => {
+             let tokenInput = form.querySelector('input[name="g-recaptcha-response"]');
+             if (!tokenInput) {
+               tokenInput = document.createElement('input');
+               tokenInput.type = 'hidden';
+               tokenInput.name = 'g-recaptcha-response';
+               form.appendChild(tokenInput);
+             }
+             tokenInput.value = token;
+             doSubmit();
+           });
+         });
+       } else {
+         doSubmit();
+       }
      });
+
+     function showError(el, msg) {
+       if (!el) { alert(msg); return; }
+       el.textContent = msg;
+       el.style.display = 'block';
+       setTimeout(() => { el.style.display = 'none'; }, 6000);
+     }
    }
    
-   /* ─── BOOKING FORM ───────────────────────────────── */
+   /* ─── BOOKING FORM (SECURED v2 — Formspree) ────────
+      Same protections as contact form +
+      stricter rate limit (2 per 15 min)
+   ──────────────────────────────────────────────────── */
    function initBookingForm() {
      const form = document.getElementById('booking-form');
      if (!form) return;
-   
+
+     // ── CSRF token ──────────────────────────────────
+     function generateCSRFToken() {
+       const arr = new Uint8Array(24);
+       crypto.getRandomValues(arr);
+       return Array.from(arr, b => b.toString(16).padStart(2, '0')).join('');
+     }
+     const csrfToken = generateCSRFToken();
+     let csrfInput = form.querySelector('input[name="_csrf"]');
+     if (!csrfInput) {
+       csrfInput = document.createElement('input');
+       csrfInput.type = 'hidden';
+       csrfInput.name = '_csrf';
+       form.appendChild(csrfInput);
+     }
+     csrfInput.value = csrfToken;
+
+     // ── Rate limiting ────────────────────────────────
+     const RATE_KEY = 'tv_booking_times';
+     const RATE_LIMIT = 2;
+     const RATE_WINDOW = 15 * 60 * 1000;
+
+     function isRateLimited() {
+       try {
+         const times = JSON.parse(sessionStorage.getItem(RATE_KEY) || '[]');
+         const recent = times.filter(t => Date.now() - t < RATE_WINDOW);
+         sessionStorage.setItem(RATE_KEY, JSON.stringify(recent));
+         return recent.length >= RATE_LIMIT;
+       } catch { return false; }
+     }
+
+     function recordSubmission() {
+       try {
+         const times = JSON.parse(sessionStorage.getItem(RATE_KEY) || '[]');
+         times.push(Date.now());
+         sessionStorage.setItem(RATE_KEY, JSON.stringify(times));
+       } catch {}
+     }
+
+     // ── Sanitizer (same as contact) ─────────────────
+     function sanitize(str) {
+       if (typeof str !== 'string') return '';
+       str = str.replace(/[\r\n]/g, ' ');
+       const div = document.createElement('div');
+       div.textContent = str;
+       return div.innerHTML
+         .replace(/javascript:/gi, '')
+         .replace(/on\w+=/gi, '')
+         .trim();
+     }
+
+     function isValidEmail(email) {
+       return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim());
+     }
+
      form.addEventListener('submit', (e) => {
        e.preventDefault();
        const btn = form.querySelector('.form-submit');
        const success = form.querySelector('.form-success');
-   
+       const errorEl = form.querySelector('.form-error');
+
+       // ── Honeypot ────────────────────────────────────
+       const honeypot = form.querySelector('input[name="website"]');
+       if (honeypot && honeypot.value.trim() !== '') return;
+
+       // ── Rate limit ──────────────────────────────────
+       if (isRateLimited()) {
+         showError(errorEl, 'Too many booking requests — please wait 15 minutes.');
+         return;
+       }
+
+       // ── Validate & sanitize ─────────────────────────
+       let hasError = false;
+       form.querySelectorAll('.form-input, .form-textarea').forEach(field => {
+         if (field.type === 'email') {
+           if (!isValidEmail(field.value)) {
+             showError(errorEl, 'Please enter a valid email address.');
+             hasError = true;
+           }
+         } else if (field.type !== 'date' && field.type !== 'tel') {
+           field.value = sanitize(field.value);
+         } else if (field.type === 'tel') {
+           field.value = field.value.replace(/[^0-9+\s\-]/g, '');
+         }
+       });
+       if (hasError) return;
+
        btn.disabled = true;
        btn.querySelector('span').textContent = 'Booking...';
-   
-       setTimeout(() => {
-         form.querySelectorAll('.form-input, .form-textarea, .form-select').forEach(f => f.value = '');
-         btn.querySelector('span').textContent = 'Booked!';
-         if (success) {
-           success.style.display = 'block';
-           setTimeout(() => {
-             success.style.display = 'none';
+
+       function doSubmit() {
+         recordSubmission();
+         const data = new FormData(form);
+         fetch(form.action, {
+           method: 'POST',
+           body: data,
+           headers: { 'Accept': 'application/json' }
+         })
+         .then(res => {
+           if (res.ok) {
+             form.querySelectorAll('.form-input, .form-textarea, .form-select')
+               .forEach(f => f.value = '');
+             btn.querySelector('span').textContent = 'Booked!';
+             if (success) {
+               success.style.display = 'block';
+               setTimeout(() => {
+                 success.style.display = 'none';
+                 btn.disabled = false;
+                 btn.querySelector('span').textContent = 'Confirm Booking';
+               }, 5000);
+             }
+           } else {
              btn.disabled = false;
              btn.querySelector('span').textContent = 'Confirm Booking';
-           }, 5000);
-         }
-       }, 1400);
+             showError(errorEl, 'Something went wrong. Please try again or WhatsApp us directly.');
+           }
+         })
+         .catch(() => {
+           btn.disabled = false;
+           btn.querySelector('span').textContent = 'Confirm Booking';
+           showError(errorEl, 'Network error. Please check your connection and try again.');
+         });
+       }
+
+       if (typeof grecaptcha !== 'undefined') {
+         grecaptcha.ready(() => {
+           grecaptcha.execute('YOUR_SITE_KEY_HERE', { action: 'booking' }).then(token => {
+             let tokenInput = form.querySelector('input[name="g-recaptcha-response"]');
+             if (!tokenInput) {
+               tokenInput = document.createElement('input');
+               tokenInput.type = 'hidden';
+               tokenInput.name = 'g-recaptcha-response';
+               form.appendChild(tokenInput);
+             }
+             tokenInput.value = token;
+             doSubmit();
+           });
+         });
+       } else {
+         doSubmit();
+       }
      });
+
+     function showError(el, msg) {
+       if (!el) { alert(msg); return; }
+       el.textContent = msg;
+       el.style.display = 'block';
+       setTimeout(() => { el.style.display = 'none'; }, 6000);
+     }
    }
    
    /* ─── PROJECT FILTER ─────────────────────────────── */

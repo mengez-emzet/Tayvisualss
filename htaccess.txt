@@ -1,0 +1,97 @@
+# =====================================================
+# TayVisualss — .htaccess Security Configuration
+# For Apache hosting (WebZim)
+# =====================================================
+
+# ─── HTTPS ENFORCEMENT ────────────────────────────
+RewriteEngine On
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# ─── HSTS (HTTP Strict Transport Security) ────────
+# Tells browsers: never connect over HTTP again
+<IfModule mod_headers.c>
+  Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains" env=HTTPS
+</IfModule>
+
+# ─── CLICKJACKING PROTECTION ──────────────────────
+# Prevents your site being embedded in iframes on other domains
+<IfModule mod_headers.c>
+  Header always set X-Frame-Options "DENY"
+  Header always set Content-Security-Policy "frame-ancestors 'none'"
+</IfModule>
+
+# ─── CONTENT SECURITY POLICY (CSP) ───────────────
+# Tightened to include Formspree endpoints and
+# legacy browser headers (X-XSS-Protection, X-Content-Security-Policy)
+<IfModule mod_headers.c>
+  Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com; font-src 'self' https://cdnjs.cloudflare.com https://fonts.gstatic.com data:; img-src 'self' data: blob: https://img.youtube.com https://images.unsplash.com; media-src 'self'; frame-src https://www.google.com/recaptcha/ https://recaptcha.google.com/; connect-src 'self' https://formspree.io; form-action 'self' https://formspree.io; base-uri 'self'; object-src 'none';"
+  # Legacy browser support
+  Header always set X-Content-Security-Policy "default-src 'self'"
+</IfModule>
+
+# ─── XSS PROTECTION ───────────────────────────────
+<IfModule mod_headers.c>
+  Header always set X-XSS-Protection "1; mode=block"
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=()"
+  # Legacy IE header
+  Header always set X-Content-Security-Policy "default-src 'self'"
+  # Remove server signature to prevent version fingerprinting
+  Header always unset X-Powered-By
+  Header always unset Server
+</IfModule>
+
+# ─── HOTLINK PROTECTION ───────────────────────────
+# Prevents other websites from embedding your images directly
+RewriteCond %{HTTP_REFERER} !^$
+RewriteCond %{HTTP_REFERER} !^https://(www\.)?tayvisualss\.com [NC]
+RewriteCond %{HTTP_REFERER} !^https://(www\.)?google\.com [NC]
+RewriteRule \.(jpg|jpeg|png|gif|webp|mp4|webm|svg)$ - [F,NC]
+
+# ─── BLOCK SENSITIVE FILES ────────────────────────
+# Prevent access to config files and hidden files
+<FilesMatch "(^\.htaccess|\.env|composer\.json|package\.json|README)">
+  Order Allow,Deny
+  Deny from all
+</FilesMatch>
+
+# ─── DISABLE DIRECTORY LISTING ────────────────────
+Options -Indexes
+
+# ─── BLOCK BAD BOTS & SCANNERS ────────────────────
+RewriteCond %{HTTP_USER_AGENT} (sqlmap|nikto|havij|nmap|masscan|zgrab|libwww-perl) [NC]
+RewriteRule .* - [F,L]
+
+# ─── RATE LIMITING (basic) ────────────────────────
+# Requires mod_evasive on server — ask WebZim to enable if needed
+# <IfModule mod_evasive24.c>
+#   DOSHashTableSize    3097
+#   DOSPageCount        5
+#   DOSSiteCount        50
+#   DOSPageInterval     1
+#   DOSSiteInterval     1
+#   DOSBlockingPeriod   10
+# </IfModule>
+
+# ─── CACHE CONTROL ────────────────────────────────
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType image/jpeg "access plus 1 month"
+  ExpiresByType image/png "access plus 1 month"
+  ExpiresByType image/webp "access plus 1 month"
+  ExpiresByType text/css "access plus 1 week"
+  ExpiresByType application/javascript "access plus 1 week"
+  ExpiresByType video/mp4 "access plus 1 month"
+</IfModule>
+
+# ─── GZIP COMPRESSION ─────────────────────────────
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css application/javascript text/plain
+</IfModule>
+
+# ─── CUSTOM ERROR PAGES ───────────────────────────
+# Prevents server version info leaking in default error pages
+ErrorDocument 403 /index.html
+ErrorDocument 404 /index.html
