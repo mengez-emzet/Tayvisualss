@@ -121,7 +121,7 @@
       <div class="reveal from-left">
         <span class="section-label">Availability</span>
         <h2 class="section-title">Check our <em>schedule</em>.</h2>
-        <p class="section-desc">Browse available dates before you book. Click any date to see its status — available dates auto-fill into the form below.</p>
+        <p class="section-desc">Browse available dates before you book. Click any date to see its status.</p>
       </div>
 
       <div class="cal-layout">
@@ -491,7 +491,7 @@
     if(state === 'available'){
       dot.className   = 'cal-status-dot status-avail';
       statusEl.textContent = 'Available for bookings';
-      noteEl.textContent   = "This date is open. Click the button below or scroll to the form — the date will be pre-filled for you.";
+      noteEl.textContent   = "This date is open. Click the button below or scroll to the form. The date will be pre-filled for you.";
       ctaEl.style.display  = 'inline-flex';
       const dateInput = document.querySelector('#booking-form input[type="date"]');
       if(dateInput) dateInput.value = key;
@@ -500,7 +500,7 @@
       statusEl.textContent = 'Already booked';
       const note = BOOKED[key] || '';
       noteEl.textContent   = note
-        ? `This date is fully booked — ${note}. Please browse other dates or contact us to discuss alternatives.`
+        ? `This date is fully booked for a ${note}. Please browse other dates or contact us to discuss alternatives.`
         : 'This date is fully booked. Please browse other available dates.';
       ctaEl.style.display = 'none';
     }
