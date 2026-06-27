@@ -616,7 +616,7 @@
             </button>
             <button class="status-opt" data-status="unavailable" id="opt-unavailable">
               <div class="status-opt-dot sod-unavailable"></div>
-              Unavailable / Blocked
+              Unavailable
             </button>
           </div>
 
@@ -630,7 +630,7 @@
             <div class="spinner" id="save-spinner"></div>
             <span id="save-btn-text">Save Changes</span>
           </button>
-          <button class="clear-btn" id="clear-btn">Remove / Reset to Available</button>
+          <button class="clear-btn" id="clear-btn">Reset to Available</button>
           <div class="save-feedback" id="save-feedback"></div>
         </div>
       </div>
@@ -640,17 +640,17 @@
         <div class="sidebar-panel-title">Quick Guide</div>
         <div style="font-size:12px;color:var(--silver);line-height:1.75">
           <p style="margin-bottom:10px">
-            <strong style="color:var(--off-white)">Available</strong> — date is open for bookings. Clients can select it.
+            <strong style="color:var(--off-white)">Available</strong> — date is open for bookings.
           </p>
           <p style="margin-bottom:10px">
-            <strong style="color:var(--off-white)">Booked</strong> — date is taken. Add a session label so you remember what's on.
+            <strong style="color:var(--off-white)">Booked</strong> — date is taken. 
           </p>
           <p style="margin-bottom:10px">
-            <strong style="color:var(--off-white)">Unavailable</strong> — date is blocked (holiday, personal, travel). Clients see it struck through.
+            <strong style="color:var(--off-white)">Unavailable</strong> — date is unavailable.
           </p>
-          <p>
+          <!-- <p>
             Changes are <strong style="color:var(--off-white)">live instantly</strong> — clients see updates on their calendar without refreshing.
-          </p>
+          </p> -->
         </div>
       </div>
 
@@ -891,9 +891,9 @@ document.getElementById('save-btn').addEventListener('click', async () => {
         updatedAt: new Date().toISOString()
       });
     }
-    showFeedback('success', '✓ Saved — clients see this update instantly.');
+    showFeedback('success', 'Changes Saved.');
   } catch (err) {
-    showFeedback('error', `✗ Save failed: ${err.message}`);
+    showFeedback('error', ` Save failed: ${err.message}`);
     console.error(err);
   } finally {
     btn.disabled          = false;
@@ -912,9 +912,9 @@ document.getElementById('clear-btn').addEventListener('click', async () => {
     setActiveStatusOpt('available');
     updateLabelVisibility('available');
     document.getElementById('booking-label').value = '';
-    showFeedback('success', '✓ Date reset to available.');
+    showFeedback('success', ' Date reset to available.');
   } catch (err) {
-    showFeedback('error', `✗ Error: ${err.message}`);
+    showFeedback('error', ` Error: ${err.message}`);
   }
 });
 
