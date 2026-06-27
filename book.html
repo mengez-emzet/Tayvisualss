@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <link rel="stylesheet" href="style.css" />
   <link rel="icon" href="assets/logo.jpeg" />
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com; font-src 'self' https://cdnjs.cloudflare.com https://fonts.gstatic.com data:; img-src 'self' data: blob: https://img.youtube.com https://images.unsplash.com; media-src 'self'; frame-src https://www.google.com/recaptcha/ https://recaptcha.google.com/; connect-src 'self' https://formspree.io; form-action 'self' https://formspree.io; base-uri 'self'; object-src 'none';">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/ https://www.gstatic.com/firebasejs/; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com; font-src 'self' https://cdnjs.cloudflare https://fonts.gstatic.com data:; img-src 'self' data: blob: https://img.youtube.com https://images.unsplash.com; media-src 'self'; frame-src https://www.google.com/recaptcha/ https://recaptcha.google.com/; connect-src 'self' https://formspree.io https://firestore.googleapis.com https://*.firebaseio.com; form-action 'self' https://formspree.io; base-uri 'self'; object-src 'none';">
   <meta http-equiv="X-XSS-Protection" content="1; mode=block" />
   <meta http-equiv="X-Content-Type-Options" content="nosniff" />
   <meta http-equiv="X-Frame-Options" content="DENY" />
@@ -374,168 +374,269 @@
 <script src="script.js"></script>
 
 <script type="module">
-/* ── FIREBASE CONFIG ──────────────────────────────────
-   Paste your actual Firebase config values here.
-   Same values you put in admin.html               */
-import { initializeApp }                        from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { getFirestore, collection, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-
-const FIREBASE_CONFIG = {
-  apiKey:            "AIzaSyAjKF0Iy6okAFVG-nt04ZOJXHcW4nHWHjY",
-  authDomain:        "tayvisualss-web.firebaseapp.com",
-  projectId:         "tayvisualss-web",
-  storageBucket:     "tayvisualss-web.firebasestorage.app",
-  messagingSenderId: "702560378882",
-  appId:             "1:702560378882:web:8b022ae84ee2461d81871b"
-};
-
-const app  = initializeApp(FIREBASE_CONFIG);
-const db   = getFirestore(app);
-
-const MONTHS = ['January','February','March','April','May','June',
-                'July','August','September','October','November','December'];
-
-const todayObj  = new Date();
-const todayYear = todayObj.getFullYear();
-const todayMon  = todayObj.getMonth();
-const todayDay  = todayObj.getDate();
-
-let viewYear     = todayYear;
-let viewMonth    = todayMon;
-let selectedCell = null;
-let availability = {};
-
-function pad(n)           { return String(n).padStart(2,'0'); }
-function dateKey(y,m,d)   { return `${y}-${pad(m+1)}-${pad(d)}`; }
-
-function getState(y,m,d) {
-  const key    = dateKey(y,m,d);
-  const isPast = (y < todayYear) ||
-                 (y === todayYear && m < todayMon) ||
-                 (y === todayYear && m === todayMon && d < todayDay);
-  if (isPast) return 'past';
-  const entry = availability[key];
-  if (!entry) return 'available';
-  return entry.status;
-}
-
-function renderCalendar() {
-  const grid   = document.getElementById('tv-cal-grid');
-  const header = document.getElementById('tv-cal-month');
-  if (!grid || !header) return;
-  header.textContent = `${MONTHS[viewMonth]} ${viewYear}`;
-
-  const dows = Array.from(grid.querySelectorAll('.cal-dow'));
-  grid.innerHTML = '';
-  dows.forEach(d => grid.appendChild(d));
-
-  let startDow = new Date(viewYear, viewMonth, 1).getDay();
-  startDow = (startDow === 0) ? 6 : startDow - 1;
-  for (let i = 0; i < startDow; i++) {
-    const blank = document.createElement('div');
-    blank.className = 'cal-day empty';
-    grid.appendChild(blank);
+  /* ── FIREBASE CONFIG ────────────────────────────────── */
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { getFirestore, collection, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+  
+  const FIREBASE_CONFIG = {
+    apiKey: "AIzaSyAjKF0Iy6okAFVG-nt04ZOJXHcW4nHWHjY",
+    authDomain: "tayvisualss-web.firebaseapp.com",
+    projectId: "tayvisualss-web",
+    storageBucket: "tayvisualss-web.firebasestorage.app",
+    messagingSenderId: "702560378882",
+    appId: "1:702560378882:web:8b022ae84ee2461d81871b"
+  };
+  
+  const app = initializeApp(FIREBASE_CONFIG);
+  const db = getFirestore(app);
+  
+  const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June',
+    'July', 'August', 'September', 'October', 'November', 'December'
+  ];
+  
+  const todayObj = new Date();
+  const todayYear = todayObj.getFullYear();
+  const todayMon = todayObj.getMonth();
+  const todayDay = todayObj.getDate();
+  
+  let viewYear = todayYear;
+  let viewMonth = todayMon;
+  let selectedCell = null;
+  let availability = {};
+  
+  function pad(n) { return String(n).padStart(2, '0'); }
+  
+  function dateKey(y, m, d) { return `${y}-${pad(m + 1)}-${pad(d)}`; }
+  
+  function getState(y, m, d) {
+    const key = dateKey(y, m, d);
+    const isPast = (y < todayYear) ||
+      (y === todayYear && m < todayMon) ||
+      (y === todayYear && m === todayMon && d < todayDay);
+    if (isPast) return 'past';
+    const entry = availability[key];
+    if (!entry) return 'available';
+    return entry.status;
   }
-
-  const daysInMonth = new Date(viewYear, viewMonth + 1, 0).getDate();
-  const todayKey    = dateKey(todayYear, todayMon, todayDay);
-
-  for (let d = 1; d <= daysInMonth; d++) {
-    const state = getState(viewYear, viewMonth, d);
-    const key   = dateKey(viewYear, viewMonth, d);
-    const cell  = document.createElement('div');
-    cell.className = `cal-day ${state}`;
-    if (key === todayKey && state !== 'past') cell.classList.add('today');
-
-    const num = document.createElement('div');
-    num.className   = 'cal-day-num';
-    num.textContent = d;
-    cell.appendChild(num);
-
-    if (state !== 'past') {
-      const dot = document.createElement('div');
-      dot.className = 'cal-day-dot';
-      cell.appendChild(dot);
+  
+  function renderCalendar() {
+    const grid = document.getElementById('tv-cal-grid');
+    const header = document.getElementById('tv-cal-month');
+    
+    if (!grid || !header) {
+      console.warn('Calendar elements not found');
+      return;
     }
-
-    if (state === 'available' || state === 'booked') {
-      cell.addEventListener('click', () => selectDate(cell, key, d, state));
+  
+    // Update month/year header
+    header.textContent = `${MONTHS[viewMonth]} ${viewYear}`;
+  
+    // --- PRESERVE DAY-OF-WEEK HEADERS ---
+    // Get all existing day-of-week header text
+    const dowTexts = [];
+    const existingDows = grid.querySelectorAll('.cal-dow');
+    existingDows.forEach(el => dowTexts.push(el.textContent));
+  
+    // Clear grid
+    grid.innerHTML = '';
+  
+    // Re-add day-of-week headers
+    dowTexts.forEach(text => {
+      const dow = document.createElement('div');
+      dow.className = 'cal-dow';
+      dow.textContent = text;
+      grid.appendChild(dow);
+    });
+  
+    // --- CALCULATE FIRST DAY OF MONTH (Monday-based) ---
+    let startDow = new Date(viewYear, viewMonth, 1).getDay();
+    startDow = (startDow === 0) ? 6 : startDow - 1;
+  
+    // Add blank cells for days before the 1st
+    for (let i = 0; i < startDow; i++) {
+      const blank = document.createElement('div');
+      blank.className = 'cal-day empty';
+      grid.appendChild(blank);
     }
-    grid.appendChild(cell);
+  
+    const daysInMonth = new Date(viewYear, viewMonth + 1, 0).getDate();
+    const todayKey = dateKey(todayYear, todayMon, todayDay);
+  
+    // --- RENDER EACH DAY ---
+    for (let d = 1; d <= daysInMonth; d++) {
+      const state = getState(viewYear, viewMonth, d);
+      const key = dateKey(viewYear, viewMonth, d);
+      const cell = document.createElement('div');
+      cell.className = `cal-day ${state}`;
+      
+      // Mark today
+      if (key === todayKey && state !== 'past') {
+        cell.classList.add('today');
+      }
+  
+      // Day number
+      const num = document.createElement('div');
+      num.className = 'cal-day-num';
+      num.textContent = d;
+      cell.appendChild(num);
+  
+      // Status dot (only for non-past dates)
+      if (state !== 'past') {
+        const dot = document.createElement('div');
+        dot.className = 'cal-day-dot';
+        cell.appendChild(dot);
+      }
+  
+      // Make available/booked dates clickable
+      if (state === 'available' || state === 'booked') {
+        cell.style.cursor = 'pointer';
+        cell.addEventListener('click', (e) => {
+          e.stopPropagation();
+          selectDate(cell, key, d, state);
+        });
+      }
+  
+      grid.appendChild(cell);
+    }
   }
-}
-
-function selectDate(cell, key, d, state) {
-  if (selectedCell) selectedCell.classList.remove('selected');
-  selectedCell = cell;
-  cell.classList.add('selected');
-
-  const detail      = document.getElementById('tv-cal-detail');
-  const placeholder = document.getElementById('tv-cal-placeholder');
-  const dateEl      = document.getElementById('tv-detail-date');
-  const dot         = document.getElementById('tv-status-dot');
-  const statusEl    = document.getElementById('tv-status-text');
-  const noteEl      = document.getElementById('tv-detail-note');
-  const ctaEl       = document.getElementById('tv-detail-cta');
-
-  const dateObj = new Date(viewYear, viewMonth, d);
-  dateEl.textContent = dateObj.toLocaleDateString('en-GB', {
-    weekday: 'long', day: 'numeric', month: 'long', year: 'numeric'
-  });
-
-  if (state === 'available') {
-    dot.className        = 'cal-status-dot status-avail';
-    statusEl.textContent = 'Available for bookings';
-    noteEl.textContent   = "This date is open. Click below to jump to the booking form — the date will be pre-filled for you.";
-    ctaEl.style.display  = 'inline-flex';
+  
+  function selectDate(cell, key, d, state) {
+    // Clear previous selection
+    if (selectedCell) {
+      selectedCell.classList.remove('selected');
+    }
+    selectedCell = cell;
+    cell.classList.add('selected');
+  
+    const detail = document.getElementById('tv-cal-detail');
+    const placeholder = document.getElementById('tv-cal-placeholder');
+    const dateEl = document.getElementById('tv-detail-date');
+    const dot = document.getElementById('tv-status-dot');
+    const statusEl = document.getElementById('tv-status-text');
+    const noteEl = document.getElementById('tv-detail-note');
+    const ctaEl = document.getElementById('tv-detail-cta');
+  
+    const dateObj = new Date(viewYear, viewMonth, d);
+    dateEl.textContent = dateObj.toLocaleDateString('en-GB', {
+      weekday: 'long',
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric'
+    });
+  
+    // Find the date input in the booking form
     const dateInput = document.querySelector('#booking-form input[type="date"]');
-    if (dateInput) dateInput.value = key;
-  } else {
-    const label = availability[key]?.label || '';
-    dot.className        = 'cal-status-dot status-booked';
-    statusEl.textContent = 'Already booked';
-    noteEl.textContent   = label
-      ? `This date is fully booked — ${label}. Please browse other dates or contact us.`
-      : 'This date is fully booked. Please browse other available dates.';
-    ctaEl.style.display = 'none';
+  
+    if (state === 'available') {
+      dot.className = 'cal-status-dot status-avail';
+      statusEl.textContent = 'Available for bookings';
+      noteEl.textContent = "This date is open. Click below to jump to the booking form — the date will be pre-filled for you.";
+      ctaEl.style.display = 'inline-flex';
+      if (dateInput) {
+        dateInput.value = key;
+      }
+      // Update CTA link to scroll to form
+      ctaEl.onclick = (e) => {
+        e.preventDefault();
+        document.getElementById('booking-form-section').scrollIntoView({ behavior: 'smooth' });
+      };
+    } else {
+      const label = availability[key]?.label || '';
+      dot.className = 'cal-status-dot status-booked';
+      statusEl.textContent = 'Already booked';
+      noteEl.textContent = label ?
+        `This date is fully booked — ${label}. Please browse other dates or contact us.` :
+        'This date is fully booked. Please browse other available dates.';
+      ctaEl.style.display = 'none';
+    }
+  
+    if (detail) detail.classList.add('visible');
+    if (placeholder) placeholder.style.display = 'none';
   }
-
-  if (detail)      detail.classList.add('visible');
-  if (placeholder) placeholder.style.display = 'none';
-}
-
-function clearSelection() {
-  if (selectedCell) { selectedCell.classList.remove('selected'); selectedCell = null; }
-  const d = document.getElementById('tv-cal-detail');
-  const p = document.getElementById('tv-cal-placeholder');
-  if (d) d.classList.remove('visible');
-  if (p) p.style.display = '';
-}
-
-document.getElementById('tv-prev').addEventListener('click', () => {
-  viewMonth--; if (viewMonth < 0) { viewMonth = 11; viewYear--; }
-  clearSelection(); renderCalendar();
-});
-document.getElementById('tv-next').addEventListener('click', () => {
-  viewMonth++; if (viewMonth > 11) { viewMonth = 0; viewYear++; }
-  clearSelection(); renderCalendar();
-});
-
-// ── FIRESTORE REAL-TIME LISTENER ──────────────────────
-// Shows loading state, then renders with live data
-const header = document.getElementById('tv-cal-month');
-if (header) header.textContent = 'Loading…';
-
-onSnapshot(collection(db, 'availability'), (snapshot) => {
-  availability = {};
-  snapshot.forEach(doc => { availability[doc.id] = doc.data(); });
-  renderCalendar();
-}, (error) => {
-  console.error('Firestore error:', error);
-  if (header) header.textContent = 'Could not load — please refresh';
-});
-
-</script>
+  
+  function clearSelection() {
+    if (selectedCell) {
+      selectedCell.classList.remove('selected');
+      selectedCell = null;
+    }
+    const detail = document.getElementById('tv-cal-detail');
+    const placeholder = document.getElementById('tv-cal-placeholder');
+    if (detail) detail.classList.remove('visible');
+    if (placeholder) placeholder.style.display = '';
+  }
+  
+  // --- NAVIGATION BUTTONS ---
+  document.getElementById('tv-prev').addEventListener('click', () => {
+    viewMonth--;
+    if (viewMonth < 0) {
+      viewMonth = 11;
+      viewYear--;
+    }
+    clearSelection();
+    renderCalendar();
+  });
+  
+  document.getElementById('tv-next').addEventListener('click', () => {
+    viewMonth++;
+    if (viewMonth > 11) {
+      viewMonth = 0;
+      viewYear++;
+    }
+    clearSelection();
+    renderCalendar();
+  });
+  
+  // --- FIRESTORE REAL-TIME LISTENER ---
+  let isFirstLoad = true;
+  
+  function startFirestoreListener() {
+    const header = document.getElementById('tv-cal-month');
+    if (header) header.textContent = 'Loading...';
+  
+    onSnapshot(collection(db, 'availability'), (snapshot) => {
+      availability = {};
+      snapshot.forEach(doc => {
+        availability[doc.id] = doc.data();
+      });
+      
+      // Render calendar with data
+      renderCalendar();
+      
+      // If this is the first load and we have data, hide loading state
+      if (isFirstLoad) {
+        isFirstLoad = false;
+        const placeholder = document.getElementById('tv-cal-placeholder');
+        if (placeholder) {
+          placeholder.textContent = 'Select a date on the calendar to see its availability details.';
+        }
+      }
+    }, (error) => {
+      console.error('Firestore error:', error);
+      const header = document.getElementById('tv-cal-month');
+      if (header) header.textContent = 'Could not load — refresh page';
+    });
+  }
+  
+  // --- INITIALIZE ---
+  // Wait for DOM to be ready before starting
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', startFirestoreListener);
+  } else {
+    startFirestoreListener();
+  }
+  
+  // Also handle the CTA link in detail panel
+  document.addEventListener('DOMContentLoaded', () => {
+    const cta = document.getElementById('tv-detail-cta');
+    if (cta) {
+      cta.addEventListener('click', (e) => {
+        e.preventDefault();
+        document.getElementById('booking-form-section').scrollIntoView({ behavior: 'smooth' });
+      });
+    }
+  });
+  
+  </script>
 
 </body>
 </html>
