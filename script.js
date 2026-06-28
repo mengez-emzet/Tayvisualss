@@ -23,75 +23,72 @@
    })();
 
 
-   /* ─── DOM READY ─────────────────────────────────── */
-   document.addEventListener('DOMContentLoaded', () => {
-     initLoader();
-     initCursor();
-     initNavbar();
-     initMobileMenu();
-     initActiveNavLink(); // NEW: Sets active state for current page
-     initHeroCanvas();
-     initScrollReveal();
-     initFAQ();
-     initContactForm();
-     initBookingForm();
-     initProjectFilter();
-     initStatCounter();
-     initTicker();
-     initVideoBackground();
-   });
-   
+  /* ─── DOM READY ─────────────────────────────────── */
+  document.addEventListener('DOMContentLoaded', () => {
+    initLoader();
+    initCursor();
+    initNavbar();
+    initMobileMenu();
+    initActiveNavLink(); // NEW: Sets active state for current page
+    initHeroCanvas();
+    initScrollReveal();
+    initFAQ();
+    initContactForm();
+    initBookingForm();
+    initProjectFilter();
+    initStatCounter();
+    initTicker();
+    initVideoBackground();
+  });
+  
 /* ─── PAGE LOADER WITH PROGRESS ──────────────────────── */
 
 function initLoader() {
-  const loader = document.getElementById('page-loader');
-  const percentElement = document.getElementById('loader-percent');
-  
-  if (!loader) return;
-  
-  let progress = 0;
-  const duration = 2000; // 2 seconds
-  const startTime = performance.now();
-  
-  // Update percentage counter
-  function updateProgress() {
-    const elapsed = performance.now() - startTime;
-    const rawProgress = Math.min(elapsed / duration, 1);
-    
-    // Easing function for natural feel
-    const eased = 1 - Math.pow(1 - rawProgress, 3);
-    progress = Math.round(eased * 100);
-    
-    if (percentElement) {
-      percentElement.textContent = progress;
-    }
-    
-    if (rawProgress < 1) {
-      requestAnimationFrame(updateProgress);
-    }
-  }
-  
-  // Start progress animation
-  requestAnimationFrame(updateProgress);
-  
-  // Hide loader after animation completes
-  setTimeout(() => {
-    loader.classList.add('hidden');
-    setTimeout(() => {
-      loader.remove();
-      triggerHeroAnimations();
-    }, 800);
-  }, 2600); // 2s animation + 0.6s buffer
+ const loader      = document.getElementById('page-loader');
+ const percentEl   = document.getElementById('loader-percent');
+ const progressBar = document.querySelector('.loader-bar-progress');
+
+ if (!loader) return;
+
+ let progress  = 0;
+ const duration  = 2000;
+ const startTime = performance.now();
+
+ function updateProgress() {
+   const elapsed    = performance.now() - startTime;
+   const raw        = Math.min(elapsed / duration, 1);
+   const eased      = 1 - Math.pow(1 - raw, 3);
+   progress         = Math.round(eased * 100);
+
+   if (percentEl)   percentEl.textContent  = progress;
+   if (progressBar) progressBar.style.width = progress + '%';
+
+   if (raw < 1) {
+     requestAnimationFrame(updateProgress);
+   }
+ }
+
+ requestAnimationFrame(updateProgress);
+
+ // Hide loader — with a hard fallback in case transitions fail
+ setTimeout(() => {
+   loader.classList.add('hidden');
+   // Force-remove after transition duration in case classList add doesn't trigger
+   setTimeout(() => {
+     if (loader.parentNode) loader.remove();
+     triggerHeroAnimations();
+   }, 900);
+ }, 2400);
 }
 
 function triggerHeroAnimations() {
-  const heroEls = document.querySelectorAll('.hero-animate');
-  heroEls.forEach((el, i) => {
-    setTimeout(() => {
-      el.style.opacity = '1';
-      el.style.transform = 'none';
-    }, i * 160);
-  });
+ const heroEls = document.querySelectorAll('.hero-animate');
+ heroEls.forEach((el, i) => {
+   setTimeout(() => {
+     el.style.opacity = '1';
+     el.style.transform = 'none';
+   }, i * 160);
+ });
 }
    
    /* ─── CUSTOM CURSOR ──────────────────────────────── */
