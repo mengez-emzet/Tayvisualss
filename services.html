@@ -229,31 +229,6 @@
               <a class="svc-sub-cta" href="book.html">Book a Production <span>→</span></a>
             </div>
           </div>
-   
-          <!-- Creative Direction & Docs -->
-          <!-- <div class="svc-sub-card svc-sub-card-dark reveal from-right reveal-delay-2">
-            <div class="svc-sub-num">04</div>
-            <div class="svc-sub-img-wrap">
-              <img src="images/svc-docu.jpg" alt="Documentary & Creative Direction" class="svc-sub-img" loading="lazy" draggable="false" data-no-context="true" />
-              <div class="svc-sub-video-badge">
-                <svg viewBox="0 0 24 24" fill="currentColor" width="10" height="10"><polygon points="5,3 19,12 5,21"/></svg>
-                Video
-              </div>
-            </div>
-            <div class="svc-sub-body">
-              <h3 class="svc-sub-title">Documentary & Creative Direction</h3>
-              <p class="svc-sub-desc">Long-form storytelling and complete campaign direction. We conceptualise, plan, shoot, and deliver — a single creative partner who speaks your language from the first brief to the final export.</p>
-              <ul class="svc-sub-features">
-                <li>Short documentary films</li>
-                <li>Full campaign visual direction</li>
-                <li>Mood board & pre-production</li>
-                <li>Drone & aerial coverage</li>
-                <li>Post-production & colour grade</li>
-              </ul>
-              <a class="svc-sub-cta" href="book.html">Book a Production <span>→</span></a>
-            </div>
-          </div> -->
-   
         </div>
       </div>
    
@@ -551,8 +526,8 @@
 
 <script src="script.js"></script>
 <script>
-  /* ── Services tab switcher + scroll spy ──────────── */
- /* ── Services tab switcher + scroll spy ──────────── */
+/* ── Services tab switcher + scroll spy ──────────── */
+/* ── Services tab switcher + scroll spy ──────────── */
 (function() {
   const tabs = document.querySelectorAll('.svc-tab');
   const sections = { 
@@ -565,42 +540,42 @@
     tab.addEventListener('click', () => {
       const target = sections[tab.dataset.target];
       if (!target) return;
-      const offset = document.getElementById('svc-tabs').offsetHeight +
-                     parseInt(getComputedStyle(document.documentElement).getPropertyValue('--nav-height')) || 76;
-      const top = target.getBoundingClientRect().top + window.scrollY - offset - 20;
+      const tabsHeight = document.getElementById('svc-tabs').offsetHeight;
+      const navHeight = document.getElementById('navbar')?.offsetHeight || 76;
+      const offset = tabsHeight + navHeight + 20;
+      const top = target.getBoundingClientRect().top + window.scrollY - offset;
       window.scrollTo({ top, behavior: 'smooth' });
     });
   });
   
   // Scroll spy — highlight active tab as user scrolls
-  const tabsEl = document.getElementById('svc-tabs');
-  const navH = () => document.getElementById('navbar')?.offsetHeight || 76;
-  const tabsH = () => tabsEl?.offsetHeight || 0;
-  const offset = () => navH() + tabsH() + 40;
-  
   function updateActiveTab() {
-  let current = 'photography';
-  let minDistance = Infinity;
-  
-  Object.entries(sections).forEach(([key, el]) => {
-    if (!el) return;
-    const distance = el.getBoundingClientRect().top - offset();
-    // Only consider sections that are at or near the top
-    if (distance < 100 && distance > -200) {
+    const tabsEl = document.getElementById('svc-tabs');
+    const navHeight = document.getElementById('navbar')?.offsetHeight || 76;
+    const tabsHeight = tabsEl?.offsetHeight || 0;
+    const offset = navHeight + tabsHeight + 40;
+    
+    let activeSection = 'videography';
+    let minDistance = Infinity;
+    
+    Object.entries(sections).forEach(([key, el]) => {
+      if (!el) return;
+      const rect = el.getBoundingClientRect();
+      const distance = rect.top - offset;
+      
+      // If this section is the closest to the offset position
       if (Math.abs(distance) < Math.abs(minDistance)) {
         minDistance = distance;
-        current = key;
+        activeSection = key;
       }
-    }
-  });
-  
-  tabs.forEach(tab => {
-    tab.classList.toggle('active', tab.dataset.target === current);
-  });
-}
+    });
+    
+    tabs.forEach(tab => {
+      tab.classList.toggle('active', tab.dataset.target === activeSection);
+    });
+  }
   
   window.addEventListener('scroll', updateActiveTab, { passive: true });
-  // Also update on resize
   window.addEventListener('resize', updateActiveTab, { passive: true });
   updateActiveTab();
 })();
