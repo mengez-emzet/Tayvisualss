@@ -2409,7 +2409,7 @@ body::after {
     cursor: pointer;
   }
   .cal-day.unavailable {
-    color: rgba(255,255,255,0.1);
+    color: var(--off-white);
     text-decoration: line-through;
     border-color: red;
   }

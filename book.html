@@ -528,7 +528,7 @@
     if (state === 'available') {
       dot.className = 'cal-status-dot status-avail';
       statusEl.textContent = 'Available for bookings';
-      noteEl.textContent = "This date is open. Click below to jump to the booking form — the date will be pre-filled for you.";
+      noteEl.textContent = "This date is open. Click below to jump to the booking form.";
       ctaEl.style.display = 'inline-flex';
       if (dateInput) {
         dateInput.value = key;
@@ -543,7 +543,7 @@
       dot.className = 'cal-status-dot status-booked';
       statusEl.textContent = 'Already booked';
       noteEl.textContent = label ?
-        `This date is fully booked — ${label}. Please browse other dates or contact us.` :
+        `This date is fully booked for a ${label}. Please browse other dates or contact us.` :
         'This date is fully booked. Please browse other available dates.';
       ctaEl.style.display = 'none';
     }
