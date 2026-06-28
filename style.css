@@ -2404,13 +2404,14 @@ body::after {
     color: var(--white);
   }
   .cal-day.booked {
-    background: rgba(255,255,255,0.05);
-    color: rgb(39, 211, 237);
+    background: rgb(39, 211, 237);
+    color: var(--black);
     cursor: pointer;
   }
   .cal-day.unavailable {
     color: rgba(255,255,255,0.1);
     text-decoration: line-through;
+    border-color: red;
   }
   .cal-day.selected {
     background: var(--white) !important;
