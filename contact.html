@@ -183,11 +183,11 @@
               <label class="form-label">Your Message</label>
               <textarea class="form-textarea" placeholder="Tell us about your project, vision, or any questions you have..." required></textarea>
             </div>
-                          <!-- ─── HONEYPOT — hidden from humans, catches bots ── -->
-              <div class="hp-field" aria-hidden="true">
-                <input type="text" name="website" tabindex="-1" autocomplete="off" />
+<!-- ─── HONEYPOT — hidden from humans, catches bots ── -->
+              <div style="position: absolute; left: -9999px; top: -9999px; opacity: 0; pointer-events: none;" aria-hidden="true">
+                  <input type="text" name="website" tabindex="-1" autocomplete="off" />
               </div>
-<button type="submit" class="form-submit">
+              <button type="submit" class="form-submit">
               <span>Send Message</span>
               <span>→</span>
             </button>

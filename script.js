@@ -40,6 +40,7 @@
     initStatCounter();
     initTicker();
     initVideoBackground();
+    initCalendar();
   });
   
 /* ─── PAGE LOADER WITH PROGRESS ──────────────────────── */
@@ -1006,3 +1007,205 @@ function initShowcase() {
      hero.style.opacity = 1 - scrolled / 500;
    }, { passive: true });
 
+   /* ─── BOOKING CALENDAR (FIREBASE) ────────────────── */
+async function initCalendar() {
+  const calGrid = document.getElementById('tv-cal-grid');
+  if (!calGrid) return; // Exit if not on the booking page
+
+  try {
+    // Dynamically load Firebase so it doesn't break standard script execution
+    const { initializeApp } = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js");
+    const { getFirestore, collection, onSnapshot } = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js");
+
+    const FIREBASE_CONFIG = {
+      apiKey: "AIzaSyAjKF0Iy6okAFVG-nt04ZOJXHcW4nHWHjY",
+      authDomain: "tayvisualss-web.firebaseapp.com",
+      projectId: "tayvisualss-web",
+      storageBucket: "tayvisualss-web.firebasestorage.app",
+      messagingSenderId: "702560378882",
+      appId: "1:702560378882:web:8b022ae84ee2461d81871b"
+    };
+
+    const app = initializeApp(FIREBASE_CONFIG);
+    const db = getFirestore(app);
+
+    const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June',
+      'July', 'August', 'September', 'October', 'November', 'December'
+    ];
+
+    const todayObj = new Date();
+    const todayYear = todayObj.getFullYear();
+    const todayMon = todayObj.getMonth();
+    const todayDay = todayObj.getDate();
+
+    let viewYear = todayYear;
+    let viewMonth = todayMon;
+    let selectedCell = null;
+    let availability = {};
+
+    function pad(n) { return String(n).padStart(2, '0'); }
+    function dateKey(y, m, d) { return `${y}-${pad(m + 1)}-${pad(d)}`; }
+
+    function getState(y, m, d) {
+      const key = dateKey(y, m, d);
+      const isPast = (y < todayYear) ||
+        (y === todayYear && m < todayMon) ||
+        (y === todayYear && m === todayMon && d < todayDay);
+      if (isPast) return 'past';
+      const entry = availability[key];
+      if (!entry) return 'available';
+      return entry.status;
+    }
+
+    function renderCalendar() {
+      const grid = document.getElementById('tv-cal-grid');
+      const header = document.getElementById('tv-cal-month');
+      if (!grid || !header) return;
+
+      header.textContent = `${MONTHS[viewMonth]} ${viewYear}`;
+
+      // Preserve Day of Week headers (Mon, Tue...)
+      const dowTexts = [];
+      grid.querySelectorAll('.cal-dow').forEach(el => dowTexts.push(el.textContent));
+      grid.innerHTML = '';
+      dowTexts.forEach(text => {
+        const dow = document.createElement('div');
+        dow.className = 'cal-dow';
+        dow.textContent = text;
+        grid.appendChild(dow);
+      });
+
+      // Calculate empty days before the 1st
+      let startDow = new Date(viewYear, viewMonth, 1).getDay();
+      startDow = (startDow === 0) ? 6 : startDow - 1;
+
+      for (let i = 0; i < startDow; i++) {
+        const blank = document.createElement('div');
+        blank.className = 'cal-day empty';
+        grid.appendChild(blank);
+      }
+
+      const daysInMonth = new Date(viewYear, viewMonth + 1, 0).getDate();
+      const todayKey = dateKey(todayYear, todayMon, todayDay);
+
+      for (let d = 1; d <= daysInMonth; d++) {
+        const state = getState(viewYear, viewMonth, d);
+        const key = dateKey(viewYear, viewMonth, d);
+        const cell = document.createElement('div');
+        cell.className = `cal-day ${state}`;
+        
+        if (key === todayKey && state !== 'past') cell.classList.add('today');
+
+        const num = document.createElement('div');
+        num.className = 'cal-day-num';
+        num.textContent = d;
+        cell.appendChild(num);
+
+        if (state !== 'past') {
+          const dot = document.createElement('div');
+          dot.className = 'cal-day-dot';
+          cell.appendChild(dot);
+        }
+
+        if (state === 'available' || state === 'booked') {
+          cell.style.cursor = 'pointer';
+          cell.addEventListener('click', (e) => {
+            e.stopPropagation();
+            selectDate(cell, key, d, state);
+          });
+        }
+
+        grid.appendChild(cell);
+      }
+    }
+
+    function selectDate(cell, key, d, state) {
+      if (selectedCell) selectedCell.classList.remove('selected');
+      selectedCell = cell;
+      cell.classList.add('selected');
+
+      const detail = document.getElementById('tv-cal-detail');
+      const placeholder = document.getElementById('tv-cal-placeholder');
+      const dateEl = document.getElementById('tv-detail-date');
+      const dot = document.getElementById('tv-status-dot');
+      const statusEl = document.getElementById('tv-status-text');
+      const noteEl = document.getElementById('tv-detail-note');
+      const ctaEl = document.getElementById('tv-detail-cta');
+
+      const dateObj = new Date(viewYear, viewMonth, d);
+      dateEl.textContent = dateObj.toLocaleDateString('en-GB', {
+        weekday: 'long', day: 'numeric', month: 'long', year: 'numeric'
+      });
+
+      const dateInput = document.querySelector('#booking-form input[type="date"]');
+
+      if (state === 'available') {
+        dot.className = 'cal-status-dot status-avail';
+        statusEl.textContent = 'Available for bookings';
+        noteEl.textContent = "This date is open. Click below to jump to the booking form.";
+        ctaEl.style.display = 'inline-flex';
+        if (dateInput) dateInput.value = key;
+        
+        ctaEl.onclick = (e) => {
+          e.preventDefault();
+          document.getElementById('booking-form-section').scrollIntoView({ behavior: 'smooth' });
+        };
+      } else {
+        const label = availability[key]?.label || '';
+        dot.className = 'cal-status-dot status-booked';
+        statusEl.textContent = 'Already booked';
+        noteEl.textContent = label ?
+          `This date is fully booked for a ${label}. Please browse other dates or contact us.` :
+          'This date is fully booked. Please browse other available dates.';
+        ctaEl.style.display = 'none';
+      }
+
+      if (detail) detail.classList.add('visible');
+      if (placeholder) placeholder.style.display = 'none';
+    }
+
+    function clearSelection() {
+      if (selectedCell) {
+        selectedCell.classList.remove('selected');
+        selectedCell = null;
+      }
+      const detail = document.getElementById('tv-cal-detail');
+      const placeholder = document.getElementById('tv-cal-placeholder');
+      if (detail) detail.classList.remove('visible');
+      if (placeholder) placeholder.style.display = '';
+    }
+
+    // Nav buttons
+    document.getElementById('tv-prev').addEventListener('click', () => {
+      viewMonth--;
+      if (viewMonth < 0) { viewMonth = 11; viewYear--; }
+      clearSelection();
+      renderCalendar();
+    });
+
+    document.getElementById('tv-next').addEventListener('click', () => {
+      viewMonth++;
+      if (viewMonth > 11) { viewMonth = 0; viewYear++; }
+      clearSelection();
+      renderCalendar();
+    });
+
+    // Start Firestore listener
+    const header = document.getElementById('tv-cal-month');
+    if (header) header.textContent = 'Loading...';
+
+    onSnapshot(collection(db, 'availability'), (snapshot) => {
+      availability = {};
+      snapshot.forEach(doc => {
+        availability[doc.id] = doc.data();
+      });
+      renderCalendar();
+    }, (error) => {
+      console.error('Firestore error:', error);
+      if (header) header.textContent = 'Could not load — refresh page';
+    });
+
+  } catch (err) {
+    console.error("Failed to initialize calendar:", err);
+  }
+}
