@@ -1751,24 +1751,40 @@ footer {
 }
 .footer-brand .nav-name { font-size: 1.6rem; display: block; margin-bottom: 16px; }
 .footer-brand p { font-size: 0.85rem; color: var(--silver); line-height: 1.7; max-width: 280px; }
+
+/* ─── FOOTER SOCIALS ─────────────────────────────── */
 .footer-social {
   display: flex;
   gap: 12px;
-  margin-top: 24px;
+  margin-top: 28px;
 }
+
 .footer-social a {
-  width: 36px; height: 36px;
+  width: 42px;
+  height: 42px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.7rem;
+  font-size: 1.1rem; /* Slightly larger icon */
   color: var(--silver);
-  transition: all var(--transition-fast);
-  font-family: var(--font-mono);
-  letter-spacing: 0;
-  border: none;
+  
+  /* The glass box */
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 4px; /* Square with slightly soft corners fits the UI */
+  
+  /* Smooth everything */
+  transition: all var(--transition);
 }
-.footer-social a:hover { border-color: var(--white); color: var(--white); }
+
+/* Hover State */
+.footer-social a:hover {
+  color: var(--black);
+  background: var(--white);
+  border-color: var(--white);
+  transform: translateY(-3px); /* Lifts up */
+  box-shadow: 0 8px 24px rgba(255, 255, 255, 0.15); /* Soft glow */
+}
 .footer-col h5 {
   font-family: var(--font-mono);
   font-size: 0.65rem;
