@@ -25,11 +25,12 @@
 
   /* ─── DOM READY ─────────────────────────────────── */
   document.addEventListener('DOMContentLoaded', () => {
+    initShowcase();   
     initLoader();
     initCursor();
     initNavbar();
     initMobileMenu();
-    initActiveNavLink(); // NEW: Sets active state for current page
+    initActiveNavLink();
     initHeroCanvas();
     initScrollReveal();
     initFAQ();
@@ -908,6 +909,81 @@ function triggerHeroAnimations() {
        video?.pause();
      }
    }
+
+   /* ─── AUTO-CHANGING SHOWCASE ─────────────────────────── */
+function initShowcase() {
+  document.querySelectorAll('.showcase-wrap').forEach(wrap => {
+    const stage = wrap.querySelector('.showcase');
+    const slides = Array.from(wrap.querySelectorAll('.showcase-slide'));
+    if (!stage || !slides.length) return;
+
+    const tabsBox = wrap.querySelector('.showcase-tabs');
+    const tabs = Array.from(wrap.querySelectorAll('.showcase-tab'));
+    const counter = wrap.querySelector('.showcase-counter');
+    const bar = wrap.querySelector('.showcase-progress span');
+    const delay = parseInt(stage.dataset.delay, 10) || 5500;
+    const pad = n => String(n).padStart(2, '0');
+    let current = 0, timer = null;
+
+    stage.style.setProperty('--delay', delay + 'ms');
+
+    function restartBar() {
+      if (!bar) return;
+      bar.style.animation = 'none';
+      void bar.offsetWidth;
+      bar.style.animation = '';
+    }
+
+    function go(n) {
+      slides[current].classList.remove('active');
+      if (tabs[current]) tabs[current].classList.remove('active');
+      current = (n + slides.length) % slides.length;
+      slides[current].classList.add('active');
+      if (tabs[current]) {
+        tabs[current].classList.add('active');
+        if (tabsBox) {
+          tabsBox.scrollTo({
+            left: tabs[current].offsetLeft - tabsBox.clientWidth / 2 + tabs[current].clientWidth / 2,
+            behavior: 'smooth'
+          });
+        }
+      }
+      if (counter) counter.innerHTML = '<b>' + pad(current + 1) + '</b> / ' + pad(slides.length);
+      restartBar();
+    }
+
+    function stop() { if (timer) { clearInterval(timer); timer = null; } }
+    function play() {
+      stop();
+      if (slides.length < 2) return;
+      timer = setInterval(() => go(current + 1), delay);
+    }
+
+    wrap.querySelector('.showcase-prev')?.addEventListener('click', () => { go(current - 1); play(); });
+    wrap.querySelector('.showcase-next')?.addEventListener('click', () => { go(current + 1); play(); });
+    tabs.forEach((tab, i) => tab.addEventListener('click', () => { go(i); play(); }));
+
+    // pause on hover (desktop)
+    stage.addEventListener('mouseenter', () => { stop(); stage.classList.add('paused'); });
+    stage.addEventListener('mouseleave', () => { stage.classList.remove('paused'); restartBar(); play(); });
+
+    // swipe (mobile)
+    let startX = 0, startY = 0;
+    stage.addEventListener('touchstart', e => {
+      startX = e.touches[0].clientX; startY = e.touches[0].clientY;
+    }, { passive: true });
+    stage.addEventListener('touchend', e => {
+      const dx = e.changedTouches[0].clientX - startX;
+      const dy = e.changedTouches[0].clientY - startY;
+      if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) { go(current + (dx < 0 ? 1 : -1)); play(); }
+    }, { passive: true });
+
+    document.addEventListener('visibilitychange', () => { document.hidden ? stop() : play(); });
+
+    go(0);
+    play();
+  });
+}
    
    /* ─── SMOOTH SECTION LINK ────────────────────────── */
    document.addEventListener('click', (e) => {
