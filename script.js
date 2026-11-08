@@ -591,8 +591,8 @@ function triggerHeroAnimations() {
      }
    }
    
-    /* ─── BOOKING FORM (SECURED + FIREBASE CHECK + WHATSAPP) ── */
-    function initBookingForm() {
+     /* ─── BOOKING FORM (SECURED + FIREBASE CHECK + WHATSAPP) ── */
+     function initBookingForm() {
       const form = document.getElementById('booking-form');
       if (!form) return;
  
@@ -602,11 +602,10 @@ function triggerHeroAnimations() {
         const adminLinkInput = document.getElementById('admin-link-field');
         if (adminLinkInput) {
           if (dateInput && dateInput.value) {
-            // This dynamically uses whatever domain the user is on (GitHub or Localhost)
             const baseUrl = window.location.origin + window.location.pathname.replace('book.html', '');
             adminLinkInput.value = `${baseUrl}admin.html?date=${dateInput.value}`;
           } else {
-            adminLinkInput.value = '';
+            adminLinkInput.value = 'No date selected';
           }
         }
       }
@@ -708,13 +707,20 @@ function triggerHeroAnimations() {
  
         btn.querySelector('span').textContent = 'Booking...';
         
-        // ── Prepare Data ──
+        // ── Prepare Data & Force Link update ──
+        updateAdminLink(); // Force update one last time before sending
         const formData = new FormData(form);
         const firstName = form.querySelector('input[name="firstName"]').value;
         const lastName = form.querySelector('input[name="lastName"]').value;
         const service = form.querySelector('select[name="service"]').value;
         const dateVal = dateInput ? dateInput.value : '';
         const dashboardLink = document.getElementById('admin-link-field').value;
+ 
+        // ── TRIGGER WHATSAPP IMMEDIATELY (To avoid popup blockers) ──
+        const waNumber = "263715222660"; // TEMPORARY TEST NUMBER
+        const waMessage = `Hi TayVisualss! I just submitted a booking request.\n\n*Name:* ${firstName} ${lastName}\n*Service:* ${service}\n*Date:* ${dateVal}\n\n*Review this booking:* ${dashboardLink}`;
+        const waUrl = `https://wa.me/${waNumber}?text=${encodeURIComponent(waMessage)}`;
+        window.open(waUrl, '_blank');
  
         // ── Submit to Formspree ──
         fetch(form.action, {
@@ -732,14 +738,6 @@ function triggerHeroAnimations() {
           btn.querySelector('span').textContent = 'Booked!';
           success.style.display = 'block';
           
-          // ── WHATSAPP REDIRECT ──
-          setTimeout(() => {
-            const waNumber = "263773920732";
-            const waMessage = `Hi TayVisualss! I just submitted a booking request.\n\n*Name:* ${firstName} ${lastName}\n*Service:* ${service}\n*Date:* ${dateVal}\n\n*Review this booking:* ${dashboardLink}`;
-            const waUrl = `https://wa.me/${waNumber}?text=${encodeURIComponent(waMessage)}`;
-            window.open(waUrl, '_blank');
-          }, 1000);
- 
           setTimeout(() => {
             success.style.display = 'none';
             btn.disabled = false;
