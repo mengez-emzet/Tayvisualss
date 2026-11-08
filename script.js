@@ -600,22 +600,49 @@ function triggerHeroAnimations() {
         function updateAdminLink() {
           const dateInput = form.querySelector('input[name="date"]');
           const adminLinkInput = document.getElementById('admin-link-field');
+          
           if (adminLinkInput) {
             if (dateInput && dateInput.value) {
+              // Grab the name and service (fallback to empty if not filled yet)
+              const fName = form.querySelector('input[name="firstName"]')?.value.trim() || '';
+              const lName = form.querySelector('input[name="lastName"]')?.value.trim() || '';
+              const svc = form.querySelector('select[name="service"]')?.value || '';
+              
+              // Combine them into a nice label: "Mengez Emzet - Music Videos"
+              let labelText = `${fName} ${lName}`.trim();
+              if (labelText && svc) labelText += ` — ${svc}`;
+              else if (svc) labelText = svc;
+              
               const baseUrl = window.location.origin + window.location.pathname.replace('book.html', '');
-              adminLinkInput.value = `${baseUrl}admin.html?date=${dateInput.value}`;
+              
+              // Encode the text so it's safe for the URL, and add it as '&label='
+              const encodedLabel = encodeURIComponent(labelText);
+              adminLinkInput.value = `${baseUrl}admin.html?date=${dateInput.value}&status=booked&label=${encodedLabel}`;
             } else {
               adminLinkInput.value = 'No date selected';
             }
           }
         }
    
-        const dateField = form.querySelector('input[name="date"]');
-        if (dateField) {
-          dateField.addEventListener('change', updateAdminLink);
-          dateField.addEventListener('input', updateAdminLink);
-          updateAdminLink(); 
-        }
+            // Update link when date changes
+     const dateField = form.querySelector('input[name="date"]');
+     if (dateField) {
+       dateField.addEventListener('change', updateAdminLink);
+       dateField.addEventListener('input', updateAdminLink);
+     }
+
+     // NEW: Update link when name or service changes
+     const nameFields = form.querySelectorAll('input[name="firstName"], input[name="lastName"]');
+     nameFields.forEach(field => {
+       field.addEventListener('input', updateAdminLink);
+     });
+     
+     const serviceField = form.querySelector('select[name="service"]');
+     if (serviceField) {
+       serviceField.addEventListener('change', updateAdminLink);
+     }
+
+     updateAdminLink(); // Run once on load
    
         // ── CSRF Token ──
         function generateCSRFToken() {

@@ -1051,44 +1051,45 @@ function clearAdminSelection() {
 }
 
 // ── AUTO-SELECT DATE FROM URL (Admin Link) ────────────
+// ── AUTO-SELECT DATE FROM URL (Admin Link) ────────────
 function checkUrlForDate() {
   const urlParams = new URLSearchParams(window.location.search);
   const dateParam = urlParams.get('date');
+  const statusParam = urlParams.get('status') || 'available';
+  const labelParam = urlParams.get('label') || ''; // Read the label from the URL
   
   if (dateParam) {
-    // dateParam will look like "2026-11-19"
     const parts = dateParam.split('-');
     if (parts.length === 3) {
       const y = parseInt(parts[0], 10);
-      const m = parseInt(parts[1], 10) - 1; // JS months are 0-indexed
+      const m = parseInt(parts[1], 10) - 1;
       const d = parseInt(parts[2], 10);
       
-      // Change the view to that month
       viewYear = y;
       viewMonth = m;
       
-      // We need to wait a fraction of a second for Firebase to load the data
-      // before we can select the cell.
       setTimeout(() => {
         renderAdminCalendar();
         
-        // Find the exact cell and click it
         const targetKey = dateParam;
         const cells = document.querySelectorAll('.admin-day');
         
         cells.forEach(cell => {
-          // We check if this cell matches the date
           const num = cell.querySelector('.admin-day-num')?.textContent;
           if (num && parseInt(num, 10) === d) {
-             const status = cell.classList.contains('booked') ? 'booked' : cell.classList.contains('unavailable') ? 'unavailable' : 'available';
-             // Trigger the click event programmatically
-             openEditPanel(cell, targetKey, d, status, '');
              
-             // Scroll to the edit panel on mobile
+             // 1. Open the edit panel (passing the label from the URL)
+             openEditPanel(cell, targetKey, d, statusParam, labelParam);
+             
+             // 2. Automatically click the "Booked" button
+             setActiveStatusOpt(statusParam);
+             updateLabelVisibility(statusParam);
+             
+             // 3. Scroll the panel into view on mobile
              document.querySelector('.admin-sidebar').scrollIntoView({ behavior: 'smooth' });
           }
         });
-      }, 800); // Wait 0.8 seconds for Firebase data to populate the calendar
+      }, 800);
     }
   }
 }
