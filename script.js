@@ -41,6 +41,19 @@
     initTicker();
     initVideoBackground();
     initCalendar();
+
+      // Close Modal Logic
+      const waModal = document.getElementById('wa-modal');
+      const waClose = document.getElementById('wa-modal-close');
+      if (waClose && waModal) {
+        waClose.addEventListener('click', () => {
+          waModal.classList.remove('active');
+        });
+        // Also close if they click outside the box
+        waModal.addEventListener('click', (e) => {
+          if (e.target === waModal) waModal.classList.remove('active');
+        });
+      }
   });
   
 /* ─── PAGE LOADER WITH PROGRESS ──────────────────────── */
@@ -701,11 +714,18 @@ function triggerHeroAnimations() {
           
           const finalDashboardLink = document.getElementById('admin-link-field').value || 'No link generated';
    
-          // ── 2. TRIGGER WHATSAPP ──
-          const waNumber = "263715222660"; // TEMPORARY TEST NUMBER
-          const waMessage = `Hi TayVisualss! I just submitted a booking request.\n\n*Name:* ${firstName} ${lastName}\n*Service:* ${service}\n*Date:* ${dateVal}\n\n*Review this booking:* ${finalDashboardLink}`;
-          const waUrl = `https://wa.me/${waNumber}?text=${encodeURIComponent(waMessage)}`;
-          window.open(waUrl, '_blank');
+               // ── 2. PREPARE WHATSAPP LINK (But don't open it yet) ──
+       const waNumber = "263715222660"; // TEMPORARY TEST NUMBER
+       const waMessage = `Hi TayVisualss! I just submitted a booking request.\n\n*Name:* ${firstName} ${lastName}\n*Service:* ${service}\n*Date:* ${dateVal}\n\n*Review this booking:* ${finalDashboardLink}`;
+       const waUrl = `https://wa.me/${waNumber}?text=${encodeURIComponent(waMessage)}`;
+       
+       // Set the link on the modal button
+       document.getElementById('wa-modal-btn').href = waUrl;
+       
+       // Open the custom modal
+       setTimeout(() => {
+         document.getElementById('wa-modal').classList.add('active');
+       }, 500);
    
           // ── 3. CHECK FIREBASE ──
           btn.disabled = true;

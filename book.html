@@ -273,7 +273,7 @@
             </button>
             
             <div class="form-error"></div>
-            <div class="form-success">✓ Booking request received! We'll contact you within 24 hours to confirm your session.</div>
+            <div class="form-success"><span style = "color: lightgreen";>✓ Booking request received! We'll contact you within 24 hours to confirm your session.</span></div>
           </form>
         </div>
 
@@ -569,5 +569,22 @@
     startFirestoreListener();
   }
 </script>
+
+<!-- ─── WHATSAPP PROMPT MODAL ─── -->
+<div id="wa-modal" class="wa-modal-overlay">
+  <div class="wa-modal-box">
+    <div class="wa-modal-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+    </div>
+    <h3 class="wa-modal-title">Request Received!</h3>
+    <p class="wa-modal-desc">Your booking request has been emailed to our team. To get a faster response, please send the details to us directly on WhatsApp.</p>
+    
+    <a href="#" id="wa-modal-btn" class="wa-modal-btn" target="_blank">
+      <i class="fa-brands fa-whatsapp"></i> Send via WhatsApp
+    </a>
+    
+    <button id="wa-modal-close" class="wa-modal-close">I'll do it later</button>
+  </div>
+</div>
 </body>
 </html>

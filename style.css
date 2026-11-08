@@ -2726,3 +2726,116 @@ body::after {
     .cal-day     { font-size: 0.72rem; }
     .cal-legend  { gap: 12px; }
   }
+
+  /* ═══════════════════════════════════════════════════
+   WHATSAPP PROMPT MODAL
+   ═══════════════════════════════════════════════════ */
+.wa-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 10, 10, 0.85);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.wa-modal-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.wa-modal-box {
+  background: var(--off-black);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 40px;
+  max-width: 440px;
+  width: 100%;
+  text-align: center;
+  transform: translateY(20px) scale(0.95);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+}
+
+.wa-modal-overlay.active .wa-modal-box {
+  transform: translateY(0) scale(1);
+}
+
+.wa-modal-icon {
+  width: 64px;
+  height: 64px;
+  background: rgba(80, 210, 120, 0.1);
+  color: #50d278;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 24px;
+}
+
+.wa-modal-icon svg {
+  width: 32px;
+  height: 32px;
+}
+
+.wa-modal-title {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  font-weight: 300;
+  color: var(--white);
+  margin-bottom: 12px;
+}
+
+.wa-modal-desc {
+  font-size: 0.9rem;
+  color: var(--silver);
+  line-height: 1.6;
+  margin-bottom: 32px;
+}
+
+.wa-modal-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  background: #25D366; /* WhatsApp Green */
+  color: var(--black);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 16px;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.wa-modal-btn:hover {
+  background: #1ebd56;
+  transform: translateY(-2px);
+}
+
+.wa-modal-btn i {
+  font-size: 1.2rem;
+}
+
+.wa-modal-close {
+  margin-top: 20px;
+  font-size: 0.75rem;
+  color: var(--light-grey);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  transition: color 0.2s ease;
+}
+
+.wa-modal-close:hover {
+  color: var(--white);
+}
