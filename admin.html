@@ -915,19 +915,14 @@ function renderAdminCalendar() {
 
 // ── EDIT PANEL ────────────────────────────────────────
 function openEditPanel(cell, key, d, status, label) {
-  if (selectedCell) selectedCell.classList.remove('selected-admin');
-  selectedCell = cell;
-  cell.classList.add('selected-admin');
-  selectedKey    = key;
-  selectedStatus = status;
-
-  const dateObj = new Date(viewYear, viewMonth, d);
-  document.getElementById('selected-date-display').textContent =
-    dateObj.toLocaleDateString('en-GB', { weekday:'long', day:'numeric', month:'long', year:'numeric' });
+  // ... (clearing previous selections) ...
 
   document.getElementById('no-selection-msg').style.display = 'none';
   document.getElementById('edit-panel').style.display       = 'block';
-  document.getElementById('booking-label').value            = label;
+  
+  // THIS IS THE LINE THAT FILLS THE BOX:
+  document.getElementById('booking-label').value            = label; 
+  
   document.getElementById('save-feedback').style.display    = 'none';
 
   setActiveStatusOpt(status);

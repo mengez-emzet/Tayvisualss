@@ -686,26 +686,19 @@ function triggerHeroAnimations() {
    
           let hasError = false;
           form.querySelectorAll('.form-input, .form-textarea').forEach(field => {
-            if (field.type === 'email' && !isValidEmail(field.value)) {
-              showError(errorEl, 'Please enter a valid email address.');
-              hasError = true;
-            } else if (field.type === 'tel') {
-              field.value = field.value.replace(/[^0-9+\s\-]/g, '');
-            } else if (field.type !== 'date' && field.type !== 'email' && field.type !== 'tel' && field.readOnly !== true) {
-              field.value = sanitize(field.value);
-            }
+            // ... validation logic
           });
           if (hasError) return;
    
-          // ── 1. CAPTURE DATA IMMEDIATELY ──
-          updateAdminLink(); 
+          // ── 1. FORCE UPDATE THE LINK HERE ──
+          updateAdminLink(); // <--- ADD THIS LINE
+          
           const dateInput = form.querySelector('input[name="date"]');
           const firstName = form.querySelector('input[name="firstName"]').value;
           const lastName = form.querySelector('input[name="lastName"]').value;
           const service = form.querySelector('select[name="service"]').value;
           const dateVal = dateInput ? dateInput.value : '';
           
-          // Save the link in a variable right now so form.reset() can't erase it
           const finalDashboardLink = document.getElementById('admin-link-field').value || 'No link generated';
    
           // ── 2. TRIGGER WHATSAPP ──
