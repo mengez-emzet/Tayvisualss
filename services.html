@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <meta name="description" content="TayVisualss — Premium photography & videography. We visualize the stories you imagine." />
-  <title>TayVisualss — Videography & Photography</title>
+  <meta name="description" content="TayVisualss — Premium photography & videography. Explore our services." />
+  <title>TayVisualss — Services</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <link rel="stylesheet" href="style.css" />
   <link rel="icon" href="assets/logo.jpeg" />
@@ -13,462 +13,349 @@
   <meta http-equiv="X-Content-Type-Options" content="nosniff" />
   <meta http-equiv="X-Frame-Options" content="DENY" />
   <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
-  <meta name="robots" content="noimageindex, noodp" />
 </head>
 <body>
 
-<!-- ════════════════════════════════════════════════
-     PAGE LOADER
-════════════════════════════════════════════════ -->
+<!-- ─── PAGE LOADER ─── -->
 <div id="page-loader">
-    <div class="loader-logo">Tayvisualss</div>
-    <div class="loader-bar-wrapper">
-      <div class="loader-bar">
-        <div class="loader-bar-progress"></div>
+  <div class="loader-logo">Tayvisualss</div>
+  <div class="loader-bar-wrapper">
+    <div class="loader-bar"><div class="loader-bar-progress"></div></div>
+    <div class="loader-percentage"><span id="loader-percent">0</span>%</div>
+  </div>
+</div>
+
+<div class="page-transition"></div>
+<div class="cursor-dot"></div>
+<div class="cursor-ring"></div>
+<div class="mobile-menu-overlay"></div>
+
+<!-- ─── MOBILE MENU ─── -->
+<nav class="mobile-menu">
+  <ul class="mobile-nav-links">
+    <li><a class="mobile-nav-link" href="index.html" data-page="home">Home</a></li>
+    <li><a class="mobile-nav-link" href="about.html" data-page="about">About</a></li>
+    <li><a class="mobile-nav-link active" href="services.html" data-page="services">Services</a></li>
+    <li><a class="mobile-nav-link" href="projects.html" data-page="projects">Projects</a></li>
+    <li><a class="mobile-nav-link" href="contact.html" data-page="contact">Contact</a></li>
+  </ul>
+  <a class="mobile-nav-cta" href="book.html" data-page="book">Book A Shot</a>
+  <p class="mobile-menu-footer">© 2026 Tayvisualss</p>
+</nav>
+
+<!-- ─── NAVBAR ─── -->
+<header id="navbar">
+  <div class="nav-inner">
+    <a class="nav-brand" href="index.html" data-page="home">
+      <div class="nav-logo-wrapper">
+        <picture class="nav-logo-picture">
+          <source srcset="assets/logo.jpeg" type="image/webp">
+          <source srcset="assets/logo.jpeg" type="image/png">
+          <img src="assets/logo.jpeg" alt="TayVisualss Logo" class="nav-logo-img" width="40" height="40" loading="lazy">
+        </picture>
       </div>
-      <div class="loader-percentage">
-        <span id="loader-percent">0</span>%
-      </div>
+      <span class="nav-name">Tayvisualss</span>
+    </a>
+
+    <ul class="nav-links">
+      <li><a class="nav-link" href="index.html" data-page="home">Home</a></li>
+      <li><a class="nav-link" href="about.html" data-page="about">About</a></li>
+      <li><a class="nav-link active" href="services.html" data-page="services">Services</a></li>
+      <li><a class="nav-link" href="projects.html" data-page="projects">Projects</a></li>
+      <li><a class="nav-link" href="contact.html" data-page="contact">Contact</a></li>
+      <li><a class="nav-cta" href="book.html" data-page="book">Book A Shot</a></li>
+    </ul>
+
+    <button class="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<main>
+  <!-- ─── HERO ─── -->
+  <div class="services-hero">
+    <div class="services-hero-content">
+      <span class="section-label reveal from-left">Our Expertise</span>
+      <h1 class="about-hero-title reveal from-bottom">
+        Visuals that <br><em>demand attention.</em>
+      </h1>
     </div>
   </div>
 
-<!-- ─── PAGE TRANSITION CURTAIN ────────────────────── -->
-<div class="page-transition"></div>
-
-<!-- ─── CUSTOM CURSOR ────────────────────────────────── -->
-<div class="cursor-dot"></div>
-<div class="cursor-ring"></div>
-
-<!-- ─── MOBILE MENU OVERLAY ─────────────────────────── -->
-<div class="mobile-menu-overlay"></div>
-
-<!-- ─── MOBILE MENU ──────────────────────────────────── -->
-<nav class="mobile-menu">
-    <ul class="mobile-nav-links">
-      <li><a class="mobile-nav-link" href="index.html" data-page="home">Home</a></li>
-      <li><a class="mobile-nav-link" href="about.html" data-page="about">About</a></li>
-      <li><a class="mobile-nav-link" href="services.html" data-page="services">Services</a></li>
-      <li><a class="mobile-nav-link" href="projects.html" data-page="projects">Projects</a></li>
-      <li><a class="mobile-nav-link" href="contact.html" data-page="contact">Contact</a></li>
-    </ul>
-    <a class="mobile-nav-cta" href="book.html" data-page="book">Book A Shot</a>
-    <p class="mobile-menu-footer">© 2026 TayVisualss</p>
-  </nav>
-
-<!-- ─── NAVBAR ───────────────────────────────────────── -->
-<header id="navbar">
-    <div class="nav-inner">
-      <a class="nav-brand" href="index.html" data-page="home">
-        <!-- ─── PICTURE LOGO ────────────────────────────────── -->
-        <div class="nav-logo-wrapper">
-          <picture class="nav-logo-picture">
-            <!-- WebP format (modern browsers) -->
-            <source 
-              srcset="assets/logo.jpeg" 
-              type="image/webp"
-            >
-            <!-- PNG fallback -->
-            <source 
-              srcset="assets/logo.jpeg" 
-              type="image/png"
-            >
-            <!-- SVG fallback (if you want to keep it) -->
-            <img 
-              src="assets/logo.jpeg" 
-              alt="TayVisualss Logo" 
-              class="nav-logo-img"
-              width="40"
-              height="40"
-              loading="lazy"
-            >
-          </picture>
-        </div>
-        <span class="nav-name">TayVisualss</span>
-      </a>
-  
-      <ul class="nav-links">
-        <li><a class="nav-link active" href="index.html" data-page="home">Home</a></li>
-        <li><a class="nav-link" href="about.html" data-page="about">About</a></li>
-        <li><a class="nav-link" href="services.html" data-page="services">Services</a></li>
-        <li><a class="nav-link" href="projects.html" data-page="projects">Projects</a></li>
-        <li><a class="nav-link" href="contact.html" data-page="contact">Contact</a></li>
-        <li><a class="nav-cta" href="book.html" data-page="book">Book A Shot</a></li>
-      </ul>
-  
-      <button class="hamburger" aria-label="Menu">
-        <span></span><span></span><span></span>
-      </button>
+  <!-- ─── STICKY TABS ─── -->
+  <div class="svc-tabs-wrap" id="svc-tabs">
+    <div class="svc-tabs-inner">
+      <button class="svc-tab active" data-target="photography">Photography</button>
+      <button class="svc-tab" data-target="videography">Videography</button>
+      <button class="svc-tab" data-target="hybrid">Hybrid & Events</button>
     </div>
-  </header>
+  </div>
 
-  <main>
- 
-    <!-- ─── HERO ─────────────────────────────────────────── -->
-    <div class="services-hero">
-      <div class="services-hero-content">
-        <span class="section-label reveal from-left">What We Offer</span>
-        <h1 class="about-hero-title reveal from-bottom">
-          Services crafted for
-          <em>your narrative.</em>
-        </h1>
+  <!-- ═══════════════════════════════════════════════════
+       PHOTOGRAPHY SECTION
+  ═══════════════════════════════════════════════════ -->
+  <section class="svc-category" id="photography">
+    <div class="svc-category-header">
+      <div class="svc-category-header-inner reveal from-left">
+        <span class="section-label">01 — Photography</span>
+        <h2 class="section-title">We find the frame<br>that <em>stops time</em>.</h2>
+        <p class="section-desc">Still images that carry weight long after the shoot ends. Deliberate, intentional, and cinematic.</p>
       </div>
     </div>
-   
-    <!-- ─── STICKY CATEGORY TABS ─────────────────────────── -->
-    <div class="svc-tabs-wrap" id="svc-tabs">
-      <div class="svc-tabs-inner">
-        <button class="svc-tab active" data-target="videography">
-          <svg viewBox="0 0 64 64" fill="none">
-            <rect x="8" y="18" width="32" height="28" rx="4"></rect>
-            <path d="M40 27L55 20V44L40 37V27Z"></path>
-            <circle cx="24" cy="32" r="7"></circle>
-            <path d="M17 11H31"></path>
-          </svg>
-          Videography
-        </button>
-        <button class="svc-tab" data-target="photography">
-          <svg viewBox="0 0 64 64" fill="none">
-            <rect x="10" y="17" width="44" height="32" rx="5"></rect>
-            <circle cx="32" cy="33" r="10"></circle>
-            <path d="M21 17L25 11H39L43 17"></path>
-            <path d="M47 24H48"></path>
-          </svg>
-          Photography
-        </button>
-      </div>
-    </div>
-   
-<!-- ═══════════════════════════════════════════════════
-         VIDEOGRAPHY CATEGORY
-    ═══════════════════════════════════════════════════ -->
-    <section class="svc-category" id="videography">
-   
-      <!-- Category header -->
-      <div class="svc-category-header" style="background:var(--off-black)">
-        <div class="svc-category-header-inner">
-          <div class="reveal from-right">
-            <span class="section-label">01 — Videography</span>
-            <h2 class="section-title">Motion that carries<br><em>feeling</em>.</h2>
-            <p class="section-desc">From the opening frame to the final cut, every video we produce is a cinematic experience driven by story, shaped by emotion, and finished to a standard that demands to be watched twice.</p>
-          </div>
-        </div>
-      </div>
-   
-      <!-- Sub-services grid -->
-      <div class="svc-sub-grid-wrap" style="background:var(--off-black)">
-        <div class="svc-sub-grid">
-   
-          <!-- Music Videos -->
-          <div class="svc-sub-card svc-sub-card-dark reveal from-left">
-            <div class="svc-sub-num">01</div>
-            <div class="svc-sub-img-wrap">
-              <img src="images/svc-music.jpg" alt="Music Video Production" class="svc-sub-img" loading="lazy" draggable="false" data-no-context="true" />
-              <div class="svc-sub-video-badge">
-                <svg viewBox="0 0 24 24" fill="currentColor" width="10" height="10"><polygon points="5,3 19,12 5,21"/></svg>
-                Video
-              </div>
-            </div>
-            <div class="svc-sub-body">
-              <h3 class="svc-sub-title">Music Videos</h3>
-              <p class="svc-sub-desc">We translate sound into vision. From concept to final grade, our music video productions bring depth, flair, and precision amplifying your art with images that match it.</p>
-              <ul class="svc-sub-features">
-                <li>Concept & treatment development</li>
-                <li>Performance & narrative films</li>
-                <li>Cinematic colour grading</li>
-                <li>Teaser & lyric videos</li>
-                <li>Behind-the-scenes content</li>
-              </ul>
-              <a class="svc-sub-cta" href="book.html">Book a Production <span>→</span></a>
-            </div>
-          </div>
-   
-          <!-- Wedding Films -->
-          <div class="svc-sub-card svc-sub-card-dark reveal from-right reveal-delay-1">
-            <div class="svc-sub-num">02</div>
-            <div class="svc-sub-img-wrap">
-              <img src="images/svc-wedding-film.jpg" alt="Wedding Videography" class="svc-sub-img" loading="lazy" draggable="false" data-no-context="true" />
-              <div class="svc-sub-video-badge">
-                <svg viewBox="0 0 24 24" fill="currentColor" width="10" height="10"><polygon points="5,3 19,12 5,21"/></svg>
-                Video
-              </div>
-            </div>
-            <div class="svc-sub-body">
-              <h3 class="svc-sub-title">Wedding Films</h3>
-              <p class="svc-sub-desc">A film of your wedding day that puts you back in the room every time you watch it. We capture the ceremony, the speeches, the quiet moments and make them last forever.</p>
-              <ul class="svc-sub-features">
-                <li>Full ceremony & reception coverage</li>
-                <li>Cinematic highlight film (5–10 min)</li>
-                <li>Full unedited footage</li>
-                <li>Drone aerial footage</li>
-                <li>Same-day edit (add-on)</li>
-              </ul>
-              <a class="svc-sub-cta" href="book.html">Book a Production <span>→</span></a>
-            </div>
-          </div>
-   
-          <!-- Brand & Corporate Video -->
-          <div class="svc-sub-card svc-sub-card-dark reveal from-left reveal-delay-1">
-            <div class="svc-sub-num">03</div>
-            <div class="svc-sub-img-wrap">
-              <img src="images/svc-brand-video.jpg" alt="Brand & Corporate Video" class="svc-sub-img" loading="lazy" draggable="false" data-no-context="true" />
-              <div class="svc-sub-video-badge">
-                <svg viewBox="0 0 24 24" fill="currentColor" width="10" height="10"><polygon points="5,3 19,12 5,21"/></svg>
-                Video
-              </div>
-            </div>
-            <div class="svc-sub-body">
-              <h3 class="svc-sub-title">Brand & Corporate Video</h3>
-              <p class="svc-sub-desc">Video content that builds trust and communicates value. Whether it's a brand story, product launch, or company profile, we make it look and feel premium.</p>
-              <ul class="svc-sub-features">
-                <li>Brand story & origin films</li>
-                <li>Product launch videos</li>
-                <li>Company profile & team films</li>
-                <li>Event recap & highlights</li>
-                <li>Social media reels & ads</li>
-              </ul>
-              <a class="svc-sub-cta" href="book.html">Book a Production <span>→</span></a>
-            </div>
-          </div>
-        </div>
-      </div>
-   
-      <!-- Videography CTA band -->
-      <div class="svc-category-cta svc-category-cta-dark reveal from-bottom">
-        <div class="svc-category-cta-inner">
-          <div>
-            <p class="svc-cta-label">Video productions from</p>
-            <p class="svc-cta-price">$499<span> / project</span></p>
-          </div>
-          <div class="svc-cta-btns">
-            <a class="btn-primary" href="book.html">
-              <span>Book A Production</span><span>→</span>
-            </a>
-            <a class="btn-secondary" href="contact.html">Ask a Question</a>
-          </div>
-        </div>
-      </div>
-   
-    </section>
-   
-    <!-- ─── CATEGORY DIVIDER ──────────────────────────── -->
-    <div class="svc-divider">
-      <div class="svc-divider-line"></div>
-      <span class="svc-divider-label">Also</span>
-      <div class="svc-divider-line"></div>
-    </div>
-   
-       <!-- ═══════════════════════════════════════════════════
-         PHOTOGRAPHY CATEGORY
-    ═══════════════════════════════════════════════════ -->
-    <section class="svc-category" id="photography">
-   
-      <!-- Category header -->
-      <div class="svc-category-header">
-        <div class="svc-category-header-inner">
-          <div class="reveal from-left">
-            <span class="section-label">02 — Photography</span>
-            <h2 class="section-title">We find the frame<br>that <em>stops time</em>.</h2>
-            <p class="section-desc">Every photograph we make is a deliberate act, light chosen, moment waited for, story considered. Still images that carry weight long after the shoot ends.</p>
-          </div>
-        </div>
-      </div>
-   
-      <!-- Sub-services grid -->
-      <div class="svc-sub-grid-wrap">
-        <div class="svc-sub-grid">
-   
-          <!-- Portrait & Lifestyle -->
-          <div class="svc-sub-card reveal from-left">
-            <div class="svc-sub-num">01</div>
-            <div class="svc-sub-img-wrap">
-              <img src="images/svc-portrait.jpg" alt="Portrait Photography" class="svc-sub-img" loading="lazy" draggable="false" data-no-context="true" />
-            </div>
-            <div class="svc-sub-body">
-              <h3 class="svc-sub-title">Portrait & Lifestyle</h3>
-              <p class="svc-sub-desc">Individuals, families, and personal brands. We create portraits that feel honest, relaxed, intentional, and quietly powerful.</p>
-              <ul class="svc-sub-features">
-                <li>Individual & couple sessions</li>
-                <li>Family & lifestyle shoots</li>
-                <li>Personal brand portraits</li>
-                <li>CV & professional headshots</li>
-                <li>Indoor & outdoor locations</li>
-              </ul>
-              <a class="svc-sub-cta" href="book.html">Book a Session <span>→</span></a>
-            </div>
-          </div>
-   
-          <!-- Editorial & Fashion -->
-          <div class="svc-sub-card reveal from-right reveal-delay-1">
-            <div class="svc-sub-num">02</div>
-            <div class="svc-sub-img-wrap">
-              <img src="images/tay2.jpg" alt="Editorial & Fashion Photography" class="svc-sub-img" loading="lazy" draggable="false" data-no-context="true" />
-            </div>
-            <div class="svc-sub-body">
-              <h3 class="svc-sub-title">Editorial & Fashion</h3>
-              <p class="svc-sub-desc">High concept imagery for magazines, lookbooks, and campaigns. Where fashion meets a cinematic eye and every frame is a statement.</p>
-              <ul class="svc-sub-features">
-                <li>Magazine & lookbook shoots</li>
-                <li>Fashion & apparel campaigns</li>
-                <li>Stylist & designer collaborations</li>
-                <li>Model portfolios (comp cards)</li>
-                <li>On-location & studio</li>
-              </ul>
-              <a class="svc-sub-cta" href="book.html">Book a Session <span>→</span></a>
-            </div>
-          </div>
-   
-          <!-- Weddings & Events (Photo) -->
-          <div class="svc-sub-card reveal from-left reveal-delay-1">
-            <div class="svc-sub-num">03</div>
-            <div class="svc-sub-img-wrap">
-              <img src="images/svc-wedding-photo.jpg" alt="Wedding Photography" class="svc-sub-img" loading="lazy" draggable="false" data-no-context="true" />
-            </div>
-            <div class="svc-sub-body">
-              <h3 class="svc-sub-title">Wedding & Event Photography</h3>
-              <p class="svc-sub-desc">Your most significant day, documented with artistry and discretion. We move quietly, miss nothing, and deliver a gallery you'll return to for decades.</p>
-              <ul class="svc-sub-features">
-                <li>Full wedding day coverage</li>
-                <li>Engagement & pre-wedding shoots</li>
-                <li>Corporate & private events</li>
-                <li>Graduation ceremonies</li>
-                <li>Same-day preview gallery</li>
-              </ul>
-              <a class="svc-sub-cta" href="book.html">Book a Session <span>→</span></a>
-            </div>
-          </div>
-   
-          <!-- Product & Commercial -->
-          <div class="svc-sub-card reveal from-right reveal-delay-2">
-            <div class="svc-sub-num">04</div>
-            <div class="svc-sub-img-wrap">
-              <img src="images/svc-product.jpg" alt="Product & Commercial Photography" class="svc-sub-img" loading="lazy" draggable="false" data-no-context="true" />
-            </div>
-            <div class="svc-sub-body">
-              <h3 class="svc-sub-title">Product & Commercial</h3>
-              <p class="svc-sub-desc">Still-life and product photography built to convert. Clean, precise, and styled to communicate quality — because what your product looks like is what it sells for.</p>
-              <ul class="svc-sub-features">
-                <li>E-commerce product photography</li>
-                <li>Luxury & lifestyle product scenes</li>
-                <li>Food & beverage photography</li>
-                <li>Brand & packaging shoots</li>
-                <li>360° product views</li>
-              </ul>
-              <a class="svc-sub-cta" href="book.html">Book a Session <span>→</span></a>
-            </div>
-          </div>
-   
-        </div>
-      </div>
-   
-      <!-- Photography CTA band -->
-      <div class="svc-category-cta reveal from-bottom">
-        <div class="svc-category-cta-inner">
-          <div>
-            <p class="svc-cta-label">Photography packages from</p>
-            <p class="svc-cta-price">$299<span> / session</span></p>
-          </div>
-          <div class="svc-cta-btns">
-            <a class="btn-primary" href="book.html">
-              <span>Book A Shot</span><span>→</span>
-            </a>
-            <a class="btn-secondary" href="contact.html">Ask a Question</a>
-          </div>
-        </div>
-      </div>
-   
-    </section> 
-   
-    <!-- ─── PRICING ────────────────────────────────────── -->
-    <div class="section-full pricing-section" style="padding:var(--section-pad) clamp(20px,6vw,80px)">
-      <div style="max-width:1400px;margin:0 auto">
-        <div class="reveal from-top" style="text-align:center;max-width:600px;margin:0 auto 60px">
-          <span class="section-label" style="justify-content:center">Investment</span>
-          <h2 class="section-title">Transparent <em>pricing</em>.</h2>
-          <p class="section-desc" style="margin:0 auto">Every package is a starting point. We build custom quotes for bespoke projects, just reach out.</p>
-        </div>
-   
-        <div class="pricing-grid">
-          <!-- ESSENTIAL -->
-          <div class="pricing-card reveal from-left">
-            <div class="pricing-tier">Essential</div>
-            <div class="pricing-price">
-              <span class="pricing-currency">$</span>
-              <span class="pricing-price-tag">299</span>
-            </div>
-            <p class="pricing-period">Starting from</p>
-            <p class="pricing-desc">Perfect for individuals, personal brands, and small businesses getting started with professional visuals.</p>
-            <div class="pricing-features">
-              <div class="pricing-feature"><div class="pricing-feature-check">✓</div><span>2-hour shoot session</span></div>
-              <div class="pricing-feature"><div class="pricing-feature-check">✓</div><span>30 edited high-res images</span></div>
-              <div class="pricing-feature"><div class="pricing-feature-check">✓</div><span>1 location of your choice</span></div>
-              <div class="pricing-feature"><div class="pricing-feature-check">✓</div><span>Online delivery gallery</span></div>
-              <div class="pricing-feature"><div class="pricing-feature-check">✓</div><span>7-day turnaround</span></div>
-            </div>
-            <a class="btn-pricing" href="book.html">Get Started</a>
-          </div>
-   
-          <!-- SIGNATURE -->
-          <div class="pricing-card featured reveal from-bottom reveal-delay-2">
-            <div class="pricing-badge">Most Popular</div>
-            <div class="pricing-tier">Signature</div>
-            <div class="pricing-price">
-              <span class="pricing-currency">$</span>
-              <span class="pricing-price-tag">699</span>
-            </div>
-            <p class="pricing-period">Starting from</p>
-            <p class="pricing-desc">Our most popular tier — ideal for brands, content creators, and professionals who want the complete experience.</p>
-            <div class="pricing-features">
-              <div class="pricing-feature"><div class="pricing-feature-check">✓</div><span>Half-day shoot (4 hours)</span></div>
-              <div class="pricing-feature"><div class="pricing-feature-check">✓</div><span>80+ edited images</span></div>
-              <div class="pricing-feature"><div class="pricing-feature-check">✓</div><span>Up to 3 locations</span></div>
-              <div class="pricing-feature"><div class="pricing-feature-check">✓</div><span>Creative direction included</span></div>
-              <div class="pricing-feature"><div class="pricing-feature-check">✓</div><span>Priority 5-day turnaround</span></div>
-              <div class="pricing-feature"><div class="pricing-feature-check">✓</div><span>Short video reel (60s)</span></div>
-            </div>
-            <a class="btn-pricing1" href="book.html">Book Now</a>
-          </div>
-   
-          <!-- PREMIERE -->
-          <div class="pricing-card reveal from-right">
-            <div class="pricing-tier">Premiere</div>
-            <div class="pricing-price">
-              <span class="pricing-currency">$</span>
-              <span class="pricing-price-tag">1,499</span>
-            </div>
-            <p class="pricing-period">Starting from</p>
-            <p class="pricing-desc">The full TayVisualss experience — for campaigns, events, and those who want everything handled with cinematic precision.</p>
-            <div class="pricing-features">
-              <div class="pricing-feature"><div class="pricing-feature-check">✓</div><span>Full-day shoot (8 hours)</span></div>
-              <div class="pricing-feature"><div class="pricing-feature-check">✓</div><span>Unlimited edited images</span></div>
-              <div class="pricing-feature"><div class="pricing-feature-check">✓</div><span>Multiple locations & setups</span></div>
-              <div class="pricing-feature"><div class="pricing-feature-check">✓</div><span>Full creative direction</span></div>
-              <div class="pricing-feature"><div class="pricing-feature-check">✓</div><span>Cinematic video (3–5 min)</span></div>
-              <div class="pricing-feature"><div class="pricing-feature-check">✓</div><span>Drone footage included</span></div>
-              <div class="pricing-feature"><div class="pricing-feature-check">✓</div><span>Dedicated project manager</span></div>
-            </div>
-            <a class="btn-pricing" href="book.html">Book Now</a>
-          </div>
-        </div>
-   
-        <p class="reveal from-bottom" style="text-align:center;margin-top:36px;font-size:0.8rem;color:var(--light-grey);font-family:var(--font-mono);letter-spacing:0.1em">
-          All prices in USD. Custom packages available — <a href="contact.html" style="color:var(--silver);text-decoration:underline;text-underline-offset:3px">contact us</a> for a tailored quote.
-        </p>
-      </div>
-    </div>
-   
-    <div class="cta-band">
-      <div class="cta-band-grain"></div>
-      <h2 class="cta-band-title reveal from-bottom">Not sure which package? <em>Let's talk.</em></h2>
-      <div class="cta-band-actions reveal from-bottom reveal-delay-2">
-        <a class="btn-dark" href="contact.html">Contact Us</a>
-        <a class="btn-outline-dark" href="book.html">Book A Shot</a>
-      </div>
-    </div>
-   
-  </main>
 
+    <div class="svc-new-grid">
+      <!-- Service 1 -->
+      <div class="svc-new-card reveal from-bottom">
+        <div class="svc-new-card-top">
+          <h3 class="svc-new-title">Photoshoot</h3>
+          <div class="svc-new-price">$150</div>
+        </div>
+        <p class="svc-new-desc">Studio and outdoor photography sessions.</p>
+        <a href="book.html" class="svc-new-btn">Book Now →</a>
+      </div>
+      <!-- Service 2 -->
+      <div class="svc-new-card reveal from-bottom reveal-delay-1">
+        <div class="svc-new-card-top">
+          <h3 class="svc-new-title">Birthday Shoots</h3>
+          <div class="svc-new-price">$120</div>
+        </div>
+        <p class="svc-new-desc">Birthday portraits, videos and celebration coverage.</p>
+        <a href="book.html" class="svc-new-btn">Book Now →</a>
+      </div>
+    </div>
+  </section>
 
-<!-- ─── FOOTER ───────────────────────────────────────── -->
+  <!-- ─── DIVIDER ─── -->
+  <div class="svc-divider">
+    <div class="svc-divider-line"></div>
+    <span class="svc-divider-label">Also</span>
+    <div class="svc-divider-line"></div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════
+       VIDEOGRAPHY SECTION
+  ═══════════════════════════════════════════════════ -->
+  <section class="svc-category" id="videography">
+    <div class="svc-category-header" style="background:var(--off-black)">
+      <div class="svc-category-header-inner reveal from-right">
+        <span class="section-label">02 — Videography</span>
+        <h2 class="section-title">Motion that carries<br><em>feeling</em>.</h2>
+        <p class="section-desc">From the opening frame to the final cut, every video is an experience.</p>
+      </div>
+    </div>
+
+    <div class="svc-new-grid" style="background:var(--off-black)">
+      <!-- 1 -->
+      <div class="svc-new-card reveal from-bottom">
+        <div class="svc-new-card-top">
+          <h3 class="svc-new-title">Music Videos</h3>
+          <div class="svc-new-price"> $350</div>
+        </div>
+        <p class="svc-new-desc">Performance, narrative and studio music video coverage.</p>
+        <a href="book.html" class="svc-new-btn">Book Now →</a>
+      </div>
+      <!-- 2 -->
+      <div class="svc-new-card reveal from-bottom reveal-delay-1">
+        <div class="svc-new-card-top">
+          <h3 class="svc-new-title">Short Films</h3>
+          <div class="svc-new-price">$400</div>
+        </div>
+        <p class="svc-new-desc">Cinematic short-form storytelling and film production.</p>
+        <a href="book.html" class="svc-new-btn">Book Now →</a>
+      </div>
+      <!-- 3 -->
+      <div class="svc-new-card reveal from-bottom reveal-delay-2">
+        <div class="svc-new-card-top">
+          <h3 class="svc-new-title">Documentaries</h3>
+          <div class="svc-new-price">$400</div>
+        </div>
+        <p class="svc-new-desc">Research-driven documentary capture and editing.</p>
+        <a href="book.html" class="svc-new-btn">Book Now →</a>
+      </div>
+      <!-- 4 -->
+      <div class="svc-new-card reveal from-bottom">
+        <div class="svc-new-card-top">
+          <h3 class="svc-new-title">Cinematic Videos</h3>
+          <div class="svc-new-price">$250</div>
+        </div>
+        <p class="svc-new-desc">High-end cinematic visuals for any story.</p>
+        <a href="book.html" class="svc-new-btn">Book Now →</a>
+      </div>
+      <!-- 5 -->
+      <div class="svc-new-card reveal from-bottom reveal-delay-1">
+        <div class="svc-new-card-top">
+          <h3 class="svc-new-title">Reels</h3>
+          <div class="svc-new-price">$100</div>
+        </div>
+        <p class="svc-new-desc">Short vertical videos for social platforms.</p>
+        <a href="book.html" class="svc-new-btn">Book Now →</a>
+      </div>
+      <!-- 6 -->
+      <div class="svc-new-card reveal from-bottom reveal-delay-2">
+        <div class="svc-new-card-top">
+          <h3 class="svc-new-title">Social Media Content</h3>
+          <div class="svc-new-price">$150</div>
+        </div>
+        <p class="svc-new-desc">Creative content packages for online campaigns.</p>
+        <a href="book.html" class="svc-new-btn">Book Now →</a>
+      </div>
+      <!-- 7 -->
+      <div class="svc-new-card reveal from-bottom">
+        <div class="svc-new-card-top">
+          <h3 class="svc-new-title">Web Series</h3>
+          <div class="svc-new-price">$400</div>
+        </div>
+        <p class="svc-new-desc">Episodic online content production.</p>
+        <a href="book.html" class="svc-new-btn">Book Now →</a>
+      </div>
+      <!-- 8 -->
+      <div class="svc-new-card reveal from-bottom reveal-delay-1">
+        <div class="svc-new-card-top">
+          <h3 class="svc-new-title">Commercials</h3>
+          <div class="svc-new-price">$300</div>
+        </div>
+        <p class="svc-new-desc">Advertising videos designed for conversion.</p>
+        <a href="book.html" class="svc-new-btn">Book Now →</a>
+      </div>
+      <!-- 9 -->
+      <div class="svc-new-card reveal from-bottom reveal-delay-2">
+        <div class="svc-new-card-top">
+          <h3 class="svc-new-title">Product Demos</h3>
+          <div class="svc-new-price">$200</div>
+        </div>
+        <p class="svc-new-desc">Clean product explainers and demonstration videos.</p>
+        <a href="book.html" class="svc-new-btn">Book Now →</a>
+      </div>
+      <!-- 10 -->
+      <div class="svc-new-card reveal from-bottom">
+        <div class="svc-new-card-top">
+          <h3 class="svc-new-title">Brand Videos</h3>
+          <div class="svc-new-price">$250</div>
+        </div>
+        <p class="svc-new-desc">Brand identity videos and client testimonials.</p>
+        <a href="book.html" class="svc-new-btn">Book Now →</a>
+      </div>
+      <!-- 11 -->
+      <div class="svc-new-card reveal from-bottom reveal-delay-1">
+        <div class="svc-new-card-top">
+          <h3 class="svc-new-title">Concerts & Performances</h3>
+          <div class="svc-new-price">$300</div>
+        </div>
+        <p class="svc-new-desc">Stage events, concerts and live performances.</p>
+        <a href="book.html" class="svc-new-btn">Book Now →</a>
+      </div>
+      <!-- 12 -->
+      <div class="svc-new-card reveal from-bottom reveal-delay-2">
+        <div class="svc-new-card-top">
+          <h3 class="svc-new-title">Mic Performances</h3>
+          <div class="svc-new-price">$100</div>
+        </div>
+        <p class="svc-new-desc">Single-performance videos and studio sessions.</p>
+        <a href="book.html" class="svc-new-btn">Book Now →</a>
+      </div>
+      <!-- 13 -->
+      <div class="svc-new-card reveal from-bottom">
+        <div class="svc-new-card-top">
+          <h3 class="svc-new-title">Podcasts</h3>
+          <div class="svc-new-price">$150</div>
+        </div>
+        <p class="svc-new-desc">Podcast filming, audio setup and short clips.</p>
+        <a href="book.html" class="svc-new-btn">Book Now →</a>
+      </div>
+      <!-- 14 -->
+      <div class="svc-new-card reveal from-bottom reveal-delay-1">
+        <div class="svc-new-card-top">
+          <h3 class="svc-new-title">Custom Videos</h3>
+          <div class="svc-new-price">$200</div>
+        </div>
+        <p class="svc-new-desc">Tailor-made content for unique projects.</p>
+        <a href="book.html" class="svc-new-btn">Book Now →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── DIVIDER ─── -->
+  <div class="svc-divider">
+    <div class="svc-divider-line"></div>
+    <span class="svc-divider-label">And</span>
+    <div class="svc-divider-line"></div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════
+       HYBRID / EVENTS SECTION
+  ═══════════════════════════════════════════════════ -->
+  <section class="svc-category" id="hybrid">
+    <div class="svc-category-header">
+      <div class="svc-category-header-inner reveal from-left">
+        <span class="section-label">03 — Hybrid & Events</span>
+        <h2 class="section-title">The complete<br><em>picture</em>.</h2>
+        <p class="section-desc">Why choose between photo and video? Our event coverage combines both for a full-sensory experience.</p>
+      </div>
+    </div>
+
+    <div class="svc-new-grid">
+      <!-- 1 -->
+      <div class="svc-new-card reveal from-bottom">
+        <div class="svc-new-card-top">
+          <h3 class="svc-new-title">Weddings</h3>
+          <div class="svc-new-price">$400</div>
+        </div>
+        <p class="svc-new-desc">Wedding highlight films and photography coverage.</p>
+        <a href="book.html" class="svc-new-btn">Book Now →</a>
+      </div>
+      <!-- 2 -->
+      <div class="svc-new-card reveal from-bottom reveal-delay-1">
+        <div class="svc-new-card-top">
+          <h3 class="svc-new-title">Lobola</h3>
+          <div class="svc-new-price">$300</div>
+        </div>
+        <p class="svc-new-desc">Traditional ceremony coverage with cinematic detail.</p>
+        <a href="book.html" class="svc-new-btn">Book Now →</a>
+      </div>
+      <!-- 3 -->
+      <div class="svc-new-card reveal from-bottom reveal-delay-2">
+        <div class="svc-new-card-top">
+          <h3 class="svc-new-title">Events</h3>
+          <div class="svc-new-price">$250</div>
+        </div>
+        <p class="svc-new-desc">Corporate events, launches and public gatherings.</p>
+        <a href="book.html" class="svc-new-btn">Book Now →</a>
+      </div>
+      <!-- 4 -->
+      <div class="svc-new-card reveal from-bottom">
+        <div class="svc-new-card-top">
+          <h3 class="svc-new-title">Exclusive Events</h3>
+          <div class="svc-new-price">$400</div>
+        </div>
+        <p class="svc-new-desc">Premium event coverage with priority delivery.</p>
+        <a href="book.html" class="svc-new-btn">Book Now →</a>
+      </div>
+      <!-- 5 -->
+      <div class="svc-new-card reveal from-bottom reveal-delay-1">
+        <div class="svc-new-card-top">
+          <h3 class="svc-new-title">Corporate Work</h3>
+          <div class="svc-new-price">$350</div>
+        </div>
+        <p class="svc-new-desc">Company profiles, adverts and professional brand stories.</p>
+        <a href="book.html" class="svc-new-btn">Book Now →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── CTA BAND ─── -->
+  <div class="cta-band">
+    <div class="cta-band-grain"></div>
+    <h2 class="cta-band-title reveal from-bottom">Not sure which service? <em>Let's talk.</em></h2>
+    <div class="cta-band-actions reveal from-bottom reveal-delay-2">
+      <a class="btn-dark" href="contact.html">Contact Us</a>
+      <a class="btn-outline-dark" href="book.html">Book A Shot</a>
+    </div>
+  </div>
+
+</main>
+
+<!-- ─── FOOTER ─── -->
 <footer>
   <div class="footer-inner">
     <div class="footer-top">
@@ -476,12 +363,11 @@
         <span class="nav-name">Tayvisualss</span>
         <p>We turn light into legacy. Premium photography and videography for brands, creatives, and moments that matter.</p>
         <div class="footer-social">
-          <a href="https://www.instagram.com/tayvisualss?igsh=bHJiNDJjOGJvYTNp" target="_blank" rel="noopener"title="Instagram"><i class="fa-brands fa-instagram"></i></a>
-          <a href="https://www.tiktok.com/@tayvisualss?_r=1&_t=ZS-97Zy0SLtEe8" target="_blank" rel="noopener"title="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+          <a href="https://www.instagram.com/tayvisualss" target="_blank" rel="noopener" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a href="https://www.tiktok.com/@tayvisualss" target="_blank" rel="noopener" title="TikTok"><i class="fa-brands fa-tiktok"></i></a>
           <a href="http://www.youtube.com/@tayvisualss" target="_blank" rel="noopener" title="YouTube"><i class="fa-brands fa-youtube"></i></a>
-          <a href="https://www.facebook.com/tayoffficial
-          " target="_blank" rel="noopener" title="Facebook"><i class="fa-brands fa-facebook"></i></a>
-          <a href="https://wa.me/263773920732" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+          <a href="https://www.facebook.com/tayoffficial" target="_blank" rel="noopener" title="Facebook"><i class="fa-brands fa-facebook"></i></a>
+          <a href="https://wa.me/263773920732" target="_blank" rel="noopener" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
         </div>
       </div>
  
@@ -496,11 +382,11 @@
  
       <div class="footer-col">
         <h5>Services</h5>
-        <a href="services.html" data-page="services">Photography</a>
-        <a href="services.html" data-page="services">Videography</a>
-        <a href="services.html" data-page="services">Music Videos</a>
-        <a href="services.html" data-page="services">Weddings</a>
-        <a href="services.html" data-page="services">Commercial</a>
+        <a href="services.html">Photography</a>
+        <a href="services.html">Videography</a>
+        <a href="services.html">Music Videos</a>
+        <a href="services.html">Weddings</a>
+        <a href="services.html">Commercial</a>
       </div>
  
       <div class="footer-col">
@@ -509,7 +395,7 @@
         <a href="+263 77 392 0732">+263 77 392 0732</a>
         <a>Gweru, Zimbabwe</a>
         <a href="privacy.html" style="color:var(--silver)">Privacy Policy</a>
-        <a href="book.html" data-page="book" style="margin-top:16px;color:var(--white);font-weight:600">Book A Shot →</a>
+        <a href="book.html" style="margin-top:16px;color:var(--white);font-weight:600">Book A Shot →</a>
       </div>
     </div>
  
@@ -527,16 +413,16 @@
 
 <script src="script.js"></script>
 <script>
-/* ── Services tab switcher + scroll spy ──────────── */
-/* ── Services tab switcher + scroll spy ──────────── */
+/* ─── CUSTOM SCROLL SPY FOR SERVICES ─── */
 (function() {
   const tabs = document.querySelectorAll('.svc-tab');
-  const sections = { 
-    photography: document.getElementById('photography'), 
-    videography: document.getElementById('videography') 
+  const sections = {
+    photography: document.getElementById('photography'),
+    videography: document.getElementById('videography'),
+    hybrid: document.getElementById('hybrid')
   };
   
-  // Click tab → smooth scroll to section
+  // Click logic
   tabs.forEach(tab => {
     tab.addEventListener('click', () => {
       const target = sections[tab.dataset.target];
@@ -549,24 +435,19 @@
     });
   });
   
-  // Scroll spy — highlight active tab as user scrolls
+  // Scroll spy logic
   function updateActiveTab() {
     const tabsEl = document.getElementById('svc-tabs');
     const navHeight = document.getElementById('navbar')?.offsetHeight || 76;
     const tabsHeight = tabsEl?.offsetHeight || 0;
-    const offset = navHeight + tabsHeight + 40;
+    const offset = navHeight + tabsHeight + 60;
     
-    let activeSection = 'videography';
-    let minDistance = Infinity;
+    let activeSection = 'photography';
     
     Object.entries(sections).forEach(([key, el]) => {
       if (!el) return;
       const rect = el.getBoundingClientRect();
-      const distance = rect.top - offset;
-      
-      // If this section is the closest to the offset position
-      if (Math.abs(distance) < Math.abs(minDistance)) {
-        minDistance = distance;
+      if (rect.top <= offset) {
         activeSection = key;
       }
     });
@@ -580,6 +461,6 @@
   window.addEventListener('resize', updateActiveTab, { passive: true });
   updateActiveTab();
 })();
-  </script>
+</script>
 </body>
 </html>

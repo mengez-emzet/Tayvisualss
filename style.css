@@ -1091,7 +1091,11 @@ canvas#hero-canvas {
 }
 .value-item-desc { font-size: 0.85rem; color: var(--silver); line-height: 1.7; }
 
-/* ─── SERVICES PAGE ──────────────────────────────── */
+/* ═══════════════════════════════════════════════════
+   SERVICES PAGE (NEW 3-CATEGORY LAYOUT)
+   ═══════════════════════════════════════════════════ */
+
+/* 1. Hero Section */
 .services-hero {
   min-height: 50vh;
   display: flex;
@@ -1101,174 +1105,234 @@ canvas#hero-canvas {
   border-bottom: 1px solid rgba(255,255,255,0.06);
 }
 .services-hero-content { max-width: 1400px; margin: 0 auto; width: 100%; }
-.services-full-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 2px;
-  margin-top: 60px;
+
+/* 2. Sticky Category Tabs */
+.svc-tabs-wrap {
+  position: sticky;
+  top: var(--nav-height);
+  z-index: 90;
+  background: var(--black);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
 }
-.service-full-card {
-  background: var(--off-black);
-  border: 1px solid rgba(255,255,255,0.05);
-  padding: 52px 40px;
-  position: relative;
-  overflow: hidden;
-  transition: border-color var(--transition-fast);
+.svc-tabs-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 clamp(20px, 6vw, 80px);
+  display: flex;
+  gap: 0;
 }
-.service-full-card:hover { border-color: rgba(255,255,255,0.15); }
-.service-full-icon { font-size: 2.5rem; margin-bottom: 28px; filter: grayscale(1); }
-.service-full-title {
-  font-family: var(--font-display);
-  font-size: 1.8rem;
-  font-weight: 300;
-  color: var(--white);
-  margin-bottom: 16px;
-}
-.service-full-desc { font-size: 0.9rem; color: var(--silver); line-height: 1.75; margin-bottom: 28px; }
-.service-features { display: flex; flex-direction: column; gap: 10px; }
-.service-feature {
+.svc-tab {
   display: flex;
   align-items: center;
-  gap: 10px;
-  font-size: 0.83rem;
-  color: var(--silver);
-}
-.service-feature::before {
-  content: '';
-  width: 14px; height: 1px;
-  background: var(--light-grey);
-  flex-shrink: 0;
-}
-
-/* ─── PRICING ────────────────────────────────────── */
-.pricing-section { background: var(--off-black); }
-.pricing-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 2px;
-  margin-top: 60px;
-}
-.pricing-card {
-  background: var(--black);
-  border: 1px solid rgba(255,255,255,0.07);
-  padding: 52px 36px;
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  overflow: hidden;
-  transition: border-color var(--transition-fast), transform var(--transition-fast);
-}
-.pricing-card:hover { border-color: rgba(255,255,255,0.2); transform: translateY(-4px); }
-.pricing-card.featured {
-  background: var(--pure-white);
-  border-color: transparent;
-}
-.pricing-card.featured * { color: var(--black) !important; }
-.pricing-card.featured .pricing-price-tag { color: var(--black) !important; }
-.pricing-badge {
-  position: absolute;
-  top: 20px; right: 20px;
-  font-family: var(--font-mono);
-  font-size: 0.62rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--black);
-  background: var(--white);
-  padding: 4px 10px;
-}
-.pricing-card.featured .pricing-badge { background: var(--black); color: var(--white); }
-.pricing-tier {
+  gap: 8px;
   font-family: var(--font-mono);
   font-size: 0.7rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--light-grey);
-  margin-bottom: 16px;
+  background: none;
+  border: none;
+  padding: 20px 28px 20px 0;
+  cursor: pointer;
+  position: relative;
+  transition: color var(--transition-fast);
+  margin-right: 32px;
 }
-.pricing-price {
-  display: flex;
-  align-items: baseline;
-  gap: 4px;
-  margin-bottom: 8px;
+.svc-tab::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--white);
+  transition: width var(--transition);
 }
-.pricing-currency {
-  font-family: var(--font-display);
-  font-size: 1.4rem;
-  font-weight: 400;
-  color: var(--silver);
-  align-self: flex-start;
-  margin-top: 8px;
+.svc-tab:hover { color: var(--silver); }
+.svc-tab.active { color: var(--white); }
+.svc-tab.active::after { width: 100%; }
+
+/* 3. Category Headers */
+.svc-category { border-bottom: 1px solid rgba(255,255,255,0.06); }
+.svc-category-header {
+  background: var(--black);
+  padding: var(--section-pad) clamp(20px, 6vw, 80px) 60px;
 }
-.pricing-price-tag {
-  font-family: var(--font-display);
-  font-size: 4rem;
-  font-weight: 300;
-  color: var(--white);
-  line-height: 1;
+.svc-category-header-inner {
+  max-width: 700px;
+  margin: 0 auto 0 0;
 }
-.pricing-period {
-  font-size: 0.78rem;
-  color: var(--light-grey);
-  margin-bottom: 8px;
+
+/* 4. The New 21-Item Grid */
+.svc-new-grid {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 clamp(20px, 6vw, 80px) var(--section-pad);
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 20px;
+  background: var(--black);
 }
-.pricing-desc {
-  font-size: 0.83rem;
-  color: var(--silver);
-  line-height: 1.6;
-  margin-bottom: 36px;
-  padding-bottom: 28px;
-  border-bottom: 1px solid rgba(255,255,255,0.08);
-}
-.pricing-card.featured .pricing-desc { border-color: rgba(0,0,0,0.1); }
-.pricing-features {
+#videography .svc-new-grid { background: var(--off-black); }
+
+/* 5. The Service Card */
+.svc-new-card {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 4px;
+  padding: 32px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  flex: 1;
-  margin-bottom: 40px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
-.pricing-feature {
+
+/* Hover glow line at top */
+.svc-new-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 0%; height: 2px;
+  background: var(--white);
+  transition: width 0.4s ease;
+}
+
+.svc-new-card:hover {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.svc-new-card:hover::before { width: 100%; }
+
+.svc-new-card-top {
   display: flex;
+  justify-content: space-between;
   align-items: flex-start;
-  gap: 10px;
-  font-size: 0.83rem;
-  color: var(--silver);
-  line-height: 1.5;
+  gap: 16px;
+  margin-bottom: 16px;
 }
-.pricing-feature-check {
-  width: 16px; height: 16px;
-  border: 1px solid rgba(255,255,255,0.2);
+
+.svc-new-price {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  color: var(--black);
+  background: var(--white);
+  padding: 6px 12px;
+  border-radius: 2px;
+  white-space: nowrap;
+  
+  /* The Tilt & Shadow */
+  transform: rotate(-6deg);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  
+  /* Ensures it floats above everything in the card */
+  z-index: 10;
+  pointer-events: none; /* Prevents the tag from blocking hover states */
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+}
+
+/* Optional: Make the tag straighten up slightly and glow when hovering the card */
+.svc-new-card:hover .svc-new-price {
+  transform: rotate(0deg) scale(1.05);
+  box-shadow: 0 6px 16px rgba(255, 255, 255, 0.2);
+}
+
+.svc-new-price {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  color: var(--black);
+  background: var(--white);
+  padding: 6px 12px;
+  border-radius: 2px;
+  white-space: nowrap;
+  
+  /* The Tilt & Shadow */
+  transform: rotate(-6deg);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  
+  /* Ensures it floats above everything in the card */
+  z-index: 10;
+  pointer-events: none; /* Prevents the tag from blocking hover states */
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+}
+
+/* Optional: Make the tag straighten up slightly and glow when hovering the card */
+.svc-new-card:hover .svc-new-price {
+  transform: rotate(0deg) scale(1.05);
+  box-shadow: 0 6px 16px rgba(255, 255, 255, 0.2);
+}
+
+.svc-new-desc {
+  font-size: 0.85rem;
+  color: var(--silver);
+  line-height: 1.6;
+  margin-bottom: 24px;
+  flex: 1;
+}
+
+.svc-new-btn {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--light-grey);
+  transition: color 0.2s ease, gap 0.2s ease;
+  gap: 6px;
+  align-self: flex-start;
+}
+
+.svc-new-card:hover .svc-new-btn {
+  color: var(--white);
+  gap: 12px;
+}
+
+/* 6. Dividers */
+.svc-divider {
   display: flex;
   align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  margin-top: 1px;
-  font-size: 0.6rem;
-  color: var(--white);
-}
-.pricing-card.featured .pricing-feature-check { border-color: rgba(0,0,0,0.2); color: var(--black); }
-.btn-pricing {
-  display: block;
-  text-align: center;
-  font-family: var(--font-body);
-  font-size: 0.78rem;
-  font-weight: 600;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  padding: 14px 24px;
-  border-radius: 2px;
-  border: 1px solid rgba(255,255,255,0.2);
-  color: var(--white);
-  transition: all var(--transition-fast);
-  cursor: pointer;
-}
-.btn-pricing:hover { border-color: var(--white); background: rgba(255,255,255,0.05); }
-.pricing-card.featured .btn-pricing {
+  gap: 20px;
+  padding: 0 clamp(20px, 6vw, 80px);
   background: var(--black);
-  border-color: var(--black);
-  color: var(--white);
+  height: 60px;
 }
-.pricing-card.featured .btn-pricing:hover { background: var(--dark-grey); }
+.svc-divider-line {
+  flex: 1;
+  height: 1px;
+  background: rgba(255,255,255,0.07);
+}
+.svc-divider-label {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--light-grey);
+  white-space: nowrap;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  /* Keep the tabs scrollable */
+  .svc-tabs-inner { overflow-x: auto; scrollbar-width: none; }
+  .svc-tabs-inner::-webkit-scrollbar { display: none; }
+  
+  /* Ensure the card has enough room for the tag on small screens */
+  .svc-new-card { padding: 32px 24px; }
+  .svc-new-price { top: 20px; right: 16px; font-size: 0.7rem; padding: 5px 10px; }
+  .svc-new-title { padding-right: 70px; }
+}
 
 /* ─── PROJECTS PAGE ──────────────────────────────── */
 .projects-hero {
