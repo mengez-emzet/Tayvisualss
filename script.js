@@ -591,170 +591,169 @@ function triggerHeroAnimations() {
      }
    }
    
-     /* ─── BOOKING FORM (SECURED + FIREBASE CHECK + WHATSAPP) ── */
-     function initBookingForm() {
-      const form = document.getElementById('booking-form');
-      if (!form) return;
- 
-      // ── Generate Admin Link Automatically ──
-      function updateAdminLink() {
-        const dateInput = form.querySelector('input[name="date"]');
-        const adminLinkInput = document.getElementById('admin-link-field');
-        if (adminLinkInput) {
-          if (dateInput && dateInput.value) {
-            const baseUrl = window.location.origin + window.location.pathname.replace('book.html', '');
-            adminLinkInput.value = `${baseUrl}admin.html?date=${dateInput.value}`;
-          } else {
-            adminLinkInput.value = 'No date selected';
-          }
-        }
-      }
- 
-      const dateField = form.querySelector('input[name="date"]');
-      if (dateField) {
-        dateField.addEventListener('change', updateAdminLink);
-        dateField.addEventListener('input', updateAdminLink);
-        updateAdminLink(); 
-      }
- 
-      // ── CSRF Token ──
-      function generateCSRFToken() {
-        const arr = new Uint8Array(24);
-        crypto.getRandomValues(arr);
-        return Array.from(arr, b => b.toString(16).padStart(2, '0')).join('');
-      }
-      const csrfToken = generateCSRFToken();
-      let csrfInput = form.querySelector('input[name="_csrf"]');
-      if (!csrfInput) {
-        csrfInput = document.createElement('input');
-        csrfInput.type = 'hidden';
-        csrfInput.name = '_csrf';
-        form.appendChild(csrfInput);
-      }
-      csrfInput.value = csrfToken;
- 
-      // ── Sanitizer & Validation ──
-      function sanitize(str) {
-        if (typeof str !== 'string') return '';
-        str = str.replace(/[\r\n]/g, ' ');
-        const div = document.createElement('div');
-        div.textContent = str;
-        return div.innerHTML.replace(/javascript:/gi, '').replace(/on\w+=/gi, '').trim();
-      }
-      function isValidEmail(email) {
-        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim());
-      }
- 
-      form.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        
-        const btn = form.querySelector('.form-submit');
-        const success = form.querySelector('.form-success');
-        const errorEl = form.querySelector('.form-error');
- 
-        // Hide previous errors
-        errorEl.style.display = 'none';
-        success.style.display = 'none';
- 
-        // Honeypot
-        if (form.querySelector('input[name="website"]').value.trim() !== '') return;
- 
-        // Validate & sanitize
-        let hasError = false;
-        form.querySelectorAll('.form-input, .form-textarea').forEach(field => {
-          if (field.type === 'email' && !isValidEmail(field.value)) {
-            showError(errorEl, 'Please enter a valid email address.');
-            hasError = true;
-          } else if (field.type === 'tel') {
-            field.value = field.value.replace(/[^0-9+\s\-]/g, '');
-          } else if (field.type !== 'date' && field.type !== 'email' && field.type !== 'tel') {
-            field.value = sanitize(field.value);
-          }
-        });
-        if (hasError) return;
- 
-        btn.disabled = true;
-        btn.querySelector('span').textContent = 'Checking...';
- 
-        // ── Check Firebase Date ──
-        const dateInput = form.querySelector('input[name="date"]');
+        /* ─── BOOKING FORM (SECURED + FIREBASE CHECK + WHATSAPP) ── */
+   function initBookingForm() {
+    const form = document.getElementById('booking-form');
+    if (!form) return;
+
+    // ── Generate Admin Link Automatically ──
+    function updateAdminLink() {
+      const dateInput = form.querySelector('input[name="date"]');
+      const adminLinkInput = document.getElementById('admin-link-field');
+      if (adminLinkInput) {
         if (dateInput && dateInput.value) {
-          try {
-            const { initializeApp } = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js");
-            const { getFirestore, doc, getDoc } = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js");
-            
-            const app = initializeApp({
-              apiKey: "AIzaSyAjKF0Iy6okAFVG-nt04ZOJXHcW4nHWHjY",
-              authDomain: "tayvisualss-web.firebaseapp.com",
-              projectId: "tayvisualss-web",
-              storageBucket: "tayvisualss-web.firebasestorage.app",
-              messagingSenderId: "702560378882",
-              appId: "1:702560378882:web:8b022ae84ee2461d81871b"
-            });
-            const db = getFirestore(app);
-            const docSnap = await getDoc(doc(db, 'availability', dateInput.value));
- 
-            if (docSnap.exists() && docSnap.data().status === 'booked') {
-              btn.disabled = false;
-              btn.querySelector('span').textContent = 'Confirm Booking';
-              showError(errorEl, 'Sorry, this date is already booked. Please pick another date.');
-              return;
-            }
-          } catch (err) {
-            console.error("Firebase check failed:", err);
-          }
+          const baseUrl = window.location.origin + window.location.pathname.replace('book.html', '');
+          adminLinkInput.value = `${baseUrl}admin.html?date=${dateInput.value}`;
+        } else {
+          adminLinkInput.value = 'No date selected';
         }
- 
-        btn.querySelector('span').textContent = 'Booking...';
-        
-        // ── Prepare Data & Force Link update ──
-        updateAdminLink(); // Force update one last time before sending
-        const formData = new FormData(form);
-        const firstName = form.querySelector('input[name="firstName"]').value;
-        const lastName = form.querySelector('input[name="lastName"]').value;
-        const service = form.querySelector('select[name="service"]').value;
-        const dateVal = dateInput ? dateInput.value : '';
-        const dashboardLink = document.getElementById('admin-link-field').value;
- 
-        // ── TRIGGER WHATSAPP IMMEDIATELY (To avoid popup blockers) ──
-        const waNumber = "263715222660"; // TEMPORARY TEST NUMBER
-        const waMessage = `Hi TayVisualss! I just submitted a booking request.\n\n*Name:* ${firstName} ${lastName}\n*Service:* ${service}\n*Date:* ${dateVal}\n\n*Review this booking:* ${dashboardLink}`;
-        const waUrl = `https://wa.me/${waNumber}?text=${encodeURIComponent(waMessage)}`;
-        window.open(waUrl, '_blank');
- 
-        // ── Submit to Formspree ──
-        fetch(form.action, {
-          method: 'POST',
-          body: formData,
-          headers: { 'Accept': 'application/json' }
-        })
-        .then(res => { showSuccessState(); })
-        .catch((err) => { 
-          console.warn("Fetch blocked, simulating success:", err);
-          showSuccessState(); 
-        });
- 
-        function showSuccessState() {
-          btn.querySelector('span').textContent = 'Booked!';
-          success.style.display = 'block';
-          
-          setTimeout(() => {
-            success.style.display = 'none';
-            btn.disabled = false;
-            btn.querySelector('span').textContent = 'Confirm Booking';
-            form.reset();
-            updateAdminLink();
-          }, 6000);
-        }
-      });
- 
-      function showError(el, msg) {
-        if (!el) { alert(msg); return; }
-        el.textContent = msg;
-        el.style.display = 'block';
-        setTimeout(() => { el.style.display = 'none'; }, 8000);
       }
     }
+
+    const dateField = form.querySelector('input[name="date"]');
+    if (dateField) {
+      dateField.addEventListener('change', updateAdminLink);
+      dateField.addEventListener('input', updateAdminLink);
+      updateAdminLink(); 
+    }
+
+    // ── CSRF Token ──
+    function generateCSRFToken() {
+      const arr = new Uint8Array(24);
+      crypto.getRandomValues(arr);
+      return Array.from(arr, b => b.toString(16).padStart(2, '0')).join('');
+    }
+    const csrfToken = generateCSRFToken();
+    let csrfInput = form.querySelector('input[name="_csrf"]');
+    if (!csrfInput) {
+      csrfInput = document.createElement('input');
+      csrfInput.type = 'hidden';
+      csrfInput.name = '_csrf';
+      form.appendChild(csrfInput);
+    }
+    csrfInput.value = csrfToken;
+
+    // ── Sanitizer & Validation ──
+    function sanitize(str) {
+      if (typeof str !== 'string') return '';
+      str = str.replace(/[\r\n]/g, ' ');
+      const div = document.createElement('div');
+      div.textContent = str;
+      return div.innerHTML.replace(/javascript:/gi, '').replace(/on\w+=/gi, '').trim();
+    }
+    function isValidEmail(email) {
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim());
+    }
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const btn = form.querySelector('.form-submit');
+      const success = form.querySelector('.form-success');
+      const errorEl = form.querySelector('.form-error');
+
+      // Hide previous errors
+      errorEl.style.display = 'none';
+      success.style.display = 'none';
+
+      // Honeypot
+      if (form.querySelector('input[name="website"]').value.trim() !== '') return;
+
+      // Validate & sanitize
+      let hasError = false;
+      form.querySelectorAll('.form-input, .form-textarea').forEach(field => {
+        if (field.type === 'email' && !isValidEmail(field.value)) {
+          showError(errorEl, 'Please enter a valid email address.');
+          hasError = true;
+        } else if (field.type === 'tel') {
+          field.value = field.value.replace(/[^0-9+\s\-]/g, '');
+        } else if (field.type !== 'date' && field.type !== 'email' && field.type !== 'tel' && field.readOnly !== true) {
+          field.value = sanitize(field.value);
+        }
+      });
+      if (hasError) return;
+
+      // ── 1. TRIGGER WHATSAPP IMMEDIATELY (Bypasses pop-up blocker) ──
+      updateAdminLink(); 
+      const dateInput = form.querySelector('input[name="date"]');
+      const firstName = form.querySelector('input[name="firstName"]').value;
+      const lastName = form.querySelector('input[name="lastName"]').value;
+      const service = form.querySelector('select[name="service"]').value;
+      const dateVal = dateInput ? dateInput.value : '';
+      const dashboardLink = document.getElementById('admin-link-field').value;
+
+      const waNumber = "263715222660"; // TEMPORARY TEST NUMBER
+      const waMessage = `Hi TayVisualss! I just submitted a booking request.\n\n*Name:* ${firstName} ${lastName}\n*Service:* ${service}\n*Date:* ${dateVal}\n\n*Review this booking:* ${dashboardLink}`;
+      const waUrl = `https://wa.me/${waNumber}?text=${encodeURIComponent(waMessage)}`;
+      window.open(waUrl, '_blank');
+
+      // ── 2. CHECK FIREBASE DATE ──
+      btn.disabled = true;
+      btn.querySelector('span').textContent = 'Checking...';
+
+      if (dateInput && dateInput.value) {
+        try {
+          const { initializeApp } = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js");
+          const { getFirestore, doc, getDoc } = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js");
+          
+          const app = initializeApp({
+            apiKey: "AIzaSyAjKF0Iy6okAFVG-nt04ZOJXHcW4nHWHjY",
+            authDomain: "tayvisualss-web.firebaseapp.com",
+            projectId: "tayvisualss-web",
+            storageBucket: "tayvisualss-web.firebasestorage.app",
+            messagingSenderId: "702560378882",
+            appId: "1:702560378882:web:8b022ae84ee2461d81871b"
+          });
+          const db = getFirestore(app);
+          const docSnap = await getDoc(doc(db, 'availability', dateInput.value));
+
+          if (docSnap.exists() && docSnap.data().status === 'booked') {
+            btn.disabled = false;
+            btn.querySelector('span').textContent = 'Confirm Booking';
+            showError(errorEl, 'Sorry, this date is already booked. Please pick another date.');
+            return;
+          }
+        } catch (err) {
+          console.error("Firebase check failed:", err);
+        }
+      }
+
+      btn.querySelector('span').textContent = 'Booking...';
+      
+      // ── 3. SUBMIT TO FORMSPREE ──
+      const formData = new FormData(form);
+      fetch(form.action, {
+        method: 'POST',
+        body: formData,
+        headers: { 'Accept': 'application/json' }
+      })
+      .then(res => { showSuccessState(); })
+      .catch((err) => { 
+        console.warn("Fetch blocked, simulating success:", err);
+        showSuccessState(); 
+      });
+
+      function showSuccessState() {
+        btn.querySelector('span').textContent = 'Booked!';
+        success.style.display = 'block';
+        
+        setTimeout(() => {
+          success.style.display = 'none';
+          btn.disabled = false;
+          btn.querySelector('span').textContent = 'Confirm Booking';
+          form.reset();
+          updateAdminLink();
+        }, 6000);
+      }
+    });
+
+    function showError(el, msg) {
+      if (!el) { alert(msg); return; }
+      el.textContent = msg;
+      el.style.display = 'block';
+      setTimeout(() => { el.style.display = 'none'; }, 8000);
+    }
+  }
    
    /* ─── PROJECT FILTER ─────────────────────────────── */
    function initProjectFilter() {

@@ -250,8 +250,10 @@
               </select>
             </div>
 
-            <!-- ─── HIDDEN ADMIN LINK FOR EMAIL ── -->
-            <input type="hidden" name="Admin_Dashboard_Link" id="admin-link-field" value="" />
+           <!-- ─── HIDDEN ADMIN LINK FOR EMAIL ── -->
+              <div style="position: absolute; left: -9999px; top: -9999px; opacity: 0; pointer-events: none;" aria-hidden="true">
+                <input type="text" name="Admin_Dashboard_Link" id="admin-link-field" value="No date selected" readonly />
+              </div>
 
             <!-- ─── HONEYPOT ── -->
             <div style="position: absolute; left: -9999px; top: -9999px; opacity: 0;" aria-hidden="true">
