@@ -441,7 +441,7 @@ canvas#hero-canvas {
 }
 .hero-title {
   font-family: var(--font-display);
-  font-size: clamp(3.8rem, 10vw, 9rem);
+  font-size: clamp(3.6rem, 10vw, 9rem);
   font-weight: 300;
   letter-spacing: 0.08em;
   line-height: 1;
@@ -449,7 +449,7 @@ canvas#hero-canvas {
   text-transform: uppercase;
 }
 .hero-spacer {
-  height: clamp(200px, 20vh, 280px);
+  height: clamp(290px, 25vh, 350px);
   width: 100%;
   display: flex;
   align-items: center;
