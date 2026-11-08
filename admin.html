@@ -791,12 +791,18 @@ function pad(n) { return String(n).padStart(2,'0'); }
 function dateKey(y,m,d) { return `${y}-${pad(m+1)}-${pad(d)}`; }
 
 // ── AUTH STATE ─────────────────────────────────────────
+// ── AUTH STATE ─────────────────────────────────────────
 onAuthStateChanged(auth, (user) => {
   if (user) {
     document.getElementById('login-screen').style.display  = 'none';
     document.getElementById('admin-screen').style.display  = 'block';
     document.getElementById('admin-user-email').textContent = user.email;
+    
+    // Start the listener
     startFirestoreListener();
+    
+    // Wait 1.5 seconds (for Firebase to fetch and render the calendar) then check URL
+    setTimeout(checkUrlForDate, 1500); 
   } else {
     document.getElementById('login-screen').style.display  = 'flex';
     document.getElementById('admin-screen').style.display  = 'none';
@@ -915,14 +921,19 @@ function renderAdminCalendar() {
 
 // ── EDIT PANEL ────────────────────────────────────────
 function openEditPanel(cell, key, d, status, label) {
-  // ... (clearing previous selections) ...
+  if (selectedCell) selectedCell.classList.remove('selected-admin');
+  selectedCell = cell;
+  cell.classList.add('selected-admin');
+  selectedKey    = key;
+  selectedStatus = status;
+
+  const dateObj = new Date(viewYear, viewMonth, d);
+  document.getElementById('selected-date-display').textContent =
+    dateObj.toLocaleDateString('en-GB', { weekday:'long', day:'numeric', month:'long', year:'numeric' });
 
   document.getElementById('no-selection-msg').style.display = 'none';
   document.getElementById('edit-panel').style.display       = 'block';
-  
-  // THIS IS THE LINE THAT FILLS THE BOX:
-  document.getElementById('booking-label').value            = label; 
-  
+  document.getElementById('booking-label').value            = label;
   document.getElementById('save-feedback').style.display    = 'none';
 
   setActiveStatusOpt(status);
@@ -1051,7 +1062,7 @@ function checkUrlForDate() {
   const urlParams = new URLSearchParams(window.location.search);
   const dateParam = urlParams.get('date');
   const statusParam = urlParams.get('status') || 'available';
-  const labelParam = urlParams.get('label') || ''; // Read the label from the URL
+  const labelParam = urlParams.get('label') || '';
   
   if (dateParam) {
     const parts = dateParam.split('-');
@@ -1063,28 +1074,34 @@ function checkUrlForDate() {
       viewYear = y;
       viewMonth = m;
       
+      // Wait for the calendar DOM to be ready and rendered
       setTimeout(() => {
         renderAdminCalendar();
         
         const targetKey = dateParam;
         const cells = document.querySelectorAll('.admin-day');
+        let found = false;
         
         cells.forEach(cell => {
           const num = cell.querySelector('.admin-day-num')?.textContent;
-          if (num && parseInt(num, 10) === d) {
-             
-             // 1. Open the edit panel (passing the label from the URL)
+          if (num && parseInt(num, 10) === d && !cell.classList.contains('empty')) {
+             found = true;
+             // 1. Open the edit panel (passing the label)
              openEditPanel(cell, targetKey, d, statusParam, labelParam);
              
-             // 2. Automatically click the "Booked" button
+             // 2. Force the status button to be active
              setActiveStatusOpt(statusParam);
              updateLabelVisibility(statusParam);
              
-             // 3. Scroll the panel into view on mobile
+             // 3. Scroll to the sidebar
              document.querySelector('.admin-sidebar').scrollIntoView({ behavior: 'smooth' });
           }
         });
-      }, 800);
+        
+        if (!found) {
+            console.warn("Date not found in current view");
+        }
+      }, 1000); // Increased to 1 second to guarantee Firebase data is loaded
     }
   }
 }
