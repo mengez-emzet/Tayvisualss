@@ -11,60 +11,37 @@
     /* ── Reset & base ──────────────────────────────── */
     @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap');
 
-/* ─── CUSTOM PROPERTIES ─────────────────────────── */
-:root {
-  --black: #0a0a0a;
-  --off-black: #111111;
-  --dark-grey: #1a1a1a;
-  --mid-grey: #2e2e2e;
-  --light-grey: #6b6b6b;
-  --silver: #a8a8a8;
-  --off-white: #e8e8e8;
-  --white: #f5f5f5;
-  --pure-white: #ffffff;
+    :root {
+      --black: #0a0a0a;
+      --off-black: #111111;
+      --dark-grey: #1a1a1a;
+      --mid-grey: #2e2e2e;
+      --light-grey: #8a8a8a; /* Brightened from 6b6b6b for readability */
+      --silver: #b5b5b5;     /* Brightened */
+      --off-white: #e8e8e8;
+      --white: #f5f5f5;
+      --pure-white: #ffffff;
 
-  --font-display: 'Cormorant Garamond', serif;
-  --font-body: 'Space Grotesk', sans-serif;
-  --font-mono: 'Space Mono', monospace;
+      --font-display: 'Cormorant Garamond', serif;
+      --font-body: 'Space Grotesk', sans-serif;
+      --font-mono: 'Space Mono', monospace;
+      --radius: 4px;
+      --transition: 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
 
-  --transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  --transition-fast: 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-  --transition-slow: 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-
-  --nav-height: 76px;
-  --section-pad: clamp(80px, 12vw, 140px);
-}
-
-/* ─── RESET ─────────────────────────────────────── */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; font-size: 16px; }
-body {
-  background: var(--black);
-  color: var(--off-white);
-  font-family: var(--font-body);
-  font-weight: 400;
-  line-height: 1.6;
-  overflow-x: hidden;
-  -webkit-font-smoothing: antialiased;
-}
-img, video { display: block; max-width: 100%; }
-a { text-decoration: none; color: inherit; }
-ul { list-style: none; }
-button { cursor: pointer; border: none; background: none; font-family: inherit; }
-
-@media (min-width: 1600px) {
-  html {
-    font-size: 112.5%; /* scales all rem/em values up proportionally */
-  }
-}
-
-@media (min-width: 1920px) {
-  html {
-    font-size: 125%;
-  }
-}
-    a { color: inherit; text-decoration: none; }
-    button { cursor: pointer; font-family: inherit; border: none; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      background: var(--black);
+      color: var(--off-white);
+      font-family: var(--font-body);
+      line-height: 1.6;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+    img, video { display: block; max-width: 100%; }
+    a { text-decoration: none; color: inherit; }
+    button { cursor: pointer; font-family: inherit; border: none; background: none; }
 
     /* ── LOGIN SCREEN ──────────────────────────────── */
     #login-screen {
@@ -73,16 +50,20 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
       align-items: center;
       justify-content: center;
       padding: 20px;
+      background: radial-gradient(circle at center, #151515 0%, var(--black) 100%);
     }
     .login-box {
       width: 100%;
-      max-width: 400px;
+      max-width: 420px;
       background: var(--off-black);
-      border: 1px solid rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.08);
       padding: 48px 40px;
+      border-radius: 8px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
     }
     .login-logo {
-      font-size: 22px;
+      font-family: var(--font-display);
+      font-size: 26px;
       font-weight: 300;
       letter-spacing: 0.12em;
       color: var(--white);
@@ -101,29 +82,31 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
       font-size: 10px;
       letter-spacing: 0.18em;
       text-transform: uppercase;
-      color: var(--light-grey);
+      color: var(--silver);
       font-family: var(--font-mono);
       margin-bottom: 8px;
     }
     
-    /* ── Password field with toggle ───────────────── */
     .password-wrapper {
       position: relative;
-      margin-bottom: 16px;
+      margin-bottom: 20px;
     }
     .login-input {
       width: 100%;
       background: var(--dark-grey);
-      border: 1px solid rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.1);
       color: var(--white);
       font-family: var(--font-body);
       font-size: 14px;
-      padding: 12px 14px;
+      padding: 14px 16px;
       outline: none;
       border-radius: var(--radius);
-      transition: border-color var(--transition);
+      transition: border-color var(--transition), box-shadow var(--transition);
     }
-    .login-input:focus { border-color: rgba(255,255,255,0.3); }
+    .login-input:focus { 
+      border-color: rgba(255,255,255,0.4); 
+      box-shadow: 0 0 0 2px rgba(255,255,255,0.05);
+    }
     
     .password-toggle {
       position: absolute;
@@ -133,37 +116,348 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
       background: none;
       border: none;
       color: var(--light-grey);
-      font-size: 16px;
-      padding: 4px 6px;
+      padding: 8px;
       cursor: pointer;
       transition: color var(--transition);
       display: flex;
       align-items: center;
       justify-content: center;
     }
-    .password-toggle:hover {
-      color: var(--white);
-    }
+    .password-toggle:hover { color: var(--white); }
     .password-toggle svg {
-      width: 18px;
-      height: 18px;
-      fill: none;
-      stroke: currentColor;
-      stroke-width: 2;
-      stroke-linecap: round;
-      stroke-linejoin: round;
+      width: 18px; height: 18px;
+      fill: none; stroke: currentColor;
+      stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
     }
-    .password-toggle .eye-slash {
-      display: none;
-    }
-    .password-toggle.showing .eye-slash {
-      display: block;
-    }
-    .password-toggle.showing .eye {
-      display: none;
-    }
+    .password-toggle .eye-slash { display: none; }
+    .password-toggle.showing .eye-slash { display: block; }
+    .password-toggle.showing .eye { display: none; }
     
     .login-btn {
+      width: 100%;
+      background: var(--white);
+      color: var(--black);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      padding: 16px;
+      border-radius: var(--radius);
+      margin-top: 8px;
+      transition: background var(--transition), transform var(--transition);
+    }
+    .login-btn:hover { background: var(--off-white); transform: translateY(-1px); }
+    .login-btn:disabled { opacity: 0.7; cursor: wait; transform: none; }
+    
+    .login-error {
+      display: none;
+      margin-top: 16px;
+      padding: 12px;
+      background: rgba(220,50,50,0.1);
+      border: 1px solid rgba(220,50,50,0.3);
+      border-radius: var(--radius);
+      font-size: 12px;
+      color: #ff8888;
+      text-align: center;
+    }
+
+    /* ── ADMIN DASHBOARD ───────────────────────────── */
+    #admin-screen { display: none; min-height: 100vh; }
+
+    /* Top bar */
+    .admin-topbar {
+      background: rgba(17, 17, 17, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      padding: 0 40px;
+      height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .admin-brand {
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      color: var(--white);
+    }
+    .admin-brand span {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--light-grey);
+      margin-left: 12px;
+      padding-left: 12px;
+      border-left: 1px solid rgba(255,255,255,0.2);
+    }
+    .admin-user-row { display: flex; align-items: center; gap: 20px; }
+    .admin-user-email {
+      font-size: 12px;
+      color: var(--silver);
+      font-family: var(--font-mono);
+    }
+    .logout-btn {
+      font-size: 10px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--silver);
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.15);
+      padding: 8px 16px;
+      border-radius: var(--radius);
+      transition: all var(--transition);
+    }
+    .logout-btn:hover { border-color: var(--white); color: var(--white); background: rgba(255,255,255,0.05); }
+
+    /* Main layout */
+    .admin-body {
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      min-height: calc(100vh - 70px);
+    }
+
+    /* Calendar column */
+    .admin-cal-col {
+      padding: 48px;
+      border-right: 1px solid rgba(255,255,255,0.06);
+    }
+    .admin-col-label {
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--silver);
+      font-family: var(--font-mono);
+      margin-bottom: 32px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .admin-col-label::before {
+      content: '';
+      display: inline-block;
+      width: 20px; height: 1px;
+      background: var(--silver);
+    }
+
+    .admin-cal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 32px;
+    }
+    .admin-month-label {
+      font-family: var(--font-display);
+      font-size: 28px;
+      font-weight: 300;
+      color: var(--white);
+      letter-spacing: 0.04em;
+    }
+    .admin-nav-btns { display: flex; gap: 8px; }
+    .admin-nav-btn {
+      width: 40px; height: 40px;
+      border: 1px solid rgba(255,255,255,0.15);
+      background: rgba(255,255,255,0.02);
+      color: var(--white);
+      font-size: 18px;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: var(--radius);
+      transition: all var(--transition);
+    }
+    .admin-nav-btn:hover { border-color: var(--white); background: rgba(255,255,255,0.08); }
+
+    /* Admin calendar grid */
+    .admin-cal-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 8px;
+    }
+    .admin-dow {
+      text-align: center;
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--silver);
+      font-family: var(--font-mono);
+      padding-bottom: 16px;
+    }
+    .admin-day {
+      aspect-ratio: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      font-size: 15px;
+      border: 1px solid transparent;
+      border-radius: var(--radius);
+      cursor: pointer;
+      transition: all var(--transition);
+      position: relative;
+    }
+    .admin-day.empty { cursor: default; border: none; }
+    .admin-day.past  { color: rgba(255,255,255,0.15); cursor: default; }
+    .admin-day.today { border-color: rgba(255,255,255,0.4) !important; font-weight: 600; }
+
+    /* Status colours */
+    .admin-day.available {
+      color: rgba(80,210,120,0.9);
+      background: rgba(80,210,120,0.05);
+      border-color: rgba(80,210,120,0.2);
+    }
+    .admin-day.available:hover {
+      background: rgba(80,210,120,0.15);
+      border-color: rgba(80,210,120,0.4);
+    }
+    .admin-day.booked {
+      background: rgba(39, 211, 237, 0.1);
+      border-color: rgba(39, 211, 237, 0.4);
+      color: rgb(39, 211, 237);
+    }
+    .admin-day.booked:hover {
+      background: rgba(39, 211, 237, 0.2);
+      border-color: rgb(39, 211, 237);
+    }
+    .admin-day.unavailable {
+      background: rgba(240, 7, 7, 0.1);
+      border-color: rgba(240, 7, 7, 0.4);
+      color: rgb(255, 80, 80);
+    }
+    .admin-day.unavailable:hover {
+      background: rgba(240, 7, 7, 0.2);
+      border-color: rgb(240, 7, 7);
+    }
+    .admin-day.unavailable .admin-day-num { text-decoration: line-through; opacity: 0.7; }
+    
+    .admin-day.selected-admin {
+      background: var(--white) !important;
+      color: var(--black) !important;
+      border-color: var(--white) !important;
+      box-shadow: 0 0 20px rgba(255,255,255,0.2);
+    }
+    
+    .admin-day-num { line-height: 1; font-weight: 500; }
+    .admin-day-dot { width: 6px; height: 6px; border-radius: 50%; }
+    .admin-day.booked     .admin-day-dot { background: rgb(39, 211, 237); }
+    .admin-day.unavailable .admin-day-dot { background: rgb(255, 80, 80); }
+    .admin-day.available  .admin-day-dot { background: rgba(80,210,120,0.9); }
+    .admin-day.selected-admin .admin-day-dot { background: var(--black); }
+
+    /* Legend */
+    .admin-legend {
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+      margin-top: 32px;
+      padding-top: 24px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+    .admin-legend-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--silver);
+      font-family: var(--font-mono);
+    }
+    .admin-legend-dot {
+      width: 12px; height: 12px;
+      border-radius: 3px; flex-shrink: 0;
+    }
+    .ld-available   { background: rgba(80,210,120,0.2); border: 1px solid rgba(80,210,120,0.5); }
+    .ld-booked      { background: rgba(39, 211, 237, 0.2); border: 1px solid rgb(39, 211, 237); }
+    .ld-unavailable { background: rgba(240, 7, 7, 0.2); border: 1px solid rgb(240, 7, 7); }
+
+    /* Sidebar */
+    .admin-sidebar {
+      padding: 48px 40px;
+      background: var(--off-black);
+    }
+    .sidebar-panel {
+      background: var(--black);
+      border: 1px solid rgba(255,255,255,0.08);
+      padding: 32px 28px;
+      border-radius: var(--radius);
+      margin-bottom: 24px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+    .sidebar-panel-title {
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--silver);
+      font-family: var(--font-mono);
+      margin-bottom: 20px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .selected-date-display {
+      font-family: var(--font-display);
+      font-size: 22px;
+      color: var(--white);
+      line-height: 1.3;
+      margin-bottom: 28px;
+      min-height: 52px;
+    }
+    .status-options {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 24px;
+    }
+    .status-opt {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--radius);
+      cursor: pointer;
+      transition: all var(--transition);
+      background: rgba(255,255,255,0.02);
+      color: var(--silver);
+      font-size: 14px;
+      text-align: left;
+    }
+    .status-opt:hover { border-color: rgba(255,255,255,0.3); color: var(--white); background: rgba(255,255,255,0.05); }
+    .status-opt.active-opt { border-color: var(--white); background: rgba(255,255,255,0.1); color: var(--white); }
+    .status-opt-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+    .sod-available   { background: rgba(80,210,120,0.9); box-shadow: 0 0 10px rgba(80,210,120,0.4); }
+    .sod-booked      { background: rgb(39, 211, 237); box-shadow: 0 0 10px rgba(39, 211, 237, 0.4); }
+    .sod-unavailable { background: rgb(255, 80, 80); box-shadow: 0 0 10px rgba(240, 7, 7, 0.4); }
+
+    .label-input-wrap { margin-bottom: 24px; display: none; }
+    .label-input-label {
+      display: block;
+      font-size: 10px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--silver);
+      font-family: var(--font-mono);
+      margin-bottom: 10px;
+    }
+    .label-input {
+      width: 100%;
+      background: var(--dark-grey);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: var(--white);
+      font-family: var(--font-body);
+      font-size: 14px;
+      padding: 12px 14px;
+      outline: none;
+      border-radius: var(--radius);
+      transition: border-color var(--transition);
+    }
+    .label-input:focus { border-color: rgba(255,255,255,0.4); }
+    .label-input::placeholder { color: var(--light-grey); }
+
+    .save-btn {
       width: 100%;
       background: var(--white);
       color: var(--black);
@@ -173,404 +467,102 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
       text-transform: uppercase;
       padding: 14px;
       border-radius: var(--radius);
-      margin-top: 8px;
       transition: background var(--transition);
-    }
-    .login-btn:hover { background: var(--off-white); }
-    .login-error {
-      display: none;
-      margin-top: 16px;
-      padding: 10px 14px;
-      background: rgba(220,50,50,0.1);
-      border: 1px solid rgba(220,50,50,0.25);
-      border-radius: var(--radius);
-      font-size: 12px;
-      color: #e07070;
-    }
-
-    /* ── ADMIN DASHBOARD ───────────────────────────── */
-    #admin-screen { display: none; min-height: 100vh; }
-
-    /* Top bar */
-    .admin-topbar {
-      background: var(--off-black);
-      border-bottom: 1px solid rgba(255,255,255,0.07);
-      padding: 0 32px;
-      height: 60px;
       display: flex;
-      align-items: center;
-      justify-content: space-between;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
-    .admin-brand {
-      font-size: 16px;
-      font-weight: 300;
-      letter-spacing: 0.1em;
-      color: var(--white);
-    }
-    .admin-brand span {
-      font-size: 10px;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--light-grey);
-      font-family: var(--font-mono);
-      margin-left: 12px;
-    }
-    .admin-user-row { display: flex; align-items: center; gap: 16px; }
-    .admin-user-email {
-      font-size: 11px;
-      color: var(--light-grey);
-      font-family: var(--font-mono);
-    }
-    .logout-btn {
-      font-size: 10px;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: var(--silver);
-      background: none;
-      border: 1px solid rgba(255,255,255,0.12);
-      padding: 6px 14px;
-      border-radius: var(--radius);
-      transition: all var(--transition);
-    }
-    .logout-btn:hover { border-color: rgba(255,255,255,0.35); color: var(--white); }
-
-    /* Main layout */
-    .admin-body {
-      display: grid;
-      grid-template-columns: 1fr 340px;
-      gap: 0;
-      min-height: calc(100vh - 60px);
-    }
-
-    /* Calendar column */
-    .admin-cal-col {
-      padding: 40px 40px 60px;
-      border-right: 1px solid rgba(255,255,255,0.06);
-    }
-    .admin-col-label {
-      font-size: 10px;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--light-grey);
-      font-family: var(--font-mono);
-      margin-bottom: 28px;
-    }
-    .admin-cal-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 28px;
-    }
-    .admin-month-label {
-      font-size: 22px;
-      font-weight: 300;
-      color: var(--white);
-      letter-spacing: 0.04em;
-    }
-    .admin-nav-btns { display: flex; gap: 4px; }
-    .admin-nav-btn {
-      width: 34px; height: 34px;
-      border: 1px solid rgba(255,255,255,0.1);
-      background: none;
-      color: var(--silver);
-      font-size: 16px;
-      display: flex; align-items: center; justify-content: center;
-      border-radius: var(--radius);
-      transition: all var(--transition);
-    }
-    .admin-nav-btn:hover { border-color: rgba(255,255,255,0.3); color: var(--white); }
-
-    /* Admin calendar grid */
-    .admin-cal-grid {
-      display: grid;
-      grid-template-columns: repeat(7, 1fr);
-      gap: 4px;
-    }
-    .admin-dow {
-      text-align: center;
-      font-size: 10px;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: var(--light-grey);
-      font-family: var(--font-mono);
-      padding-bottom: 12px;
-    }
-    .admin-day {
-      aspect-ratio: 1;
-      display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 4px;
-      font-size: 13px;
-      border: 1px solid transparent;
-      border-radius: var(--radius);
-      cursor: pointer;
-      transition: all var(--transition);
-      position: relative;
-    }
-    .admin-day.empty { cursor: default; border: none; }
-    .admin-day.past  { color: rgba(255,255,255,0.12); cursor: default; }
-    .admin-day.today { border-color: rgba(255,255,255,0.22) !important; }
-
-    /* Status colours */
-    .admin-day.available {
-      color: rgba(80,210,120,0.5);
-      background: rgba(255,255,255,0.02);
-      border-color: rgba(80,210,120,0.5);
-    }
-    /* .admin-day.available:hover {
-      background: rgba(255,255,255,0.07);
-      border-color: rgba(255,255,255,0.2);
-      color: var(--white);
-    } */
-    .admin-day.booked {
-      background: rgba(255,100,100,0.08);
-      border-color: rgb(39, 211, 237);
-      color: rgb(39, 211, 237);
-    }
-    /* .admin-day.booked:hover {
-      background: rgba(255,100,100,0.14);
-      border-color: rgba(255,100,100,0.4);
-    } */
-    .admin-day.unavailable {
-      background: rgba(255,200,50,0.06);
-      border-color: rgba(240, 7, 7, 0.968);
-      color: rgba(240, 7, 7, 0.968);
-      text-decoration: line-through;
-    }
-    /* .admin-day.unavailable:hover {
-      background: rgba(255,200,50,0.1);
-      border-color: rgba(255,200,50,0.3);
-    } */
-    .admin-day.selected-admin {
-      background: var(--white) !important;
-      color: var(--black) !important;
-      border-color: var(--white) !important;
-    }
-    .admin-day-num { line-height: 1; font-weight: 400; }
-    .admin-day-dot { width: 4px; height: 4px; border-radius: 50%; }
-    .admin-day.booked     .admin-day-dot { background: rgb(39, 211, 237); }
-    .admin-day.unavailable .admin-day-dot { background: rgba(240, 7, 7, 0.968); }
-    .admin-day.available  .admin-day-dot { background: rgba(80,210,120,0.6); }
-
-    /* Legend */
-    .admin-legend {
-      display: flex;
-      gap: 20px;
-      flex-wrap: wrap;
-      margin-top: 28px;
-      padding-top: 22px;
-      border-top: 1px solid rgba(255,255,255,0.06);
-    }
-    .admin-legend-item {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 10px;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--light-grey);
-      font-family: var(--font-mono);
-    }
-    .admin-legend-dot {
-      width: 10px; height: 10px;
-      border-radius: 2px; flex-shrink: 0;
-    }
-    .ld-available   { background: rgba(80,210,120,0.4);  border: 1px solid rgba(80,210,120,0.5); }
-    .ld-booked      { background: rgb(39, 211, 237); border: 1px solid rgb(39, 211, 237); }
-    .ld-unavailable { background: rgba(240, 7, 7, 0.968); border: 1px solid rgba(240, 7, 7, 0.968); }
-
-    /* Sidebar */
-    .admin-sidebar {
-      padding: 40px 32px;
-      background: var(--off-black);
-    }
-    .sidebar-panel {
-      background: var(--black);
-      border: 1px solid rgba(255,255,255,0.07);
-      padding: 28px 24px;
-      margin-bottom: 4px;
-    }
-    .sidebar-panel-title {
-      font-size: 10px;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--light-grey);
-      font-family: var(--font-mono);
-      margin-bottom: 16px;
-    }
-    .selected-date-display {
-      font-size: 18px;
-      font-weight: 300;
-      color: var(--white);
-      line-height: 1.3;
-      margin-bottom: 24px;
-      min-height: 52px;
-    }
-    .status-options {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      margin-bottom: 20px;
-    }
-    .status-opt {
-      display: flex;
-      align-items: center;
       gap: 10px;
-      padding: 10px 14px;
-      border: 1px solid rgba(255,255,255,0.07);
-      border-radius: var(--radius);
-      cursor: pointer;
-      transition: all var(--transition);
-      background: none;
-      color: var(--silver);
-      font-size: 13px;
-      text-align: left;
-    }
-    .status-opt:hover { border-color: rgba(255,255,255,0.2); color: var(--white); }
-    .status-opt.active-opt { border-color: rgba(255,255,255,0.35); background: rgba(255,255,255,0.04); color: var(--white); }
-    .status-opt-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
-    .sod-available   { background: rgba(80,210,120,0.85); }
-    .sod-booked      { background: rgb(39, 211, 237); }
-    .sod-unavailable { background: rgba(240, 7, 7, 0.968); }
-
-    .label-input-wrap { margin-bottom: 16px; }
-    .label-input-label {
-      display: block;
-      font-size: 10px;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: var(--light-grey);
-      font-family: var(--font-mono);
-      margin-bottom: 8px;
-    }
-    .label-input {
-      width: 100%;
-      background: var(--dark-grey);
-      border: 1px solid rgba(255,255,255,0.08);
-      color: var(--white);
-      font-family: var(--font-body);
-      font-size: 13px;
-      padding: 10px 12px;
-      outline: none;
-      border-radius: var(--radius);
-      transition: border-color var(--transition);
-    }
-    .label-input:focus { border-color: rgba(255,255,255,0.28); }
-    .label-input::placeholder { color: var(--light-grey); }
-
-    .save-btn {
-      width: 100%;
-      background: var(--white);
-      color: var(--black);
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      padding: 12px;
-      border-radius: var(--radius);
-      transition: background var(--transition);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
     }
     .save-btn:hover   { background: var(--off-white); }
-    .save-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .save-btn:disabled { opacity: 0.7; cursor: not-allowed; }
+    
     .clear-btn {
       width: 100%;
       background: transparent;
-      color: var(--light-grey);
+      color: var(--silver);
       font-size: 10px;
       font-weight: 600;
       letter-spacing: 0.14em;
       text-transform: uppercase;
-      padding: 10px;
-      border: 1px solid rgba(255,255,255,0.08);
+      padding: 12px;
+      border: 1px solid rgba(255,255,255,0.1);
       border-radius: var(--radius);
-      margin-top: 6px;
+      margin-top: 10px;
       transition: all var(--transition);
     }
-    .clear-btn:hover { border-color: rgba(255,100,100,0.4); color: rgba(255,120,120,0.8); }
+    .clear-btn:hover { border-color: rgba(255,100,100,0.5); color: rgba(255,120,120,1); background: rgba(255,100,100,0.05); }
 
     .save-feedback {
       display: none;
-      margin-top: 10px;
-      padding: 8px 12px;
-      font-size: 11px;
+      margin-top: 16px;
+      padding: 12px;
+      font-size: 12px;
       font-family: var(--font-mono);
       letter-spacing: 0.1em;
       border-radius: var(--radius);
       text-align: center;
     }
     .save-feedback.success {
-      background: rgba(80,210,120,0.08);
-      border: 1px solid rgba(80,210,120,0.25);
-      color: rgba(80,210,120,0.9);
+      background: rgba(80,210,120,0.1);
+      border: 1px solid rgba(80,210,120,0.3);
+      color: rgba(80,210,120,1);
     }
     .save-feedback.error {
-      background: rgba(220,50,50,0.08);
-      border: 1px solid rgba(220,50,50,0.25);
-      color: #e07070;
+      background: rgba(220,50,50,0.1);
+      border: 1px solid rgba(220,50,50,0.3);
+      color: #ff8888;
     }
 
     /* Stats row */
     .stats-row {
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
-      gap: 4px;
-      margin-bottom: 4px;
+      gap: 12px;
+      margin-bottom: 12px;
     }
     .stat-box {
       background: var(--black);
-      border: 1px solid rgba(255,255,255,0.07);
-      padding: 18px 14px;
+      border: 1px solid rgba(255,255,255,0.08);
+      padding: 20px 16px;
       text-align: center;
+      border-radius: var(--radius);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
     }
     .stat-box-num {
-      font-size: 26px;
-      font-weight: 300;
+      font-size: 32px;
+      font-weight: 400;
       color: var(--white);
       line-height: 1;
       display: block;
+      font-family: var(--font-display);
     }
     .stat-box-label {
       font-size: 9px;
       letter-spacing: 0.16em;
       text-transform: uppercase;
-      color: var(--off-white);
+      color: var(--silver);
       font-family: var(--font-mono);
-      margin-top: 6px;
+      margin-top: 8px;
       display: block;
     }
 
-    #stat-booked{
-      color: aqua;
-    }
-    #stat-unavail{
-      color: red;
-    }
-    #stat-avail{
-      color: rgba(80,210,120,0.4);
-    }
+    #stat-booked{ color: rgb(39, 211, 237); }
+    #stat-unavail{ color: rgb(255, 80, 80); }
+    #stat-avail{ color: rgba(80,210,120,1); }
 
-    /* Placeholder when no date selected */
     .no-selection {
-      font-size: 13px;
+      font-size: 14px;
       font-style: italic;
-      color: var(--light-grey);
-      line-height: 1.6;
-      padding: 8px 0;
+      color: var(--silver);
+      line-height: 1.7;
+      padding: 10px 0;
+      text-align: center;
     }
 
     /* Saving spinner */
     .spinner {
-      width: 12px; height: 12px;
-      border: 1.5px solid rgba(0,0,0,0.3);
+      width: 14px; height: 14px;
+      border: 2px solid rgba(0,0,0,0.2);
       border-top-color: var(--black);
       border-radius: 50%;
       animation: spin 0.7s linear infinite;
@@ -579,13 +571,23 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
     @keyframes spin { to { transform: rotate(360deg); } }
 
     /* Responsive */
-    @media (max-width: 900px) {
+    @media (max-width: 1024px) {
       .admin-body { grid-template-columns: 1fr; }
-      .admin-cal-col { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.06); }
+      .admin-cal-col { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.08); }
+      .admin-sidebar { padding: 40px; }
     }
-    @media (max-width: 480px) {
-      .admin-cal-col { padding: 24px 16px; }
-      .admin-sidebar { padding: 24px 16px; }
+    @media (max-width: 600px) {
+      .admin-topbar { padding: 0 20px; }
+      .admin-brand span { display: none; }
+      .admin-cal-col { padding: 32px 20px; }
+      .admin-sidebar { padding: 32px 20px; }
+      .admin-day { font-size: 13px; gap: 4px; }
+      .admin-cal-grid { gap: 4px; }
+      .admin-legend { gap: 12px; }
+      .stats-row { grid-template-columns: 1fr; }
+      .stat-box { display: flex; align-items: center; justify-content: space-between; padding: 16px; }
+      .stat-box-num { font-size: 24px; }
+      .stat-box-label { margin-top: 0; }
     }
   </style>
 </head>
@@ -597,23 +599,20 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 <div id="login-screen">
   <div class="login-box">
     <div class="login-logo">Tayvisualss</div>
-    <div class="login-sub">Admin Dashboard
-    </div>
+    <div class="login-sub">Admin Dashboard</div>
 
     <label class="login-label" for="admin-email">Email</label>
-    <input class="login-input" type="email" id="admin-email" placeholder="your@email.com" autocomplete="email" />
+    <input class="login-input" type="email" id="admin-email" placeholder="your@email.com" autocomplete="email" style="margin-bottom: 16px;" />
 
     <label class="login-label" for="admin-pass">Password</label>
     <div class="password-wrapper">
       <input class="login-input" type="password" id="admin-pass" placeholder="••••••••" autocomplete="current-password" />
       <button type="button" class="password-toggle" id="password-toggle" aria-label="Toggle password visibility">
-        <!-- Eye icon (visible when password is hidden) -->
-        <svg class="eye" viewBox="0 0 24 24" width="18" height="18">
+        <svg class="eye" viewBox="0 0 24 24">
           <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
           <circle cx="12" cy="12" r="3"/>
         </svg>
-        <!-- Eye-slash icon (visible when password is shown) -->
-        <svg class="eye-slash" viewBox="0 0 24 24" width="18" height="18">
+        <svg class="eye-slash" viewBox="0 0 24 24">
           <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/>
           <line x1="1" y1="1" x2="23" y2="23"/>
         </svg>
@@ -621,8 +620,10 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
     </div>
 
     <button class="login-btn" id="login-btn">Sign In</button>
-    <div class="login-error" id="login-error"></div><br><br>
-    <div class="login-sub">Engineered by mengez emzet
+    <div class="login-error" id="login-error"></div>
+    
+    <div style="text-align: center; margin-top: 40px;">
+      <div class="login-sub" style="margin-bottom: 0;">Engineered by Mengez Emzet</div>
     </div>
   </div>
 </div>
@@ -634,7 +635,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 
   <!-- Top bar -->
   <div class="admin-topbar">
-    <div class="admin-brand">Tayvisualss <span>ADMIN DASHBOARD</span></div>
+    <div class="admin-brand">Tayvisualss <span>ADMIN</span></div>
     <div class="admin-user-row">
       <span class="admin-user-email" id="admin-user-email"></span>
       <button class="logout-btn" id="logout-btn">Sign Out</button>
@@ -642,8 +643,8 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   </div>
 
   <!-- Stats -->
-  <div style="padding:24px 40px 0;background:var(--off-black);border-bottom:1px solid rgba(255,255,255,0.06)">
-    <div class="stats-row" style="max-width:400px">
+  <div style="padding: 32px 48px 0; background: var(--off-black); border-bottom: 1px solid rgba(255,255,255,0.08);">
+    <div class="stats-row" style="max-width: 500px;">
       <div class="stat-box">
         <span class="stat-box-num" id="stat-booked">—</span>
         <span class="stat-box-label">Booked</span>
@@ -654,7 +655,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
       </div>
       <div class="stat-box">
         <span class="stat-box-num" id="stat-avail">—</span>
-        <span class="stat-box-label">Open This Month</span>
+        <span class="stat-box-label">Open</span>
       </div>
     </div>
   </div>
@@ -715,7 +716,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
             </button>
             <button class="status-opt" data-status="unavailable" id="opt-unavailable">
               <div class="status-opt-dot sod-unavailable"></div>
-              Unavailable
+              Blocked / Unavailable
             </button>
           </div>
 
@@ -733,10 +734,10 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
           <div class="save-feedback" id="save-feedback"></div>
         </div>
       </div>
+    </div>
+  </div>
+</div>
 
-<!-- ═══════════════════════════════════════════════════
-     FIREBASE SDK + ADMIN SCRIPT
-═══════════════════════════════════════════════════ -->
 <script type="module">
 
 import { initializeApp }     from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
@@ -979,7 +980,7 @@ document.getElementById('save-btn').addEventListener('click', async () => {
     }
     showFeedback('success', 'Changes Saved.');
   } catch (err) {
-    showFeedback('error', ` Save failed: ${err.message}`);
+    showFeedback('error', `Save failed: ${err.message}`);
     console.error(err);
   } finally {
     btn.disabled          = false;
@@ -998,9 +999,9 @@ document.getElementById('clear-btn').addEventListener('click', async () => {
     setActiveStatusOpt('available');
     updateLabelVisibility('available');
     document.getElementById('booking-label').value = '';
-    showFeedback('success', ' Date reset to available.');
+    showFeedback('success', 'Date reset to available.');
   } catch (err) {
-    showFeedback('error', ` Error: ${err.message}`);
+    showFeedback('error', `Error: ${err.message}`);
   }
 });
 
@@ -1048,6 +1049,65 @@ function clearAdminSelection() {
   document.getElementById('no-selection-msg').style.display = 'block';
   document.getElementById('edit-panel').style.display       = 'none';
 }
+
+// ── AUTO-SELECT DATE FROM URL (Admin Link) ────────────
+function checkUrlForDate() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const dateParam = urlParams.get('date');
+  
+  if (dateParam) {
+    // dateParam will look like "2026-11-19"
+    const parts = dateParam.split('-');
+    if (parts.length === 3) {
+      const y = parseInt(parts[0], 10);
+      const m = parseInt(parts[1], 10) - 1; // JS months are 0-indexed
+      const d = parseInt(parts[2], 10);
+      
+      // Change the view to that month
+      viewYear = y;
+      viewMonth = m;
+      
+      // We need to wait a fraction of a second for Firebase to load the data
+      // before we can select the cell.
+      setTimeout(() => {
+        renderAdminCalendar();
+        
+        // Find the exact cell and click it
+        const targetKey = dateParam;
+        const cells = document.querySelectorAll('.admin-day');
+        
+        cells.forEach(cell => {
+          // We check if this cell matches the date
+          const num = cell.querySelector('.admin-day-num')?.textContent;
+          if (num && parseInt(num, 10) === d) {
+             const status = cell.classList.contains('booked') ? 'booked' : cell.classList.contains('unavailable') ? 'unavailable' : 'available';
+             // Trigger the click event programmatically
+             openEditPanel(cell, targetKey, d, status, '');
+             
+             // Scroll to the edit panel on mobile
+             document.querySelector('.admin-sidebar').scrollIntoView({ behavior: 'smooth' });
+          }
+        });
+      }, 800); // Wait 0.8 seconds for Firebase data to populate the calendar
+    }
+  }
+}
+
+// Call this function after login is verified
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    document.getElementById('login-screen').style.display  = 'none';
+    document.getElementById('admin-screen').style.display  = 'block';
+    document.getElementById('admin-user-email').textContent = user.email;
+    startFirestoreListener();
+    
+    // Check for URL date AFTER starting the listener
+    setTimeout(checkUrlForDate, 1000); 
+  } else {
+    document.getElementById('login-screen').style.display  = 'flex';
+    document.getElementById('admin-screen').style.display  = 'none';
+  }
+});
 
 </script>
 </body>
