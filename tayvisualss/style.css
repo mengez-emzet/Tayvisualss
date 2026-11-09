@@ -477,7 +477,7 @@ canvas#hero-canvas {
   text-transform: uppercase;
 }
 .hero-spacer {
-  height: clamp(287px, 25vh, 350px);
+  height: clamp(180px, 20vh, 280px);
   width: 100%;
   display: flex;
   align-items: center;
