@@ -1,0 +1,1127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-Frame-Options" content="DENY" />
+  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+  <title>Tayvisualss, Admin</title>
+  <link rel="icon" href="assets/logo.jpeg" />
+  <style>
+    /* ── Reset & base ──────────────────────────────── */
+    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap');
+
+    :root {
+      --black: #0a0a0a;
+      --off-black: #111111;
+      --dark-grey: #1a1a1a;
+      --mid-grey: #2e2e2e;
+      --light-grey: #8a8a8a; /* Brightened from 6b6b6b for readability */
+      --silver: #b5b5b5;     /* Brightened */
+      --off-white: #e8e8e8;
+      --white: #f5f5f5;
+      --pure-white: #ffffff;
+
+      --font-display: 'Cormorant Garamond', serif;
+      --font-body: 'Space Grotesk', sans-serif;
+      --font-mono: 'Space Mono', monospace;
+      --radius: 4px;
+      --transition: 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      background: var(--black);
+      color: var(--off-white);
+      font-family: var(--font-body);
+      line-height: 1.6;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+    img, video { display: block; max-width: 100%; }
+    a { text-decoration: none; color: inherit; }
+    button { cursor: pointer; font-family: inherit; border: none; background: none; }
+
+    /* ── LOGIN SCREEN ──────────────────────────────── */
+    #login-screen {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background: radial-gradient(circle at center, #151515 0%, var(--black) 100%);
+    }
+    .login-box {
+      width: 100%;
+      max-width: 420px;
+      background: var(--off-black);
+      border: 1px solid rgba(255,255,255,0.08);
+      padding: 48px 40px;
+      border-radius: 8px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+    }
+    .login-logo {
+      font-family: var(--font-display);
+      font-size: 26px;
+      font-weight: 300;
+      letter-spacing: 0.12em;
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+    .login-sub {
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--light-grey);
+      font-family: var(--font-mono);
+      margin-bottom: 40px;
+    }
+    .login-label {
+      display: block;
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--silver);
+      font-family: var(--font-mono);
+      margin-bottom: 8px;
+    }
+    
+    .password-wrapper {
+      position: relative;
+      margin-bottom: 20px;
+    }
+    .login-input {
+      width: 100%;
+      background: var(--dark-grey);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: var(--white);
+      font-family: var(--font-body);
+      font-size: 14px;
+      padding: 14px 16px;
+      outline: none;
+      border-radius: var(--radius);
+      transition: border-color var(--transition), box-shadow var(--transition);
+    }
+    .login-input:focus { 
+      border-color: rgba(255,255,255,0.4); 
+      box-shadow: 0 0 0 2px rgba(255,255,255,0.05);
+    }
+    
+    .password-toggle {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: var(--light-grey);
+      padding: 8px;
+      cursor: pointer;
+      transition: color var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .password-toggle:hover { color: var(--white); }
+    .password-toggle svg {
+      width: 18px; height: 18px;
+      fill: none; stroke: currentColor;
+      stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+    }
+    .password-toggle .eye-slash { display: none; }
+    .password-toggle.showing .eye-slash { display: block; }
+    .password-toggle.showing .eye { display: none; }
+    
+    .login-btn {
+      width: 100%;
+      background: var(--white);
+      color: var(--black);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      padding: 16px;
+      border-radius: var(--radius);
+      margin-top: 8px;
+      transition: background var(--transition), transform var(--transition);
+    }
+    .login-btn:hover { background: var(--off-white); transform: translateY(-1px); }
+    .login-btn:disabled { opacity: 0.7; cursor: wait; transform: none; }
+    
+    .login-error {
+      display: none;
+      margin-top: 16px;
+      padding: 12px;
+      background: rgba(220,50,50,0.1);
+      border: 1px solid rgba(220,50,50,0.3);
+      border-radius: var(--radius);
+      font-size: 12px;
+      color: #ff8888;
+      text-align: center;
+    }
+
+    /* ── ADMIN DASHBOARD ───────────────────────────── */
+    #admin-screen { display: none; min-height: 100vh; }
+
+    /* Top bar */
+    .admin-topbar {
+      background: rgba(17, 17, 17, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      padding: 0 40px;
+      height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .admin-brand {
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      color: var(--white);
+    }
+    .admin-brand span {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--light-grey);
+      margin-left: 12px;
+      padding-left: 12px;
+      border-left: 1px solid rgba(255,255,255,0.2);
+    }
+    .admin-user-row { display: flex; align-items: center; gap: 20px; }
+    .admin-user-email {
+      font-size: 12px;
+      color: var(--silver);
+      font-family: var(--font-mono);
+    }
+    .logout-btn {
+      font-size: 10px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--silver);
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.15);
+      padding: 8px 16px;
+      border-radius: var(--radius);
+      transition: all var(--transition);
+    }
+    .logout-btn:hover { border-color: var(--white); color: var(--white); background: rgba(255,255,255,0.05); }
+
+    /* Main layout */
+    .admin-body {
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      min-height: calc(100vh - 70px);
+    }
+
+    /* Calendar column */
+    .admin-cal-col {
+      padding: 48px;
+      border-right: 1px solid rgba(255,255,255,0.06);
+    }
+    .admin-col-label {
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--silver);
+      font-family: var(--font-mono);
+      margin-bottom: 32px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .admin-col-label::before {
+      content: '';
+      display: inline-block;
+      width: 20px; height: 1px;
+      background: var(--silver);
+    }
+
+    .admin-cal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 32px;
+    }
+    .admin-month-label {
+      font-family: var(--font-display);
+      font-size: 28px;
+      font-weight: 300;
+      color: var(--white);
+      letter-spacing: 0.04em;
+    }
+    .admin-nav-btns { display: flex; gap: 8px; }
+    .admin-nav-btn {
+      width: 40px; height: 40px;
+      border: 1px solid rgba(255,255,255,0.15);
+      background: rgba(255,255,255,0.02);
+      color: var(--white);
+      font-size: 18px;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: var(--radius);
+      transition: all var(--transition);
+    }
+    .admin-nav-btn:hover { border-color: var(--white); background: rgba(255,255,255,0.08); }
+
+    /* Admin calendar grid */
+    .admin-cal-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 8px;
+    }
+    .admin-dow {
+      text-align: center;
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--silver);
+      font-family: var(--font-mono);
+      padding-bottom: 16px;
+    }
+    .admin-day {
+      aspect-ratio: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      font-size: 15px;
+      border: 1px solid transparent;
+      border-radius: var(--radius);
+      cursor: pointer;
+      transition: all var(--transition);
+      position: relative;
+    }
+    .admin-day.empty { cursor: default; border: none; }
+    .admin-day.past  { color: rgba(255,255,255,0.15); cursor: default; }
+    .admin-day.today { border-color: rgba(255,255,255,0.4) !important; font-weight: 600; }
+
+    /* Status colours */
+    .admin-day.available {
+      color: rgba(80,210,120,0.9);
+      background: rgba(80,210,120,0.05);
+      border-color: rgba(80,210,120,0.2);
+    }
+    .admin-day.available:hover {
+      background: rgba(80,210,120,0.15);
+      border-color: rgba(80,210,120,0.4);
+    }
+    .admin-day.booked {
+      background: rgba(39, 211, 237, 0.1);
+      border-color: rgba(39, 211, 237, 0.4);
+      color: rgb(39, 211, 237);
+    }
+    .admin-day.booked:hover {
+      background: rgba(39, 211, 237, 0.2);
+      border-color: rgb(39, 211, 237);
+    }
+    .admin-day.unavailable {
+      background: rgba(240, 7, 7, 0.1);
+      border-color: rgba(240, 7, 7, 0.4);
+      color: rgb(255, 80, 80);
+    }
+    .admin-day.unavailable:hover {
+      background: rgba(240, 7, 7, 0.2);
+      border-color: rgb(240, 7, 7);
+    }
+    .admin-day.unavailable .admin-day-num { text-decoration: line-through; opacity: 0.7; }
+    
+    .admin-day.selected-admin {
+      background: var(--white) !important;
+      color: var(--black) !important;
+      border-color: var(--white) !important;
+      box-shadow: 0 0 20px rgba(255,255,255,0.2);
+    }
+    
+    .admin-day-num { line-height: 1; font-weight: 500; }
+    .admin-day-dot { width: 6px; height: 6px; border-radius: 50%; }
+    .admin-day.booked     .admin-day-dot { background: rgb(39, 211, 237); }
+    .admin-day.unavailable .admin-day-dot { background: rgb(255, 80, 80); }
+    .admin-day.available  .admin-day-dot { background: rgba(80,210,120,0.9); }
+    .admin-day.selected-admin .admin-day-dot { background: var(--black); }
+
+    /* Legend */
+    .admin-legend {
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+      margin-top: 32px;
+      padding-top: 24px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+    .admin-legend-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--silver);
+      font-family: var(--font-mono);
+    }
+    .admin-legend-dot {
+      width: 12px; height: 12px;
+      border-radius: 3px; flex-shrink: 0;
+    }
+    .ld-available   { background: rgba(80,210,120,0.2); border: 1px solid rgba(80,210,120,0.5); }
+    .ld-booked      { background: rgba(39, 211, 237, 0.2); border: 1px solid rgb(39, 211, 237); }
+    .ld-unavailable { background: rgba(240, 7, 7, 0.2); border: 1px solid rgb(240, 7, 7); }
+
+    /* Sidebar */
+    .admin-sidebar {
+      padding: 48px 40px;
+      background: var(--off-black);
+    }
+    .sidebar-panel {
+      background: var(--black);
+      border: 1px solid rgba(255,255,255,0.08);
+      padding: 32px 28px;
+      border-radius: var(--radius);
+      margin-bottom: 24px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+    .sidebar-panel-title {
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--silver);
+      font-family: var(--font-mono);
+      margin-bottom: 20px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .selected-date-display {
+      font-family: var(--font-display);
+      font-size: 22px;
+      color: var(--white);
+      line-height: 1.3;
+      margin-bottom: 28px;
+      min-height: 52px;
+    }
+    .status-options {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 24px;
+    }
+    .status-opt {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--radius);
+      cursor: pointer;
+      transition: all var(--transition);
+      background: rgba(255,255,255,0.02);
+      color: var(--silver);
+      font-size: 14px;
+      text-align: left;
+    }
+    .status-opt:hover { border-color: rgba(255,255,255,0.3); color: var(--white); background: rgba(255,255,255,0.05); }
+    .status-opt.active-opt { border-color: var(--white); background: rgba(255,255,255,0.1); color: var(--white); }
+    .status-opt-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+    .sod-available   { background: rgba(80,210,120,0.9); box-shadow: 0 0 10px rgba(80,210,120,0.4); }
+    .sod-booked      { background: rgb(39, 211, 237); box-shadow: 0 0 10px rgba(39, 211, 237, 0.4); }
+    .sod-unavailable { background: rgb(255, 80, 80); box-shadow: 0 0 10px rgba(240, 7, 7, 0.4); }
+
+    .label-input-wrap { margin-bottom: 24px; display: none; }
+    .label-input-label {
+      display: block;
+      font-size: 10px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--silver);
+      font-family: var(--font-mono);
+      margin-bottom: 10px;
+    }
+    .label-input {
+      width: 100%;
+      background: var(--dark-grey);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: var(--white);
+      font-family: var(--font-body);
+      font-size: 14px;
+      padding: 12px 14px;
+      outline: none;
+      border-radius: var(--radius);
+      transition: border-color var(--transition);
+    }
+    .label-input:focus { border-color: rgba(255,255,255,0.4); }
+    .label-input::placeholder { color: var(--light-grey); }
+
+    .save-btn {
+      width: 100%;
+      background: var(--white);
+      color: var(--black);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      padding: 14px;
+      border-radius: var(--radius);
+      transition: background var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+    .save-btn:hover   { background: var(--off-white); }
+    .save-btn:disabled { opacity: 0.7; cursor: not-allowed; }
+    
+    .clear-btn {
+      width: 100%;
+      background: transparent;
+      color: var(--silver);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 12px;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: var(--radius);
+      margin-top: 10px;
+      transition: all var(--transition);
+    }
+    .clear-btn:hover { border-color: rgba(255,100,100,0.5); color: rgba(255,120,120,1); background: rgba(255,100,100,0.05); }
+
+    .save-feedback {
+      display: none;
+      margin-top: 16px;
+      padding: 12px;
+      font-size: 12px;
+      font-family: var(--font-mono);
+      letter-spacing: 0.1em;
+      border-radius: var(--radius);
+      text-align: center;
+    }
+    .save-feedback.success {
+      background: rgba(80,210,120,0.1);
+      border: 1px solid rgba(80,210,120,0.3);
+      color: rgba(80,210,120,1);
+    }
+    .save-feedback.error {
+      background: rgba(220,50,50,0.1);
+      border: 1px solid rgba(220,50,50,0.3);
+      color: #ff8888;
+    }
+
+    /* Stats row */
+    .stats-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    .stat-box {
+      background: var(--black);
+      border: 1px solid rgba(255,255,255,0.08);
+      padding: 20px 16px;
+      text-align: center;
+      border-radius: var(--radius);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+    .stat-box-num {
+      font-size: 32px;
+      font-weight: 400;
+      color: var(--white);
+      line-height: 1;
+      display: block;
+      font-family: var(--font-display);
+    }
+    .stat-box-label {
+      font-size: 9px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--silver);
+      font-family: var(--font-mono);
+      margin-top: 8px;
+      display: block;
+    }
+
+    #stat-booked{ color: rgb(39, 211, 237); }
+    #stat-unavail{ color: rgb(255, 80, 80); }
+    #stat-avail{ color: rgba(80,210,120,1); }
+
+    .no-selection {
+      font-size: 14px;
+      font-style: italic;
+      color: var(--silver);
+      line-height: 1.7;
+      padding: 10px 0;
+      text-align: center;
+    }
+
+    /* Saving spinner */
+    .spinner {
+      width: 14px; height: 14px;
+      border: 2px solid rgba(0,0,0,0.2);
+      border-top-color: var(--black);
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      display: none;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .admin-body { grid-template-columns: 1fr; }
+      .admin-cal-col { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.08); }
+      .admin-sidebar { padding: 40px; }
+    }
+    @media (max-width: 600px) {
+      .admin-topbar { padding: 0 20px; }
+      .admin-brand span { display: none; }
+      .admin-cal-col { padding: 32px 20px; }
+      .admin-sidebar { padding: 32px 20px; }
+      .admin-day { font-size: 13px; gap: 4px; }
+      .admin-cal-grid { gap: 4px; }
+      .admin-legend { gap: 12px; }
+      .stats-row { grid-template-columns: 1fr; }
+      .stat-box { display: flex; align-items: center; justify-content: space-between; padding: 16px; }
+      .stat-box-num { font-size: 24px; }
+      .stat-box-label { margin-top: 0; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════
+     LOGIN SCREEN
+═══════════════════════════════════════════════════ -->
+<div id="login-screen">
+  <div class="login-box">
+    <div class="login-logo">Tayvisualss</div>
+    <div class="login-sub">Admin Dashboard</div>
+
+    <label class="login-label" for="admin-email">Email</label>
+    <input class="login-input" type="email" id="admin-email" placeholder="your@email.com" autocomplete="email" style="margin-bottom: 16px;" />
+
+    <label class="login-label" for="admin-pass">Password</label>
+    <div class="password-wrapper">
+      <input class="login-input" type="password" id="admin-pass" placeholder="••••••••" autocomplete="current-password" />
+      <button type="button" class="password-toggle" id="password-toggle" aria-label="Toggle password visibility">
+        <svg class="eye" viewBox="0 0 24 24">
+          <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+          <circle cx="12" cy="12" r="3"/>
+        </svg>
+        <svg class="eye-slash" viewBox="0 0 24 24">
+          <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/>
+          <line x1="1" y1="1" x2="23" y2="23"/>
+        </svg>
+      </button>
+    </div>
+
+    <button class="login-btn" id="login-btn">Sign In</button>
+    <div class="login-error" id="login-error"></div>
+    
+    <div style="text-align: center; margin-top: 40px;">
+      <div class="login-sub" style="margin-bottom: 0;">Engineered by Mengez Emzet</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════
+     ADMIN DASHBOARD
+═══════════════════════════════════════════════════ -->
+<div id="admin-screen">
+
+  <!-- Top bar -->
+  <div class="admin-topbar">
+    <div class="admin-brand">Tayvisualss <span>ADMIN</span></div>
+    <div class="admin-user-row">
+      <span class="admin-user-email" id="admin-user-email"></span>
+      <button class="logout-btn" id="logout-btn">Sign Out</button>
+    </div>
+  </div>
+
+  <!-- Stats -->
+  <div style="padding: 32px 48px 0; background: var(--off-black); border-bottom: 1px solid rgba(255,255,255,0.08);">
+    <div class="stats-row" style="max-width: 500px;">
+      <div class="stat-box">
+        <span class="stat-box-num" id="stat-booked">—</span>
+        <span class="stat-box-label">Booked</span>
+      </div>
+      <div class="stat-box">
+        <span class="stat-box-num" id="stat-unavail">—</span>
+        <span class="stat-box-label">Blocked</span>
+      </div>
+      <div class="stat-box">
+        <span class="stat-box-num" id="stat-avail">—</span>
+        <span class="stat-box-label">Open</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="admin-body">
+
+    <!-- ── CALENDAR COLUMN ─────────────────────────── -->
+    <div class="admin-cal-col">
+      <div class="admin-col-label">Click any date to edit its status</div>
+
+      <div class="admin-cal-header">
+        <span class="admin-month-label" id="admin-cal-month"></span>
+        <div class="admin-nav-btns">
+          <button class="admin-nav-btn" id="admin-prev">&#8592;</button>
+          <button class="admin-nav-btn" id="admin-next">&#8594;</button>
+        </div>
+      </div>
+
+      <div class="admin-cal-grid" id="admin-cal-grid">
+        <div class="admin-dow">Mon</div>
+        <div class="admin-dow">Tue</div>
+        <div class="admin-dow">Wed</div>
+        <div class="admin-dow">Thu</div>
+        <div class="admin-dow">Fri</div>
+        <div class="admin-dow">Sat</div>
+        <div class="admin-dow">Sun</div>
+      </div>
+
+      <div class="admin-legend">
+        <div class="admin-legend-item"><div class="admin-legend-dot ld-available"></div>Available</div>
+        <div class="admin-legend-item"><div class="admin-legend-dot ld-booked"></div>Booked</div>
+        <div class="admin-legend-item"><div class="admin-legend-dot ld-unavailable"></div>Blocked</div>
+      </div>
+    </div>
+
+    <!-- ── SIDEBAR ─────────────────────────────────── -->
+    <div class="admin-sidebar">
+
+      <!-- Edit panel -->
+      <div class="sidebar-panel">
+        <div class="sidebar-panel-title">Edit Date</div>
+
+        <div id="no-selection-msg" class="no-selection">
+          Select a date on the calendar to edit its availability status.
+        </div>
+
+        <div id="edit-panel" style="display:none">
+          <div class="selected-date-display" id="selected-date-display"></div>
+
+          <div class="status-options">
+            <button class="status-opt" data-status="available" id="opt-available">
+              <div class="status-opt-dot sod-available"></div>
+              Available
+            </button>
+            <button class="status-opt" data-status="booked" id="opt-booked">
+              <div class="status-opt-dot sod-booked"></div>
+              Booked
+            </button>
+            <button class="status-opt" data-status="unavailable" id="opt-unavailable">
+              <div class="status-opt-dot sod-unavailable"></div>
+              Blocked / Unavailable
+            </button>
+          </div>
+
+          <div class="label-input-wrap" id="label-wrap">
+            <label class="label-input-label" for="booking-label">Session label (optional)</label>
+            <input class="label-input" type="text" id="booking-label"
+              placeholder="e.g. Wedding — full day" maxlength="80" />
+          </div>
+
+          <button class="save-btn" id="save-btn">
+            <div class="spinner" id="save-spinner"></div>
+            <span id="save-btn-text">Save Changes</span>
+          </button>
+          <button class="clear-btn" id="clear-btn">Reset to Available</button>
+          <div class="save-feedback" id="save-feedback"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="module">
+
+import { initializeApp }     from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged }
+                             from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import { getFirestore, doc, setDoc, deleteDoc, collection, onSnapshot }
+                             from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+/* ── FIREBASE CONFIG ────────────────────────────────── */
+const FIREBASE_CONFIG = {
+  apiKey:            "AIzaSyAjKF0Iy6okAFVG-nt04ZOJXHcW4nHWHjY",
+  authDomain:        "tayvisualss-web.firebaseapp.com",
+  projectId:         "tayvisualss-web",
+  storageBucket:     "tayvisualss-web.firebasestorage.app",
+  messagingSenderId: "702560378882",
+  appId:             "1:702560378882:web:8b022ae84ee2461d81871b"
+};
+/* ──────────────────────────────────────────────────── */
+
+const app  = initializeApp(FIREBASE_CONFIG);
+const auth = getAuth(app);
+const db   = getFirestore(app);
+
+const MONTHS = ['January','February','March','April','May','June',
+                'July','August','September','October','November','December'];
+
+// ── PASSWORD TOGGLE ───────────────────────────────────
+document.getElementById('password-toggle').addEventListener('click', function() {
+  const passwordInput = document.getElementById('admin-pass');
+  const isShowing = this.classList.toggle('showing');
+  
+  if (isShowing) {
+    passwordInput.type = 'text';
+    this.setAttribute('aria-label', 'Hide password');
+  } else {
+    passwordInput.type = 'password';
+    this.setAttribute('aria-label', 'Show password');
+  }
+});
+
+// ── STATE ─────────────────────────────────────────────
+const today      = new Date();
+let viewYear     = today.getFullYear();
+let viewMonth    = today.getMonth();
+let selectedKey  = null;
+let selectedCell = null;
+let selectedStatus = 'available';
+let availability = {};
+
+function pad(n) { return String(n).padStart(2,'0'); }
+function dateKey(y,m,d) { return `${y}-${pad(m+1)}-${pad(d)}`; }
+
+// ── AUTH STATE ─────────────────────────────────────────
+// ── AUTH STATE ─────────────────────────────────────────
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    document.getElementById('login-screen').style.display  = 'none';
+    document.getElementById('admin-screen').style.display  = 'block';
+    document.getElementById('admin-user-email').textContent = user.email;
+    
+    // Start the listener
+    startFirestoreListener();
+    
+    // Wait 1.5 seconds (for Firebase to fetch and render the calendar) then check URL
+    setTimeout(checkUrlForDate, 1500); 
+  } else {
+    document.getElementById('login-screen').style.display  = 'flex';
+    document.getElementById('admin-screen').style.display  = 'none';
+  }
+});
+
+// ── LOGIN ──────────────────────────────────────────────
+document.getElementById('login-btn').addEventListener('click', async () => {
+  const email = document.getElementById('admin-email').value.trim();
+  const pass  = document.getElementById('admin-pass').value;
+  const errEl = document.getElementById('login-error');
+  const btn   = document.getElementById('login-btn');
+
+  if (!email || !pass) {
+    showLoginError('Please enter your email and password.');
+    return;
+  }
+
+  btn.textContent = 'Signing in…';
+  btn.disabled    = true;
+  errEl.style.display = 'none';
+
+  try {
+    await signInWithEmailAndPassword(auth, email, pass);
+  } catch (err) {
+    btn.textContent = 'Sign In';
+    btn.disabled    = false;
+    showLoginError(friendlyAuthError(err.code));
+  }
+});
+
+// Allow Enter key to submit login
+document.getElementById('admin-pass').addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') document.getElementById('login-btn').click();
+});
+
+document.getElementById('logout-btn').addEventListener('click', () => signOut(auth));
+
+function showLoginError(msg) {
+  const el = document.getElementById('login-error');
+  el.textContent    = msg;
+  el.style.display  = 'block';
+}
+
+function friendlyAuthError(code) {
+  const map = {
+    'auth/invalid-email':       'Invalid email address.',
+    'auth/user-not-found':      'No account found with this email.',
+    'auth/wrong-password':      'Incorrect password.',
+    'auth/invalid-credential':  'Incorrect email or password.',
+    'auth/too-many-requests':   'Too many attempts. Please wait a moment.',
+  };
+  return map[code] || 'Sign in failed. Please try again.';
+}
+
+// ── FIRESTORE REAL-TIME LISTENER ──────────────────────
+function startFirestoreListener() {
+  onSnapshot(collection(db, 'availability'), (snapshot) => {
+    availability = {};
+    snapshot.forEach(doc => { availability[doc.id] = doc.data(); });
+    renderAdminCalendar();
+    updateStats();
+  });
+}
+
+// ── RENDER ADMIN CALENDAR ─────────────────────────────
+function renderAdminCalendar() {
+  const grid   = document.getElementById('admin-cal-grid');
+  const header = document.getElementById('admin-cal-month');
+  header.textContent = `${MONTHS[viewMonth]} ${viewYear}`;
+
+  const dows = Array.from(grid.querySelectorAll('.admin-dow'));
+  grid.innerHTML = '';
+  dows.forEach(d => grid.appendChild(d));
+
+  let startDow = new Date(viewYear, viewMonth, 1).getDay();
+  startDow = (startDow === 0) ? 6 : startDow - 1;
+  for (let i = 0; i < startDow; i++) {
+    const blank = document.createElement('div');
+    blank.className = 'admin-day empty';
+    grid.appendChild(blank);
+  }
+
+  const daysInMonth = new Date(viewYear, viewMonth + 1, 0).getDate();
+  const todayKey    = dateKey(today.getFullYear(), today.getMonth(), today.getDate());
+  const isPastMonth = (viewYear < today.getFullYear()) ||
+                      (viewYear === today.getFullYear() && viewMonth < today.getMonth());
+
+  for (let d = 1; d <= daysInMonth; d++) {
+    const key    = dateKey(viewYear, viewMonth, d);
+    const entry  = availability[key];
+    const status = entry ? entry.status : 'available';
+    const isPast = isPastMonth ||
+                   (viewYear === today.getFullYear() && viewMonth === today.getMonth() && d < today.getDate());
+
+    const cell = document.createElement('div');
+    cell.className = `admin-day ${isPast ? 'past' : status}`;
+    if (key === todayKey) cell.classList.add('today');
+    if (key === selectedKey && !isPast) cell.classList.add('selected-admin');
+
+    const num = document.createElement('div');
+    num.className   = 'admin-day-num';
+    num.textContent = d;
+    cell.appendChild(num);
+
+    if (!isPast) {
+      const dot = document.createElement('div');
+      dot.className = 'admin-day-dot';
+      cell.appendChild(dot);
+      cell.addEventListener('click', () => openEditPanel(cell, key, d, status, entry?.label || ''));
+    }
+
+    grid.appendChild(cell);
+  }
+}
+
+// ── EDIT PANEL ────────────────────────────────────────
+function openEditPanel(cell, key, d, status, label) {
+  if (selectedCell) selectedCell.classList.remove('selected-admin');
+  selectedCell = cell;
+  cell.classList.add('selected-admin');
+  selectedKey    = key;
+  selectedStatus = status;
+
+  const dateObj = new Date(viewYear, viewMonth, d);
+  document.getElementById('selected-date-display').textContent =
+    dateObj.toLocaleDateString('en-GB', { weekday:'long', day:'numeric', month:'long', year:'numeric' });
+
+  document.getElementById('no-selection-msg').style.display = 'none';
+  document.getElementById('edit-panel').style.display       = 'block';
+  document.getElementById('booking-label').value            = label;
+  document.getElementById('save-feedback').style.display    = 'none';
+
+  setActiveStatusOpt(status);
+  updateLabelVisibility(status);
+}
+
+function setActiveStatusOpt(status) {
+  document.querySelectorAll('.status-opt').forEach(btn => btn.classList.remove('active-opt'));
+  const active = document.getElementById(`opt-${status}`);
+  if (active) active.classList.add('active-opt');
+  selectedStatus = status;
+}
+
+function updateLabelVisibility(status) {
+  document.getElementById('label-wrap').style.display =
+    (status === 'booked' || status === 'unavailable') ? 'block' : 'none';
+}
+
+document.querySelectorAll('.status-opt').forEach(btn => {
+  btn.addEventListener('click', () => {
+    setActiveStatusOpt(btn.dataset.status);
+    updateLabelVisibility(btn.dataset.status);
+  });
+});
+
+// ── SAVE ──────────────────────────────────────────────
+document.getElementById('save-btn').addEventListener('click', async () => {
+  if (!selectedKey) return;
+
+  const btn      = document.getElementById('save-btn');
+  const spinner  = document.getElementById('save-spinner');
+  const btnText  = document.getElementById('save-btn-text');
+  const feedback = document.getElementById('save-feedback');
+
+  btn.disabled         = true;
+  spinner.style.display = 'block';
+  btnText.textContent   = 'Saving…';
+  feedback.style.display = 'none';
+
+  try {
+    const label = document.getElementById('booking-label').value.trim();
+    if (selectedStatus === 'available') {
+      await deleteDoc(doc(db, 'availability', selectedKey));
+    } else {
+      await setDoc(doc(db, 'availability', selectedKey), {
+        status: selectedStatus,
+        label:  label,
+        updatedAt: new Date().toISOString()
+      });
+    }
+    showFeedback('success', 'Changes Saved.');
+  } catch (err) {
+    showFeedback('error', `Save failed: ${err.message}`);
+    console.error(err);
+  } finally {
+    btn.disabled          = false;
+    spinner.style.display = 'none';
+    btnText.textContent   = 'Save Changes';
+  }
+});
+
+// ── CLEAR / RESET ─────────────────────────────────────
+document.getElementById('clear-btn').addEventListener('click', async () => {
+  if (!selectedKey) return;
+  if (!confirm('Reset this date to Available?')) return;
+
+  try {
+    await deleteDoc(doc(db, 'availability', selectedKey));
+    setActiveStatusOpt('available');
+    updateLabelVisibility('available');
+    document.getElementById('booking-label').value = '';
+    showFeedback('success', 'Date reset to available.');
+  } catch (err) {
+    showFeedback('error', `Error: ${err.message}`);
+  }
+});
+
+function showFeedback(type, msg) {
+  const el = document.getElementById('save-feedback');
+  el.className        = `save-feedback ${type}`;
+  el.textContent      = msg;
+  el.style.display    = 'block';
+  if (type === 'success') setTimeout(() => { el.style.display = 'none'; }, 4000);
+}
+
+// ── STATS ─────────────────────────────────────────────
+function updateStats() {
+  const daysInMonth = new Date(viewYear, viewMonth + 1, 0).getDate();
+  let booked = 0, unavail = 0, avail = 0;
+
+  for (let d = 1; d <= daysInMonth; d++) {
+    const key    = dateKey(viewYear, viewMonth, d);
+    const entry  = availability[key];
+    const status = entry ? entry.status : 'available';
+    if (status === 'booked')      booked++;
+    else if (status === 'unavailable') unavail++;
+    else avail++;
+  }
+
+  document.getElementById('stat-booked').textContent  = booked;
+  document.getElementById('stat-unavail').textContent = unavail;
+  document.getElementById('stat-avail').textContent   = avail;
+}
+
+// ── NAVIGATION ────────────────────────────────────────
+document.getElementById('admin-prev').addEventListener('click', () => {
+  viewMonth--; if (viewMonth < 0) { viewMonth = 11; viewYear--; }
+  clearAdminSelection(); renderAdminCalendar(); updateStats();
+});
+document.getElementById('admin-next').addEventListener('click', () => {
+  viewMonth++; if (viewMonth > 11) { viewMonth = 0; viewYear++; }
+  clearAdminSelection(); renderAdminCalendar(); updateStats();
+});
+
+function clearAdminSelection() {
+  if (selectedCell) selectedCell.classList.remove('selected-admin');
+  selectedCell = null;
+  selectedKey  = null;
+  document.getElementById('no-selection-msg').style.display = 'block';
+  document.getElementById('edit-panel').style.display       = 'none';
+}
+
+// ── AUTO-SELECT DATE FROM URL (Admin Link) ────────────
+// ── AUTO-SELECT DATE FROM URL (Admin Link) ────────────
+function checkUrlForDate() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const dateParam = urlParams.get('date');
+  const statusParam = urlParams.get('status') || 'available';
+  const labelParam = urlParams.get('label') || '';
+  
+  if (dateParam) {
+    const parts = dateParam.split('-');
+    if (parts.length === 3) {
+      const y = parseInt(parts[0], 10);
+      const m = parseInt(parts[1], 10) - 1;
+      const d = parseInt(parts[2], 10);
+      
+      viewYear = y;
+      viewMonth = m;
+      
+      // Wait for the calendar DOM to be ready and rendered
+      setTimeout(() => {
+        renderAdminCalendar();
+        
+        const targetKey = dateParam;
+        const cells = document.querySelectorAll('.admin-day');
+        let found = false;
+        
+        cells.forEach(cell => {
+          const num = cell.querySelector('.admin-day-num')?.textContent;
+          if (num && parseInt(num, 10) === d && !cell.classList.contains('empty')) {
+             found = true;
+             // 1. Open the edit panel (passing the label)
+             openEditPanel(cell, targetKey, d, statusParam, labelParam);
+             
+             // 2. Force the status button to be active
+             setActiveStatusOpt(statusParam);
+             updateLabelVisibility(statusParam);
+             
+             // 3. Scroll to the sidebar
+             document.querySelector('.admin-sidebar').scrollIntoView({ behavior: 'smooth' });
+          }
+        });
+        
+        if (!found) {
+            console.warn("Date not found in current view");
+        }
+      }, 1000); // Increased to 1 second to guarantee Firebase data is loaded
+    }
+  }
+}
+
+// Call this function after login is verified
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    document.getElementById('login-screen').style.display  = 'none';
+    document.getElementById('admin-screen').style.display  = 'block';
+    document.getElementById('admin-user-email').textContent = user.email;
+    startFirestoreListener();
+    
+    // Check for URL date AFTER starting the listener
+    setTimeout(checkUrlForDate, 1000); 
+  } else {
+    document.getElementById('login-screen').style.display  = 'flex';
+    document.getElementById('admin-screen').style.display  = 'none';
+  }
+});
+
+</script>
+</body>
+</html>

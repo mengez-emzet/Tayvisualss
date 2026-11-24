@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="description" content="Tayvisualss — Premium photography & videography. We visualize the stories you imagine." />
+  <title>Tayvisualss, Videography & Photography</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="assets/logo.jpeg" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com; font-src 'self' https://cdnjs.cloudflare.com https://fonts.gstatic.com data:; img-src 'self' data: blob: https://img.youtube.com https://images.unsplash.com; media-src 'self'; frame-src https://www.google.com/recaptcha/ https://recaptcha.google.com/; connect-src 'self' https://formspree.io; form-action 'self' https://formspree.io; base-uri 'self'; object-src 'none';">
+  <meta http-equiv="X-XSS-Protection" content="1; mode=block" />
+  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+  <meta http-equiv="X-Frame-Options" content="DENY" />
+  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
+  <meta name="robots" content="noimageindex, noodp" />
+</head>
+<body>
+
+<!-- ─── PAGE LOADER ─────────────────────────────────── -->
+<!-- ════════════════════════════════════════════════
+     PAGE LOADER
+════════════════════════════════════════════════ -->
+<div id="page-loader">
+    <div class="loader-logo">Tayvisualss</div>
+    <div class="loader-bar-wrapper">
+      <div class="loader-bar">
+        <div class="loader-bar-progress"></div>
+      </div>
+      <div class="loader-percentage">
+        <span id="loader-percent">0</span>%
+      </div>
+    </div>
+  </div>
+
+<!-- ─── PAGE TRANSITION CURTAIN ────────────────────── -->
+<div class="page-transition"></div>
+
+<!-- ─── CUSTOM CURSOR ────────────────────────────────── -->
+<div class="cursor-dot"></div>
+<div class="cursor-ring"></div>
+
+<!-- ─── MOBILE MENU OVERLAY ─────────────────────────── -->
+<div class="mobile-menu-overlay"></div>
+
+<!-- ─── MOBILE MENU ──────────────────────────────────── -->
+<nav class="mobile-menu">
+    <ul class="mobile-nav-links">
+      <li><a class="mobile-nav-link" href="index.html" data-page="home">Home</a></li>
+      <li><a class="mobile-nav-link" href="about.html" data-page="about">About</a></li>
+      <li><a class="mobile-nav-link" href="services.html" data-page="services">Services</a></li>
+      <li><a class="mobile-nav-link" href="projects.html" data-page="projects">Projects</a></li>
+      <li><a class="mobile-nav-link" href="contact.html" data-page="contact">Contact</a></li>
+    </ul>
+    <a class="mobile-nav-cta" href="book.html" data-page="book">Book A Shot</a>
+    <p class="mobile-menu-footer">© 2026 Tayvisualss</p>
+  </nav>
+
+<!-- ─── NAVBAR ───────────────────────────────────────── -->
+<header id="navbar">
+    <div class="nav-inner">
+      <a class="nav-brand" href="#" data-page="home">
+        <!-- ─── PICTURE LOGO ────────────────────────────────── -->
+        <div class="nav-logo-wrapper">
+          <picture class="nav-logo-picture">
+            <!-- WebP format (modern browsers) -->
+            <source 
+              srcset="assets/logo.jpeg" 
+              type="image/webp"
+            >
+            <!-- PNG fallback -->
+            <source 
+              srcset="assets/logo.jpeg" 
+              type="image/png"
+            >
+            <!-- SVG fallback (if you want to keep it) -->
+            <img 
+              src="assets/logo.jpeg" 
+              alt="TayVisualss Logo" 
+              class="nav-logo-img"
+              width="40"
+              height="40"
+              loading="lazy"
+            >
+          </picture>
+        </div>
+        <span class="nav-name">Tayvisualss</span>
+      </a>
+  
+      <ul class="nav-links">
+        <li><a class="nav-link active" href="index.html" data-page="home">Home</a></li>
+        <li><a class="nav-link" href="services.html" data-page="services">Services</a></li>
+        <li><a class="nav-link" href="projects.html" data-page="projects">Projects</a></li>
+        <li><a class="nav-link" href="about.html" data-page="about">About</a></li>
+        <li><a class="nav-link" href="contact.html" data-page="contact">Contact</a></li>
+        <li><a class="nav-cta" href="book.html" data-page="book">Book A Shot</a></li>
+      </ul>
+  
+      <button class="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+<main>
+
+    <div class="about-hero">
+      <div class="about-hero-content">
+        <div class="reveal from-left">
+          <span class="section-label">Our Story</span>
+        </div>
+        <h1 class="about-hero-title reveal from-bottom">
+          We don't take photos —
+          <em>we make memories.</em>
+        </h1>
+      </div>
+    </div>
+  
+    <div class="section" style="padding-top:100px;padding-bottom:100px">
+      <div class="about-split">
+        <div class="reveal from-left">
+          <div class="about-image-frame">
+            <img 
+                src="images/tay1.jpg" 
+                alt="TayVisualss creative team at work" 
+                class="about-image"
+                loading="lazy"
+            />
+            <div class="about-image-accent"></div>
+          </div>
+        </div>
+        <div class="about-text-block reveal from-right">
+          <h3>Born from a love of light, shadow, and the stories in between.</h3>
+          <p>Tayvisualss was founded on a simple belief: that every person, brand, and moment has a visual story worth telling with intention. What began as a passion for portraiture has grown into a full-spectrum creative studio serving clients across Africa and beyond.</p>
+          <p>We are not chasing trends. We are building a visual language, one that is timeless, bold, and unmistakably ours. Our work spans photography, videography, creative direction, and brand content, all unified by a commitment to craft over convenience.</p>
+          <p>When you work with Tayvisualss, you're not hiring a photographer. You're gaining a creative partner who is as invested in your story as you are.</p>
+          <div style="margin-top:36px">
+            <a class="btn-secondary" href="book.html" data-page="book">Start Your Project</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <div class="divider"></div>
+  
+    <div class="section">
+      <div class="reveal from-top">
+        <span class="section-label">Our Values</span>
+        <h2 class="section-title">The principles that <em>guide</em> every frame.</h2>
+      </div>
+      <div class="about-values" style="margin-top:52px">
+        <div class="value-item reveal from-left">
+          <h4 class="value-item-title">Intentionality</h4>
+          <p class="value-item-desc">Every creative decision from the aperture to the edit is made with a reason. We don't guess, We choose.</p>
+        </div>
+        <div class="value-item reveal from-bottom reveal-delay-2">
+          <h4 class="value-item-title">Authenticity</h4>
+          <p class="value-item-desc">We document what's real and make it beautiful. No manufactured moments, only truth, beautifully framed.</p>
+        </div>
+        <div class="value-item reveal from-right reveal-delay-1">
+          <h4 class="value-item-title">Excellence</h4>
+          <p class="value-item-desc">Good enough is not in our vocabulary. We hold our work to standards that keep us reaching further on every project.</p>
+        </div>
+      </div>
+    </div>
+  
+  <!-- ─── MEET THE TEAM ───────────────────────────────── -->
+  <div class="team-section">
+    <div class="section">
+      <div class="reveal from-left">
+        <span class="section-label">The People</span>
+        <h2 class="section-title">Meet the <em>team</em>.</h2>
+        <p class="section-desc">The minds, eyes, and hands behind every frame. A small team with an outsized vision.</p>
+      </div>
+
+      <div class="team-grid">
+
+        <!-- Member 1 -->
+        <div class="team-card reveal from-left">
+          <div class="team-img-wrap">
+            <img
+              src="images/Tanaka Chari.jpg"
+              alt="Tanaka Chari - Lead Videographer"
+              class="team-img"
+              loading="lazy"
+              draggable="false"
+              data-no-context="true"
+            />
+            <div class="team-img-overlay"></div>
+          </div>
+          <div class="team-info">
+            <div class="team-name">Tanaka Chari</div>
+            <div class="team-role">Lead Videographer</div>
+            <p class="team-bio">The captain of the set. Oversees the technical execution and pacing of the shoot, ensuring the final footage cuts together seamlessly to serve the story.</p>
+            <div class="team-socials">
+              <a href="#" class="team-social-link" title="Instagram" aria-label="Tay on Instagram">
+                <i class="fa-brands fa-instagram"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Member 2 -->
+        <div class="team-card reveal from-bottom reveal-delay-2">
+          <div class="team-img-wrap">
+            <img
+              src="images/Bryce Marcus.jpg"
+              alt="Bryce Marcus - Cinematographer 1"
+              class="team-img"
+              loading="lazy"
+              draggable="false"
+              data-no-context="true"
+            />
+            <div class="team-img-overlay"></div>
+          </div>
+          <div class="team-info">
+            <div class="team-name">Bryce Marcus</div>
+            <div class="team-role">Cinematographer 1</div>
+            <p class="team-bio">The architect of the visual frame. Masters lighting, composition, and camera movement to ensure every scene is visually striking and emotionally resonant.</p>
+            <div class="team-socials">
+              <a href="#" class="team-social-link" title="Instagram" aria-label="on Instagram">
+                <i class="fa-brands fa-instagram"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Member 3 -->
+        <div class="team-card reveal from-right reveal-delay-1">
+          <div class="team-img-wrap">
+            <img
+              src="images/Sean Mafuratidze.jpg"
+              alt="Sean Mafuratidze - Editor"
+              class="team-img"
+              loading="lazy"
+              draggable="false"
+              data-no-context="true"
+            />
+            <div class="team-img-overlay"></div>
+          </div>
+          <div class="team-info">
+            <div class="team-name">Sean Mafuratidze</div>
+            <div class="team-role">Editor</div>
+            <p class="team-bio">The conceptual force. Translates client briefs into visual strategies managing mood boards, location scouting, and the overall creative direction of every campaign.</p>
+            <div class="team-socials">
+              <a href="#" class="team-social-link" title="Instagram" aria-label="on Instagram">
+                <i class="fa-brands fa-instagram"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="team-card reveal from-right reveal-delay-1">
+          <div class="team-img-wrap">
+            <img
+              src="images/Jimmy Zimhamba.jpg"
+              alt="Jimmy Zimhamba - Drone Pilot"
+              class="team-img"
+              loading="lazy"
+              draggable="false"
+              data-no-context="true"
+            />
+            <div class="team-img-overlay"></div>
+          </div>
+          <div class="team-info">
+            <div class="team-name">Jimmy Zimhamba</div>
+            <div class="team-role">Drone Pilot</div>
+            <p class="team-bio">Taking your story to new heights. Delivers sweeping aerial perspectives that add scale, context, and a cinematic breath of fresh air to any production.</p>
+            <div class="team-socials">
+              <a href="#" class="team-social-link" title="Instagram" aria-label="on Instagram">
+                <i class="fa-brands fa-instagram"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cta-band">
+    <div class="cta-band-grain"></div>
+    <h2 class="cta-band-title reveal from-bottom">Your story is <em>waiting</em>.</h2>
+    <p class="cta-band-sub reveal from-bottom reveal-delay-2">Let's turn your vision into something the world can see.</p>
+    
+    <div class="cta-band-actions reveal from-bottom reveal-delay-3" style="position: relative; z-index: 10;">
+      <a class="btn-dark" href="book.html" onclick="window.location.href='book.html'; return false;">Book A Shot</a>
+      <a class="btn-outline-dark" href="services.html" onclick="window.location.href='services.html'; return false;">View Services</a>
+    </div>
+  </div>
+  
+  </main>
+
+
+<!-- ─── FOOTER ───────────────────────────────────────── -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <span class="nav-name">Tayvisualss</span>
+        <p>We turn light into legacy. Premium photography and videography for brands, creatives, and moments that matter.</p>
+        <div class="footer-social">
+          <a href="https://www.instagram.com/tayvisualss" target="_blank" rel="noopener" title="Instagram" aria-label="Instagram">
+            <i class="fa-brands fa-instagram"></i>
+          </a>
+          <a href="https://www.tiktok.com/@tayvisualss" target="_blank" rel="noopener" title="TikTok" aria-label="TikTok">
+            <i class="fa-brands fa-tiktok"></i>
+          </a>
+          <a href="http://www.youtube.com/@tayvisualss" target="_blank" rel="noopener" title="YouTube" aria-label="YouTube">
+            <i class="fa-brands fa-youtube"></i>
+          </a>
+          <a href="https://www.facebook.com/tayoffficial" target="_blank" rel="noopener" title="Facebook" aria-label="Facebook">
+            <i class="fa-brands fa-facebook"></i>
+          </a>
+          <a href="https://wa.me/263773920732" target="_blank" rel="noopener" title="WhatsApp" aria-label="WhatsApp">
+            <i class="fa-brands fa-whatsapp"></i>
+          </a>
+        </div>
+      </div>
+ 
+      <div class="footer-col">
+        <h5>Navigate</h5>
+        <a href="index.html" data-page="home">Home</a>
+        <a href="about.html" data-page="about">About</a>
+        <a href="services.html" data-page="services">Services</a>
+        <a href="projects.html" data-page="projects">Projects</a>
+        <a href="contact.html" data-page="contact">Contact</a>
+      </div>
+ 
+      <div class="footer-col">
+        <h5>Services</h5>
+        <a href="services.html" data-page="services">Photography</a>
+        <a href="services.html" data-page="services">Videography</a>
+        <a href="services.html" data-page="services">Music Videos</a>
+        <a href="services.html" data-page="services">Weddings</a>
+        <a href="services.html" data-page="services">Commercial</a>
+      </div>
+ 
+      <div class="footer-col">
+        <h5>Contact</h5>
+        <a>info@tayvisualss.co.zw</a>
+        <a href="+263 77 392 0732">+263 77 392 0732</a>
+        <a>Harare, Zimbabwe</a>
+        <a href="privacy.html" style="color:var(--silver)">Privacy Policy</a>
+        <a href="book.html" data-page="book" style="margin-top:16px;color:var(--white);font-weight:600">Book A Shot →</a>
+      </div>
+    </div>
+ 
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2026 Tayvisualss. All rights reserved.</p>
+      <p class="footer-credit">
+        Visuals by <span class="footer-credit-brand">Tayvisualss</span>
+        <span class="footer-credit-divider">×</span>
+        Website Engineered by <a href="https://mengez-emzet.github.io/mengezemzet.co.zw/" target="_blank" rel="noopener" class="footer-credit-link">Mengez Emzet</a>
+      </p>
+      <p class="footer-tagline">You imagine it, we visualize it.</p>
+    </div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
