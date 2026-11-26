@@ -467,7 +467,7 @@ canvas#hero-canvas {
 @keyframes pulseOpacity { 0%,100% { opacity: 0.3; } 50% { opacity: 1; } }
 
 @media (max-width: 1024px) {
-  .hero-spacer { height: clamp(350px, 60vh, 550px); }
+  .hero-spacer { height: clamp(350px, 50vh, 550px); }
 }
 @media (max-width: 768px) {
   .hero-spacer { height: clamp(180px, 44vh, 280px); }
